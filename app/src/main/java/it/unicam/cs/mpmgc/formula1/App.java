@@ -5,6 +5,8 @@ package it.unicam.cs.mpmgc.formula1;
 
 public class App {
 
+    //main class to run the game
+
     public static void main(String[] args) {
         GamePlay game = new GamePlay();
 
