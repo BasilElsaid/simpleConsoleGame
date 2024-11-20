@@ -9,7 +9,7 @@ public class Track implements iTrack{
 
     private int rows = 8;
     private int columns = 18;
-    private char[][] track = new char[rows][columns];
+    private final char[][] track = new char[rows][columns];
 
     File gameTrack = new File("/Users/basil/Documents/unicam/secondoAnno/Metodologie di Programmazione/progetto/app/src/main/resources/test.txt/");
     Scanner scan;
@@ -55,9 +55,9 @@ public class Track implements iTrack{
 
     @Override
     public void displayTrack(){
-        for (int x = 0; x < track.length ; x++){
-            for (int y = 0; y < track[x].length; y++ ){
-                System.out.print(track[x][y]);
+        for (char[] chars : track) {
+            for (char aChar : chars) {
+                System.out.print(aChar);
             }
             System.out.println();
         }

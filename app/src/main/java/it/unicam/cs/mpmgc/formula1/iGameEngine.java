@@ -20,8 +20,18 @@ public interface iGameEngine {
 
     /**
      * starts the game
+     * @param bot1 the first Bot car that will play
+     * @param bot2 the second Bot Car that will play
+     * @param car1 the Human Car "User" that will play the game
+     * @param track the track of the game
      */
-    public void startGame();
+    public void startGame(BotCar bot1, BotCar bot2, HumanCar car1, SimpleTrack track);
+
+    /**
+     * updates the state of the game
+     * @param track the track to be updated
+     */
+    public void updateGame(SimpleTrack track);
 
     /**
      * ends the game
@@ -30,7 +40,7 @@ public interface iGameEngine {
 
     /**
      * gives the name of the winner
-     * @return the winner's name
+     * @param track the track where the players race
      */
-    public String findWinnerName();
+    public void checkWinner(SimpleTrack track);
 }

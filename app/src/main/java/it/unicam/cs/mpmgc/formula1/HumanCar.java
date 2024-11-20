@@ -29,9 +29,17 @@ public class HumanCar implements iRacer {
 
     public void accelerate(){
         //TODO
+        int x = currentPosition.getX();
+        int y = currentPosition.getY();
+        Position nextMove = new Position(x, y*2);
+        UpdatePosition(nextMove);
     }
 
     public void decelerate(){
         //TODO
+        int x = currentPosition.getX();
+        int y = currentPosition.getY();
+        Position nextMove = new Position(x, y*2);
+        UpdatePosition(nextMove);
     }
 }

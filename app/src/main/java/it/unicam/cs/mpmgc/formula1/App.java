@@ -7,21 +7,20 @@ public class App {
 
     public static void main(String[] args) {
         GameEngine game = new GameEngine();
-        Track track = new Track(8,18);
+
+        SimpleTrack track = new SimpleTrack();
         track.createTrack();
 
-        BotCar botCar1 = new BotCar("1");
-        BotCar botCar2 = new BotCar("2");
-        HumanCar HumanCar1 = new HumanCar("3");
+        BotCar botCar1 = new BotCar("bot1");
+        BotCar botCar2 = new BotCar("bot2");
+        HumanCar humanCar1 = new HumanCar("racer1");
         game.addBot(botCar1);
         game.addBot(botCar2);
-        game.addPlayer(HumanCar1);
+        game.addPlayer(humanCar1);
 
-        track.putPlayerAtStartLine(game.placePlayersOnTrack());
-
+        track.placePlayers(game.getPlayersPositions());
         track.displayTrack();
 
-
-
+        game.startGame(botCar1, botCar2, humanCar1, track);
     }
 }

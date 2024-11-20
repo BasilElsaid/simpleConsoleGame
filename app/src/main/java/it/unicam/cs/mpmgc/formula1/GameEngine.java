@@ -6,10 +6,11 @@ import java.util.Scanner;
 
 public class GameEngine implements iGameEngine{
 
-    private Track track;
+    private SimpleTrack track;
     private List<iRacer> players = new LinkedList<>();
     private int playerIndex = 1;
     private boolean gameFinished = false;
+    private String winnerName = "";
 
 
     public GameEngine(){
@@ -31,35 +32,47 @@ public class GameEngine implements iGameEngine{
     }
 
     @Override
-    public void startGame(){
-        //TODO
+    public void startGame(BotCar botCar1, BotCar botCar2, HumanCar car1, SimpleTrack track){
         while (gameFinished == false) {
-            System.out.println("write 'a' to accelerate, 'd' to decelerate");
+            track.ResetCurrentPositionSymbol(getPlayersPositions());
+            System.out.println("write 'a' to accelerate, 'd' to decelerate, 'q' to exit");
             Scanner scan = new Scanner(System.in);
-            if (scan.next().equals('w')){
-                //TODO accelerate
-            } else if (scan.next().equals('d')) {
-                //TODO decelerate
+
+            switch (scan.next()) {
+                case "a" -> car1.accelerate();
+                case "d" -> car1.decelerate();
+                case "q" -> endGame();
+                default -> System.out.println("Wrong Input!");
             }
-            else {
-                System.out.println("Wrong Input!");
-            }
+            botCar1.calculateNextMove();
+            botCar2.calculateNextMove();
+            updateGame(track);
         }
         gameFinished = true;
     }
 
     @Override
-    public void endGame(){
-        //TODO
+    public void updateGame(SimpleTrack track) {
+        track.placePlayers(getPlayersPositions());
+        track.displayTrack();
+        checkWinner(track);
     }
 
     @Override
-    public String findWinnerName(){
-        //TODO
-        return null;
+    public void endGame(){
+        this.gameFinished = true;
+        System.out.println("The winner is : " + winnerName);
     }
 
-    public List<iRacer> placePlayersOnTrack(){
+    @Override
+    public void checkWinner(SimpleTrack track){
+        winnerName = track.acrossedFinalLine(players);
+        if (winnerName != null){
+            endGame();
+        }
+    }
+
+    public List<iRacer> getPlayersPositions(){
         return players;
     }
 

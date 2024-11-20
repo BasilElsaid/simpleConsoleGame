@@ -26,9 +26,11 @@ public class BotCar implements iRacer {
         currentPosition.setY(newPosition.getY());
     }
 
-    public Position calculateNextMove(Position currentPosition){
-        return null;
-        //TODO
+    public void calculateNextMove(){
+        int x = currentPosition.getX();
+        int y = currentPosition.getY();
+        Position nextMove = new Position(x, y+1);
+        UpdatePosition(nextMove);
     }
 
 
