@@ -6,9 +6,9 @@ import java.util.Scanner;
 
 public class SimpleTrack implements iTrack{
 
-    private int rows = 8;
-    private int columns = 18;
-    private char[][] track = new char[this.rows][this.columns];
+    private final int rows = 8;
+    private final int columns = 18;
+    private final char[][] track = new char[this.rows][this.columns];
 
     public SimpleTrack(){
     }
@@ -65,7 +65,7 @@ public class SimpleTrack implements iTrack{
     }
 
     @Override
-    public String acrossedFinalLine(List<iRacer> players) {
+    public String crossedFinalLine(List<iRacer> players) {
         for (iRacer player : players){
             if (player.getCurrentPosition().getY() == columns-2){
                 return player.getName();

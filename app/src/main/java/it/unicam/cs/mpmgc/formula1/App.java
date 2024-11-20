@@ -6,7 +6,7 @@ package it.unicam.cs.mpmgc.formula1;
 public class App {
 
     public static void main(String[] args) {
-        GameEngine game = new GameEngine();
+        GamePlay game = new GamePlay();
 
         SimpleTrack track = new SimpleTrack();
         track.createTrack();

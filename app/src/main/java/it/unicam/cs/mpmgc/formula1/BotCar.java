@@ -2,8 +2,8 @@ package it.unicam.cs.mpmgc.formula1;
 
 public class BotCar implements iRacer {
 
-    private String name;
-    private Position currentPosition;
+    private final String name;
+    private final Position currentPosition;
 
     public BotCar(String name){
         this.name = name;

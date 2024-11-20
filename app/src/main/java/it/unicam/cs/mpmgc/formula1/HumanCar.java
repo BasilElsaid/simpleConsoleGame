@@ -1,11 +1,9 @@
 package it.unicam.cs.mpmgc.formula1;
 
-import java.util.Scanner;
-
 public class HumanCar implements iRacer {
 
-    private String name;
-    private Position currentPosition;
+    private final String name;
+    private final Position currentPosition;
 
     public HumanCar(String name){
         this.name = name;

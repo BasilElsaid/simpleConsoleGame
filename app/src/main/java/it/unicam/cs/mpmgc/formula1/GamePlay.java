@@ -1,34 +1,15 @@
 package it.unicam.cs.mpmgc.formula1;
 
-import java.util.LinkedList;
-import java.util.List;
 import java.util.Scanner;
 
-public class GameEngine implements iGameEngine{
+public class GamePlay extends GameSetup
+        implements iGamePlay {
 
-    private SimpleTrack track;
-    private List<iRacer> players = new LinkedList<>();
-    private int playerIndex = 1;
     private boolean gameFinished = false;
     private String winnerName = "";
 
 
-    public GameEngine(){
-        //TODO
-    }
-
-    @Override
-    public void addBot(BotCar bot){
-        bot.UpdatePosition(new Position(playerIndex, 1));
-        players.add(bot);
-        playerIndex++;
-    }
-
-    @Override
-    public void addPlayer(HumanCar player){
-        player.UpdatePosition(new Position(playerIndex, 1));
-        players.add(player);
-        playerIndex++;
+    public GamePlay(){
     }
 
     @Override
@@ -48,7 +29,6 @@ public class GameEngine implements iGameEngine{
             botCar2.calculateNextMove();
             updateGame(track);
         }
-        gameFinished = true;
     }
 
     @Override
@@ -61,20 +41,20 @@ public class GameEngine implements iGameEngine{
     @Override
     public void endGame(){
         this.gameFinished = true;
-        System.out.println("The winner is : " + winnerName);
+        if (winnerName == null){
+            System.out.println("You quit the Game");
+        }
+        else {
+            System.out.println("The winner is : " + winnerName);
+        }
     }
 
     @Override
     public void checkWinner(SimpleTrack track){
-        winnerName = track.acrossedFinalLine(players);
+        winnerName = track.crossedFinalLine(super.getPlayersPositions());
         if (winnerName != null){
             endGame();
         }
     }
-
-    public List<iRacer> getPlayersPositions(){
-        return players;
-    }
-
 
 }
