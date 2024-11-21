@@ -45,22 +45,22 @@ public class HumanCar implements iRacer {
 
     @Override
     public void UpdatePosition(Position newPosition) {
-        currentPosition.setX(newPosition.getX());
-        currentPosition.setY(newPosition.getY());
+        currentPosition.setRow(newPosition.getRow());
+        currentPosition.setColumn(newPosition.getColumn());
     }
 
     //TODO fix accelerate and decelerate rates
     public void accelerate(){
-        int x = currentPosition.getX();
-        int y = currentPosition.getY();
-        Position nextMove = new Position(x, y*2);
+        int row = currentPosition.getRow();
+        int column = currentPosition.getColumn();
+        Position nextMove = new Position(row, column *2);
         UpdatePosition(nextMove);
     }
 
     public void decelerate(){
-        int x = currentPosition.getX();
-        int y = currentPosition.getY();
-        Position nextMove = new Position(x, y+1);
+        int row = currentPosition.getRow();
+        int column = currentPosition.getColumn();
+        Position nextMove = new Position(row, column +1);
         UpdatePosition(nextMove);
     }
 }

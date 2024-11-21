@@ -43,11 +43,11 @@ public class SimpleTrack implements iTrack{
                 getClass().getClassLoader().getResourceAsStream("trackFormat.txt");
         Scanner scan = new Scanner(gameTrack);
 
-        for (int x = 0; x < rows ; x++){
+        for (int row = 0; row < rows ; row++){
             String line = scan.nextLine();
-            for (int y = 0; y < columns; y++ ){
-                if (y < line.length()){
-                    track[x][y] = line.charAt(y);
+            for (int column = 0; column < columns; column++ ){
+                if (column < line.length()){
+                    track[row][column] = line.charAt(column);
                 }
                 System.out.println();
             }
@@ -70,12 +70,12 @@ public class SimpleTrack implements iTrack{
         //TODO
         for (iRacer player : players){
             if (player instanceof BotCar){
-                track[player.getCurrentPosition().getX()]
-                        [player.getCurrentPosition().getY()] = 'B';
+                track[player.getCurrentPosition().getRow()]
+                        [player.getCurrentPosition().getColumn()] = 'B';
             }
             else{
-                track[player.getCurrentPosition().getX()]
-                        [player.getCurrentPosition().getY()] = 'P';
+                track[player.getCurrentPosition().getRow()]
+                        [player.getCurrentPosition().getColumn()] = 'P';
             }
         }
     }
@@ -83,15 +83,15 @@ public class SimpleTrack implements iTrack{
     @Override
     public void ResetCurrentPositionSymbol(List<iRacer> players) {
         for (iRacer player : players){
-            track[player.getCurrentPosition().getX()]
-                    [player.getCurrentPosition().getY()] = '.';
+            track[player.getCurrentPosition().getRow()]
+                    [player.getCurrentPosition().getColumn()] = '.';
         }
     }
 
     @Override
     public String crossedFinalLine(List<iRacer> players) {
         for (iRacer player : players){
-            if (player.getCurrentPosition().getY() == columns-2){
+            if (player.getCurrentPosition().getColumn() == columns-2){
                 return player.getName();
             }
         }

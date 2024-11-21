@@ -40,8 +40,8 @@ class BotCarTest {
     void getCurrentPositionAndUpdatePositionTests() {
         BotCar car1 = new BotCar("3");
         car1.UpdatePosition(new Position(4,5));
-        assertEquals(4, car1.getCurrentPosition().getX());
-        assertEquals(5, car1.getCurrentPosition().getY());
+        assertEquals(4, car1.getCurrentPosition().getRow());
+        assertEquals(5, car1.getCurrentPosition().getColumn());
     }
 
     @Test
