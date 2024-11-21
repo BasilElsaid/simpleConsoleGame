@@ -28,6 +28,7 @@ public class BotCar implements iRacer {
 
     private final String name;
     private final Position currentPosition;
+    private int speed = 1;
 
     public BotCar(String name){
         this.name = name;
@@ -45,6 +46,11 @@ public class BotCar implements iRacer {
     }
 
     @Override
+    public int getSpeed() {
+        return speed;
+    }
+
+    @Override
     public void UpdatePosition(Position newPosition) {
         currentPosition.setRow(newPosition.getRow());
         currentPosition.setColumn(newPosition.getColumn());
@@ -53,7 +59,7 @@ public class BotCar implements iRacer {
     public void calculateNextMove(){
         int row = currentPosition.getRow();
         int column = currentPosition.getColumn();
-        Position nextMove = new Position(row, column +1);
+        Position nextMove = new Position(row, column +speed);
         UpdatePosition(nextMove);
     }
 

@@ -30,7 +30,7 @@ public class GamePlay extends GameSetup
         implements iGamePlay {
 
     private boolean gameFinished = false;
-    private String winnerName = "";
+    private String winnerName = "Undefined";
 
 
     public GamePlay(){
@@ -38,12 +38,12 @@ public class GamePlay extends GameSetup
 
     @Override
     public void startGame(BotCar botCar1, BotCar botCar2, HumanCar car1, SimpleTrack track){
+        Scanner scan = new Scanner(System.in);
         while (gameFinished == false) {
             track.ResetCurrentPositionSymbol(getPlayersPositions());
             System.out.println("write 'a' to accelerate, 'd' to decelerate, 'q' to exit");
-            Scanner scan = new Scanner(System.in);
-
-            switch (scan.next()) {
+            String command = scan.next();
+            switch (command) {
                 case "a" -> car1.accelerate();
                 case "d" -> car1.decelerate();
                 case "q" -> endGame();
@@ -53,6 +53,7 @@ public class GamePlay extends GameSetup
             botCar2.calculateNextMove();
             updateGame(track);
         }
+        scan.close();
     }
 
     @Override
@@ -65,7 +66,7 @@ public class GamePlay extends GameSetup
     @Override
     public void endGame(){
         this.gameFinished = true;
-        if (winnerName == null){
+        if (winnerName == "Undefined"){
             System.out.println("You quit the Game");
         }
         else {
@@ -76,7 +77,7 @@ public class GamePlay extends GameSetup
     @Override
     public void checkWinner(SimpleTrack track){
         winnerName = track.crossedFinalLine(super.getPlayersPositions());
-        if (winnerName != null){
+        if (winnerName != "Undefined"){
             endGame();
         }
     }

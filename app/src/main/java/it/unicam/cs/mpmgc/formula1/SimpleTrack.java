@@ -25,26 +25,37 @@
 package it.unicam.cs.mpmgc.formula1;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class SimpleTrack implements iTrack{
 
-    private final int rows = 8;
-    private final int columns = 18;
-    private final char[][] track = new char[this.rows][this.columns];
+    private int rows;
+    private int columns;
+    private char[][] track;
+    private List<String> trackLines = new ArrayList<>();
 
     public SimpleTrack(){
+        InputStream gameTrack =
+                getClass().getClassLoader().getResourceAsStream("trackFormat.txt");
+        Scanner scan = new Scanner(gameTrack);
+        while (scan.hasNextLine()) {
+            String line = scan.nextLine();
+            if (line.isEmpty() == false) {
+                trackLines.add(line);
+            }
+        }
+        scan.close();
+        this.rows = trackLines.size();
+        this.columns = trackLines.get(0).length();
+        track = new char[this.rows][this.columns];
     }
 
     @Override
     public void createTrack() {
-        InputStream gameTrack =
-                getClass().getClassLoader().getResourceAsStream("trackFormat.txt");
-        Scanner scan = new Scanner(gameTrack);
-
         for (int row = 0; row < rows ; row++){
-            String line = scan.nextLine();
+            String line = trackLines.get(row);
             for (int column = 0; column < columns; column++ ){
                 if (column < line.length()){
                     track[row][column] = line.charAt(column);
@@ -52,7 +63,6 @@ public class SimpleTrack implements iTrack{
                 System.out.println();
             }
         }
-        scan.close();
     }
 
     @Override
@@ -67,7 +77,6 @@ public class SimpleTrack implements iTrack{
 
     @Override
     public void placePlayers(List<iRacer> players){
-        //TODO
         for (iRacer player : players){
             if (player instanceof BotCar){
                 track[player.getCurrentPosition().getRow()]
@@ -95,6 +104,6 @@ public class SimpleTrack implements iTrack{
                 return player.getName();
             }
         }
-        return null;
+        return "Undefined";
     }
 }
