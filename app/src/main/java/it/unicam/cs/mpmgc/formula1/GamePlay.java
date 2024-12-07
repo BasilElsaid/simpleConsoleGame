@@ -30,8 +30,8 @@ public class GamePlay implements iGamePlay {
 
     private boolean gameFinished = false;
     private String winnerName = "Undefined";
-    private GameSetup gameSetup;
-    private SimpleTrack track;
+    private final GameSetup gameSetup;
+    private final SimpleTrack track;
 
 
     public GamePlay(GameSetup setup, SimpleTrack track){
@@ -42,26 +42,16 @@ public class GamePlay implements iGamePlay {
     @Override
     public void startGame(){
         Scanner scan = new Scanner(System.in);
-        while (gameFinished == false) {
+        while (!gameFinished) {
             for (iRacer player : gameSetup.getPlayers()){
-                gameSetup.moveAndResetCurrentPositionSymbol();
-                System.out.println(player.getCurrentPosition().getRow() + "," + player.getCurrentPosition().getColumn());
-
-                System.out.println(player.getName() + "'s move: ");
+                gameSetup.ResetCurrentPositionSymbol(player);
                 player.move();
-
-                System.out.println(player.getCurrentPosition().getRow() + "," + player.getCurrentPosition().getColumn());
+                gameSetup.placePlayer(player);
+                checkWinner();
             }
-            updateGame();
+            track.displayTrack();
         }
         scan.close();
-    }
-
-    @Override
-    public void updateGame() {
-        gameSetup.placePlayers();
-        track.displayTrack();
-        checkWinner();
     }
 
     @Override

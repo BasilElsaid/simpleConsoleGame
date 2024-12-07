@@ -24,33 +24,34 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class SimpleTrack implements iTrack{
 
     private int rows;
     private int columns;
     private char[][] track;
-    private List<String> trackLines = new ArrayList<>();
+    private List<String> trackLines;
     private Position finish;
-
+    //TODO add track mandatory direction
     public SimpleTrack(){
-        InputStream gameTrack =
-                getClass().getClassLoader().getResourceAsStream("trackFormat.txt");
-        Scanner scan = new Scanner(gameTrack);
-        while (scan.hasNextLine()) {
-            String line = scan.nextLine();
-            if (line.isEmpty() == false) {
-                trackLines.add(line);
-            }
+        this.trackLines = new ArrayList<>();
+    }
+
+    @Override
+    public void loadTrack() {
+        try {
+            Path filePath = Path.of(getClass().getClassLoader().getResource("trackFormat.txt").toURI());
+            trackLines = Files.readAllLines(filePath);
+            this.rows = trackLines.size();
+            this.columns = trackLines.get(0).length();
+            track = new char[this.rows][this.columns];
+        } catch (Exception e) {
+            throw new RuntimeException("Error reading track file", e);
         }
-        scan.close();
-        this.rows = trackLines.size();
-        this.columns = trackLines.get(0).length();
-        track = new char[this.rows][this.columns];
     }
 
     @Override
@@ -96,10 +97,7 @@ public class SimpleTrack implements iTrack{
         if (move.getRow() == -1 && move.getColumn() == -1){
             return false;
         }
-        else if (track[row][column] == 'F' || track[row][column] == '.'){
-            return true;
-        }
-        return false;
+        else return track[row][column] == 'F' || track[row][column] == '.';
     }
 
 }

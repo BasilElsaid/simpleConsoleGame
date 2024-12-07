@@ -31,7 +31,7 @@ public class GameSetup implements iGameSetup{
 
     private final List<iRacer> players = new LinkedList<>();
     private int playerIndex = 1;
-    private SimpleTrack track;
+    private final SimpleTrack track;
 
     public GameSetup(SimpleTrack track) {
         this.track = track;
@@ -57,26 +57,23 @@ public class GameSetup implements iGameSetup{
         return players;
     }
 
+
     @Override
-    public void placePlayers() {
-        for (iRacer player : players){
-            if (player instanceof BotCar){
-                track.getTrack()[player.getCurrentPosition().getRow()]
-                        [player.getCurrentPosition().getColumn()] = 'B';
-            }
-            else{
-                track.getTrack()[player.getCurrentPosition().getRow()]
-                        [player.getCurrentPosition().getColumn()] = 'P';
-            }
+    public void placePlayer(iRacer player) {
+        if (player instanceof BotCar){
+            track.getTrack()[player.getCurrentPosition().getRow()]
+                    [player.getCurrentPosition().getColumn()] = 'B';
+        }
+        else{
+            track.getTrack()[player.getCurrentPosition().getRow()]
+                    [player.getCurrentPosition().getColumn()] = 'P';
         }
     }
 
     @Override
-    public void moveAndResetCurrentPositionSymbol() {
-        for (iRacer player : players){
-            track.getTrack()[player.getCurrentPosition().getRow()]
-                    [player.getCurrentPosition().getColumn()] = '.';
-        }
+    public void ResetCurrentPositionSymbol(iRacer player) {
+        track.getTrack()[player.getCurrentPosition().getRow()]
+                [player.getCurrentPosition().getColumn()] = '.';
     }
 
 }

@@ -27,11 +27,10 @@ package it.unicam.cs.mpmgc.formula1;
 public class BotCar implements iRacer {
 
     private final String name;
-    private Position currentPosition;
-    private int speed = 1;
+    private final Position currentPosition;
     private final SimpleTrack track;
     private final iMovementStrategy movementStrategy;
-
+    //TODO add speed
     public BotCar(String name, SimpleTrack track, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
@@ -50,11 +49,6 @@ public class BotCar implements iRacer {
     }
 
     @Override
-    public int getSpeed() {
-        return speed;
-    }
-
-    @Override
     public void UpdatePosition(Position newPosition) {
         currentPosition.setRow(newPosition.getRow());
         currentPosition.setColumn(newPosition.getColumn());
@@ -63,7 +57,7 @@ public class BotCar implements iRacer {
     @Override
     public void move() {
         Position newPos = movementStrategy.move(currentPosition);
-        if (track.checkValidMove(newPos) == true){
+        if (track.checkValidMove(newPos)){
             UpdatePosition(newPos);
         }
         else {

@@ -10,6 +10,7 @@ public class App {
     public static void main(String[] args) {
 
         SimpleTrack track = new SimpleTrack();
+        track.loadTrack();
         track.createTrack();
 
         BotMovementStrategy bot1Strategy = new BotMovementStrategy();
@@ -24,7 +25,10 @@ public class App {
         setup.addBot(botCar1);
         setup.addBot(botCar2);
         setup.addPlayer(humanCar1);
-        setup.placePlayers();
+
+        for (iRacer player : setup.getPlayers()){
+            setup.placePlayer(player);
+        }
         track.displayTrack();
 
         GamePlay game = new GamePlay(setup, track);

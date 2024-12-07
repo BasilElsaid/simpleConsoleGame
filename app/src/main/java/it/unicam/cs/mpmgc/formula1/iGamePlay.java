@@ -34,11 +34,6 @@ public interface iGamePlay {
     void startGame();
 
     /**
-     * updates the state of the game
-     */
-    void updateGame();
-
-    /**
      * ends the game
      */
     void endGame();

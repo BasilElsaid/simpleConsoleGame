@@ -39,17 +39,6 @@ public interface iRacer {
     Position getCurrentPosition();
 
     /**
-     * aggiornare la posizione
-     * @param newPosition nuova posizione
-     */
-
-    /**
-     *
-     * @return velocità del veicolo
-     */
-    int getSpeed();
-
-    /**
      * updates the position of the race
      * @param newPosition the new position of the racer
      */

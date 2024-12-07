@@ -44,7 +44,6 @@ public enum Directions {
     public Position move(Position currentPos){
         int newRow = currentPos.getRow() + this.rowDifference;
         int newColumn = currentPos.getColumn() + this.columnDifference;
-        Position newPos = new Position(newRow, newColumn);
-        return newPos;
+        return new Position(newRow, newColumn);
     }
 }

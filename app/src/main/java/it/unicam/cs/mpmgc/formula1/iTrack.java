@@ -28,6 +28,11 @@ package it.unicam.cs.mpmgc.formula1;
 public interface iTrack {
 
     /**
+     * load the track from the file
+     */
+    void loadTrack();
+
+    /**
      * creates the track from a reading text file.
      */
     void createTrack();

@@ -49,15 +49,15 @@ public interface iGameSetup {
     List<iRacer> getPlayers();
 
     /**
-     * it puts a letter on the start line of the track to indicate the racer:
+     * it puts a letter on the track to indicate the racer:
      * "P" for HumanPlayer
      * "B" for BotPlayer
      */
-    void placePlayers();
+    void placePlayer(iRacer player);
 
     /**
-     * remove the car symbol from the current position before moving to a new one
+     * remove the car letter from the current position on track before moving to a new one
      */
-    void moveAndResetCurrentPositionSymbol();
+    void ResetCurrentPositionSymbol(iRacer player);
 
 }
