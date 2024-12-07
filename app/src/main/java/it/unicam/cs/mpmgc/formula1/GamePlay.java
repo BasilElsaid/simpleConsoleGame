@@ -26,41 +26,38 @@ package it.unicam.cs.mpmgc.formula1;
 
 import java.util.Scanner;
 
-public class GamePlay extends GameSetup
-        implements iGamePlay {
+public class GamePlay implements iGamePlay {
 
     private boolean gameFinished = false;
     private String winnerName = "Undefined";
+    private GameSetup gameSetup;
+    private SimpleTrack track;
 
 
-    public GamePlay(){
+    public GamePlay(GameSetup setup, SimpleTrack track){
+        this.gameSetup = setup;
+        this.track = track;
     }
 
     @Override
-    public void startGame(BotCar botCar1, BotCar botCar2, HumanCar car1, SimpleTrack track){
+    public void startGame(){
         Scanner scan = new Scanner(System.in);
         while (gameFinished == false) {
-            track.ResetCurrentPositionSymbol(getPlayersPositions());
-            System.out.println("write 'a' to accelerate, 'd' to decelerate, 'q' to exit");
-            String command = scan.next();
-            switch (command) {
-                case "a" -> car1.accelerate();
-                case "d" -> car1.decelerate();
-                case "q" -> endGame();
-                default -> System.out.println("Wrong Input!");
+            gameSetup.moveAndResetCurrentPositionSymbol();
+            for (iRacer player : gameSetup.getPlayers()){
+                System.out.println(player.getName() + "'s move: ");
+                player.move();
             }
-            botCar1.calculateNextMove();
-            botCar2.calculateNextMove();
-            updateGame(track);
+            updateGame();
         }
         scan.close();
     }
 
     @Override
-    public void updateGame(SimpleTrack track) {
-        track.placePlayers(getPlayersPositions());
+    public void updateGame() {
+        gameSetup.placePlayers();
         track.displayTrack();
-        checkWinner(track);
+        checkWinner();
     }
 
     @Override
@@ -75,11 +72,17 @@ public class GamePlay extends GameSetup
     }
 
     @Override
-    public void checkWinner(SimpleTrack track){
-        winnerName = track.crossedFinalLine(super.getPlayersPositions());
+    public void checkWinner(){
         if (winnerName != "Undefined"){
-            endGame();
+            for (iRacer player : gameSetup.getPlayers()){
+                if (player.getCurrentPosition() == track.getFinishLine()){
+                    winnerName = player.getName();
+                    endGame();
+                    break;
+                }
+            }
         }
     }
+
 
 }

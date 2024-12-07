@@ -35,6 +35,7 @@ public class SimpleTrack implements iTrack{
     private int columns;
     private char[][] track;
     private List<String> trackLines = new ArrayList<>();
+    private Position finish;
 
     public SimpleTrack(){
         InputStream gameTrack =
@@ -58,6 +59,9 @@ public class SimpleTrack implements iTrack{
             String line = trackLines.get(row);
             for (int column = 0; column < columns; column++ ){
                 if (column < line.length()){
+                    if (track[row][column] == 'F'){
+                        finish = new Position(row, column);
+                    }
                     track[row][column] = line.charAt(column);
                 }
                 System.out.println();
@@ -76,34 +80,13 @@ public class SimpleTrack implements iTrack{
     }
 
     @Override
-    public void placePlayers(List<iRacer> players){
-        for (iRacer player : players){
-            if (player instanceof BotCar){
-                track[player.getCurrentPosition().getRow()]
-                        [player.getCurrentPosition().getColumn()] = 'B';
-            }
-            else{
-                track[player.getCurrentPosition().getRow()]
-                        [player.getCurrentPosition().getColumn()] = 'P';
-            }
-        }
+    public Position getFinishLine() {
+        return finish;
     }
 
     @Override
-    public void ResetCurrentPositionSymbol(List<iRacer> players) {
-        for (iRacer player : players){
-            track[player.getCurrentPosition().getRow()]
-                    [player.getCurrentPosition().getColumn()] = '.';
-        }
+    public char[][] getTrack() {
+        return track;
     }
 
-    @Override
-    public String crossedFinalLine(List<iRacer> players) {
-        for (iRacer player : players){
-            if (player.getCurrentPosition().getColumn() == columns-2){
-                return player.getName();
-            }
-        }
-        return "Undefined";
-    }
 }

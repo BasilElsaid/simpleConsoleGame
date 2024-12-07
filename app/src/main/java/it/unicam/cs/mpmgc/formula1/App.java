@@ -8,21 +8,22 @@ public class App {
     //main class to run the game.
 
     public static void main(String[] args) {
-        GamePlay game = new GamePlay();
 
         SimpleTrack track = new SimpleTrack();
         track.createTrack();
 
-        BotCar botCar1 = new BotCar("bot1");
-        BotCar botCar2 = new BotCar("bot2");
-        HumanCar humanCar1 = new HumanCar("racer1");
-        game.addBot(botCar1);
-        game.addBot(botCar2);
-        game.addPlayer(humanCar1);
+        BotCar botCar1 = new BotCar("bot1", track);
+        BotCar botCar2 = new BotCar("bot2", track);
+        HumanCar humanCar1 = new HumanCar("racer1", track);
 
-        track.placePlayers(game.getPlayersPositions());
+        GameSetup setup = new GameSetup(track);
+        setup.addBot(botCar1);
+        setup.addBot(botCar2);
+        setup.addPlayer(humanCar1);
+        setup.placePlayers();
         track.displayTrack();
 
-        game.startGame(botCar1, botCar2, humanCar1, track);
+        GamePlay game = new GamePlay(setup, track);
+        game.startGame();
     }
 }

@@ -24,15 +24,19 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import java.util.Random;
+
 public class BotCar implements iRacer {
 
     private final String name;
     private final Position currentPosition;
     private int speed = 1;
+    private SimpleTrack track;
 
-    public BotCar(String name){
+    public BotCar(String name, SimpleTrack track){
         this.name = name;
         this.currentPosition = new Position(0,0);
+        this.track = track;
     }
 
     @Override
@@ -56,12 +60,40 @@ public class BotCar implements iRacer {
         currentPosition.setColumn(newPosition.getColumn());
     }
 
-    public void calculateNextMove(){
+    @Override
+    public void move() {
+        Random random = new Random();
+        int randomMove = random.nextInt(4);
+
         int row = currentPosition.getRow();
         int column = currentPosition.getColumn();
-        Position nextMove = new Position(row, column +speed);
-        UpdatePosition(nextMove);
+        Position newPos = null;
+
+        switch (randomMove){
+            //TODO convert positions to enum
+            case 0 -> newPos = new Position(row-1, column);//UP
+            case 1 -> newPos = new Position(row+1, column); //DOWN
+            case 2 -> newPos = new Position(row, column+1); //LEFT
+            case 3 -> newPos = new Position(row, column-1); //RIGHT
+            default -> {newPos = this.currentPosition;
+                        System.out.println("Invalid Input, you lost a move");}
+        }
+
+        if (checkValidMove(newPos) == true){
+            UpdatePosition(newPos);
+        }
+
     }
 
+    @Override
+    public boolean checkValidMove(Position move) {
+        int row = move.getRow();
+        int column = move.getColumn();
+        if (track.getTrack()[row][column] != '.' || move == null) {
+            System.out.println("Invalid Move");
+            return false;
+        }
+        return true;
+    }
 
 }

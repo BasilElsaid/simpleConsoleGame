@@ -31,13 +31,15 @@ public class GameSetup implements iGameSetup{
 
     private final List<iRacer> players = new LinkedList<>();
     private int playerIndex = 1;
+    private SimpleTrack track;
 
-    public GameSetup() {
-
+    public GameSetup(SimpleTrack track) {
+        this.track = track;
     }
 
     @Override
     public void addBot(BotCar bot){
+        //TODO load the bots from a file
         bot.UpdatePosition(new Position(playerIndex, 1));
         players.add(bot);
         playerIndex++;
@@ -51,8 +53,30 @@ public class GameSetup implements iGameSetup{
     }
 
     @Override
-    public List<iRacer> getPlayersPositions(){
+    public List<iRacer> getPlayers(){
         return players;
+    }
+
+    @Override
+    public void placePlayers() {
+        for (iRacer player : players){
+            if (player instanceof BotCar){
+                track.getTrack()[player.getCurrentPosition().getRow()]
+                        [player.getCurrentPosition().getColumn()] = 'B';
+            }
+            else{
+                track.getTrack()[player.getCurrentPosition().getRow()]
+                        [player.getCurrentPosition().getColumn()] = 'P';
+            }
+        }
+    }
+
+    @Override
+    public void moveAndResetCurrentPositionSymbol() {
+        for (iRacer player : players){
+            track.getTrack()[player.getCurrentPosition().getRow()]
+                    [player.getCurrentPosition().getColumn()] = '.';
+        }
     }
 
 }
