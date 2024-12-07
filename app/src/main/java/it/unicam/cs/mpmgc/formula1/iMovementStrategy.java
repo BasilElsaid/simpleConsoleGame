@@ -24,36 +24,12 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-
-public interface iTrack {
-
-    /**
-     * creates the track from a reading text file.
-     */
-    void createTrack();
+public interface iMovementStrategy {
 
     /**
-     * displays the track in the console, with eventual updates
+     * needed for various strategy classes
+     * @param currentPosition the current position of the car
+     * @return the position where the car need to move to
      */
-    void displayTrack();
-
-    /**
-     * the finish position
-     * @return the finish position
-     */
-    Position getFinishLine();
-
-    /**
-     * the track array
-     * @return the track array
-     */
-    char[][] getTrack();
-
-    /**
-     * check if the move is in or out boarders
-     * @param move the position to move to
-     * @return true if valid, false if not
-     */
-    boolean checkValidMove(Position move);
-
+    Position move(Position currentPosition);
 }

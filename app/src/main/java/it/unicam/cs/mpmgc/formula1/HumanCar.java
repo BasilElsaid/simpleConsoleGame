@@ -24,20 +24,19 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.awt.*;
-import java.util.Scanner;
-
 public class HumanCar implements iRacer {
 
     private final String name;
     private final Position currentPosition;
     private int speed = 1;
-    private SimpleTrack track;
+    private final SimpleTrack track;
+    private final iMovementStrategy movementStrategy;
 
-    public HumanCar(String name, SimpleTrack track){
+    public HumanCar(String name, SimpleTrack track, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
         this.track = track;
+        this.movementStrategy = movementStrategy;
     }
     @Override
     public String getName() {
@@ -62,37 +61,12 @@ public class HumanCar implements iRacer {
 
     @Override
     public void move() {
-        Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your move: W:up, S:down, A:left, D:right");
-        String move = scan.next();
-
-        int row = currentPosition.getRow();
-        int column = currentPosition.getColumn();
-        Position newPos = null;
-
-        switch (move){
-            //TODO convert position to enum
-            case "W" -> newPos = new Position(row-1, column);
-            case "S" -> newPos = new Position(row+1, column);
-            case "D" -> newPos = new Position(row, column+1);
-            case "A" -> newPos = new Position(row, column-1);
-            default -> {newPos = this.currentPosition;
-                        System.out.println("Invalid Input, you lost a move.");}
-            }
-        if (checkValidMove(newPos) == true){
+        Position newPos = movementStrategy.move(currentPosition);
+        if (track.checkValidMove(newPos) == true){
             UpdatePosition(newPos);
         }
-
-    }
-
-    @Override
-    public boolean checkValidMove(Position move) {
-        int row = move.getRow();
-        int column = move.getColumn();
-        if (track.getTrack()[row][column] != '.' || move == null) {
-            System.out.println("Invalid Move");
-            return false;
+        else {
+            System.out.println("Invalid Move.");
         }
-        return true;
     }
 }

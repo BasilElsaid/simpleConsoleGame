@@ -24,52 +24,38 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public class BotCar implements iRacer {
+import java.util.Scanner;
 
-    private final String name;
-    private Position currentPosition;
-    private int speed = 1;
-    private final SimpleTrack track;
-    private final iMovementStrategy movementStrategy;
+public class HumanMovementStrategy implements iMovementStrategy{
 
-    public BotCar(String name, SimpleTrack track, iMovementStrategy movementStrategy){
-        this.name = name;
-        this.currentPosition = new Position(0,0);
-        this.track = track;
-        this.movementStrategy = movementStrategy;
+    private final Scanner scan;
+
+    public HumanMovementStrategy(){
+        this.scan = new Scanner(System.in);
     }
 
     @Override
-    public String getName() {
-        return name;
-    }
+    public Position move(Position currentPosition) {
 
-    @Override
-    public Position getCurrentPosition() {
-        return currentPosition;
-    }
+        System.out.println("Enter your move: W:up, S:down, A:left, D:right");
+        String move = scan.nextLine().toUpperCase();
 
-    @Override
-    public int getSpeed() {
-        return speed;
-    }
+        int row = currentPosition.getRow();
+        int column = currentPosition.getColumn();
+        Position newPos = new Position(-1, -1); //posizione random irragiungibile per il caso di input errato
 
-    @Override
-    public void UpdatePosition(Position newPosition) {
-        currentPosition.setRow(newPosition.getRow());
-        currentPosition.setColumn(newPosition.getColumn());
-    }
-
-    @Override
-    public void move() {
-        Position newPos = movementStrategy.move(currentPosition);
-        if (track.checkValidMove(newPos) == true){
-            UpdatePosition(newPos);
+        switch (move){
+            //TODO convert position to enum
+            case "W" :  newPos = Directions.UP.move(new Position(row, column));
+                        break;
+            case "S" :  newPos = Directions.DOWN.move(new Position(row, column));
+                        break;
+            case "D" :  newPos = Directions.RIGHT.move(new Position(row, column));
+                        break;
+            case "A" :  newPos = Directions.LEFT.move(new Position(row, column));
+                        break;
+            default  :  break;
         }
-        else {
-            System.out.println("Invalid Move/Input.");
-        }
+        return newPos;
     }
-
-
 }

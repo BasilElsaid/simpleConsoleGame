@@ -89,4 +89,17 @@ public class SimpleTrack implements iTrack{
         return track;
     }
 
+    @Override
+    public boolean checkValidMove(Position move) {
+        int row = move.getRow();
+        int column = move.getColumn();
+        if (move.getRow() == -1 && move.getColumn() == -1){
+            return false;
+        }
+        else if (track[row][column] == 'F' || track[row][column] == '.'){
+            return true;
+        }
+        return false;
+    }
+
 }

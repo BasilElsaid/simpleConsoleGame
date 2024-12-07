@@ -12,9 +12,13 @@ public class App {
         SimpleTrack track = new SimpleTrack();
         track.createTrack();
 
-        BotCar botCar1 = new BotCar("bot1", track);
-        BotCar botCar2 = new BotCar("bot2", track);
-        HumanCar humanCar1 = new HumanCar("racer1", track);
+        BotMovementStrategy bot1Strategy = new BotMovementStrategy();
+        BotMovementStrategy bot2Strategy = new BotMovementStrategy();
+        HumanMovementStrategy humanStrategy = new HumanMovementStrategy();
+
+        BotCar botCar1 = new BotCar("bot1", track, bot1Strategy);
+        BotCar botCar2 = new BotCar("bot2", track, bot2Strategy);
+        HumanCar humanCar1 = new HumanCar("racer1", track, humanStrategy);
 
         GameSetup setup = new GameSetup(track);
         setup.addBot(botCar1);

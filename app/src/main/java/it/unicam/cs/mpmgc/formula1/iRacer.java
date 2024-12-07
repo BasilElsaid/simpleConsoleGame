@@ -59,11 +59,4 @@ public interface iRacer {
      * makes the next move by input from user, or randomly for bots
      */
     void move();
-
-    /**
-     * check if the move is in or out boarders
-     * @param move the position to move to
-     * @return true if valid, false if not
-     */
-    boolean checkValidMove(Position move);
 }

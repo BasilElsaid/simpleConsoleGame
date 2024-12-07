@@ -43,10 +43,14 @@ public class GamePlay implements iGamePlay {
     public void startGame(){
         Scanner scan = new Scanner(System.in);
         while (gameFinished == false) {
-            gameSetup.moveAndResetCurrentPositionSymbol();
             for (iRacer player : gameSetup.getPlayers()){
+                gameSetup.moveAndResetCurrentPositionSymbol();
+                System.out.println(player.getCurrentPosition().getRow() + "," + player.getCurrentPosition().getColumn());
+
                 System.out.println(player.getName() + "'s move: ");
                 player.move();
+
+                System.out.println(player.getCurrentPosition().getRow() + "," + player.getCurrentPosition().getColumn());
             }
             updateGame();
         }

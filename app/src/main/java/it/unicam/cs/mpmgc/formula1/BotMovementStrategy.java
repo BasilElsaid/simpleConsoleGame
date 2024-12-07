@@ -24,36 +24,37 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import java.util.Random;
 
-public interface iTrack {
+public class BotMovementStrategy implements iMovementStrategy{
 
-    /**
-     * creates the track from a reading text file.
-     */
-    void createTrack();
+    private final Random random;
 
-    /**
-     * displays the track in the console, with eventual updates
-     */
-    void displayTrack();
+    public BotMovementStrategy(){
+        this.random = new Random();
+    }
 
-    /**
-     * the finish position
-     * @return the finish position
-     */
-    Position getFinishLine();
+    @Override
+    public Position move(Position currentPosition) {
+        int randomMove = random.nextInt(4);
 
-    /**
-     * the track array
-     * @return the track array
-     */
-    char[][] getTrack();
+        int row = currentPosition.getRow();
+        int column = currentPosition.getColumn();
+        Position newPos = null;
 
-    /**
-     * check if the move is in or out boarders
-     * @param move the position to move to
-     * @return true if valid, false if not
-     */
-    boolean checkValidMove(Position move);
+        switch (randomMove){
+            //TODO convert positions to enum
+            case 0  :   newPos = Directions.UP.move(new Position(row, column));//UP
+                        break;
+            case 1  :   newPos = Directions.DOWN.move(new Position(row, column)); //DOWN
+                        break;
+            case 2  :   newPos = Directions.RIGHT.move(new Position(row, column));//RIGHT
+                        break;
+            case 3  :   newPos = Directions.LEFT.move(new Position(row, column)); //LEFT
+                        break;
+            default :   break;
+        }
 
+        return newPos;
+    }
 }

@@ -24,36 +24,27 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+public enum Directions {
 
-public interface iTrack {
+    UP(-1, 0),
+    DOWN(1, 0),
+    RIGHT(0, 1),
+    LEFT(0, -1);
 
-    /**
-     * creates the track from a reading text file.
-     */
-    void createTrack();
 
-    /**
-     * displays the track in the console, with eventual updates
-     */
-    void displayTrack();
+    private final int rowDifference;
+    private final int columnDifference;
 
-    /**
-     * the finish position
-     * @return the finish position
-     */
-    Position getFinishLine();
 
-    /**
-     * the track array
-     * @return the track array
-     */
-    char[][] getTrack();
+    Directions(int rowChange, int columnChange) {
+        this.rowDifference = rowChange;
+        this.columnDifference = columnChange;
+    }
 
-    /**
-     * check if the move is in or out boarders
-     * @param move the position to move to
-     * @return true if valid, false if not
-     */
-    boolean checkValidMove(Position move);
-
+    public Position move(Position currentPos){
+        int newRow = currentPos.getRow() + this.rowDifference;
+        int newColumn = currentPos.getColumn() + this.columnDifference;
+        Position newPos = new Position(newRow, newColumn);
+        return newPos;
+    }
 }
