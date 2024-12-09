@@ -59,13 +59,11 @@ public class SimpleTrack implements iTrack{
         for (int row = 0; row < rows ; row++){
             String line = trackLines.get(row);
             for (int column = 0; column < columns; column++ ){
-                if (column < line.length()){
-                    if (track[row][column] == 'F'){
-                        finish = new Position(row, column);
-                    }
-                    track[row][column] = line.charAt(column);
+                char cell = line.charAt(column);
+                track[row][column] = cell;
+                if (cell == 'F'){
+                    finish = new Position(row, column);
                 }
-                System.out.println();
             }
         }
     }

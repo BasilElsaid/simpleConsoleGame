@@ -24,12 +24,14 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.util.LinkedList;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 public class GameSetup implements iGameSetup{
 
-    private final List<iRacer> players = new LinkedList<>();
+    private final List<iRacer> players = new ArrayList<>();
     private int playerIndex = 1;
     private final SimpleTrack track;
 
@@ -38,15 +40,42 @@ public class GameSetup implements iGameSetup{
     }
 
     @Override
-    public void addBot(BotCar bot){
-        //TODO load the bots and players from a file then rename the method and remove the addPlayer method
-        bot.UpdatePosition(new Position(playerIndex, 1));
-        players.add(bot);
-        playerIndex++;
+    public void loadPlayers(){
+        try {
+            Path filePath = Path.of(getClass().getClassLoader().getResource("playersFile.txt").toURI());
+            List<String> lines = Files.readAllLines(filePath);
+            for (String line : lines) {
+                String[] parts = line.split(",");
+                if (parts.length != 2) {
+                    System.out.println("Invalid entry in file" + line);
+                    continue;
+                }
+                String type = parts[0].trim();
+                String name = parts[1].trim();
+                addAndUpdateRacer(type, name);
+            }
+        }   catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
-    public void addPlayer(HumanCar player){
+    public void addAndUpdateRacer(String playerType, String playerName) {
+
+        iRacer player = null;
+        iMovementStrategy strategy;
+        switch (playerType) {
+            case "Bot": {
+                strategy = new BotMovementStrategy();
+                player = new BotCar(playerName, track, strategy);
+                break;
+            }
+            case "Human": {
+                strategy = new HumanMovementStrategy();
+                player = new HumanCar(playerName, track, strategy);
+                break;
+            }
+        }
         player.UpdatePosition(new Position(playerIndex, 1));
         players.add(player);
         playerIndex++;

@@ -24,6 +24,8 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import java.util.Objects;
+
 public class Position {
 
     private int row;
@@ -51,4 +53,18 @@ public class Position {
         this.column = column;
     }
 
+    public Position getPosition(){ return new Position(this.row, this.column);}
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Position position = (Position) o;
+        return row == position.row && column == position.column;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(row, column);
+    }
 }

@@ -28,15 +28,17 @@ import java.util.Scanner;
 
 public class GamePlay implements iGamePlay {
 
-    private boolean gameFinished = false;
-    private String winnerName = "Undefined";
+    private boolean gameFinished;
+    private String winnerName;
     private final GameSetup gameSetup;
     private final SimpleTrack track;
 
 
     public GamePlay(GameSetup setup, SimpleTrack track){
+        this.gameFinished = false;
         this.gameSetup = setup;
         this.track = track;
+        this.winnerName = "Undefined";
     }
 
     @Override
@@ -47,7 +49,7 @@ public class GamePlay implements iGamePlay {
                 gameSetup.ResetCurrentPositionSymbol(player);
                 player.move();
                 gameSetup.placePlayer(player);
-                checkWinner();
+                if (checkWinner(player)){break;}
             }
             track.displayTrack();
         }
@@ -65,18 +67,17 @@ public class GamePlay implements iGamePlay {
         }
     }
 
-    //TODO fix final line is not recognised when passed
     @Override
-    public void checkWinner(){
-        if (winnerName != "Undefined"){
-            for (iRacer player : gameSetup.getPlayers()){
-                if (player.getCurrentPosition() == track.getFinishLine()){
-                    winnerName = player.getName();
-                    endGame();
-                    break;
-                }
+    public boolean checkWinner(iRacer player){
+        if (winnerName.equals("Undefined")){
+            if (player.getCurrentPosition().getRow() == track.getFinishLine().getRow()
+                    && player.getCurrentPosition().getColumn() == track.getFinishLine().getColumn()){
+                winnerName = player.getName();
+                endGame();
+                return true;
             }
         }
+        return false;
     }
 
 

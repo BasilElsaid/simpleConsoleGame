@@ -29,18 +29,17 @@ import java.util.List;
 public interface iGameSetup {
 
     /**
-     * adds a bot to the players list,
-     * and gives it a starting position on the starting line.
-     * @param bot an instance of a BotCar class
+     * loads the bots and humancars from an external file
      */
-    void addBot(BotCar bot);
+    void loadPlayers();
 
     /**
-     * adds a humanPlayer to the players list,
+     * adds a player/bot to the players list,
      * and gives it a starting position on the starting line.
-     * @param player an instance of a HumanCar class
+     * @param playerType type of player Human/Bot
+     * @param playerName name of player
      */
-    void addPlayer(HumanCar player);
+    void addAndUpdateRacer(String playerType, String playerName);
 
     /**
      * getter of players positions

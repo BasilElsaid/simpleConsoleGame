@@ -40,7 +40,9 @@ public interface iGamePlay {
 
     /**
      * gives the name of the winner
+     * @param player the player to be checked
+     * @return true in case a player has won, false in other case
      */
-    void checkWinner();
+    boolean checkWinner(iRacer player);
 
 }
