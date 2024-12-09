@@ -75,6 +75,10 @@ public class GameSetup implements iGameSetup{
                 player = new HumanCar(playerName, track, strategy);
                 break;
             }
+            default: {
+                System.out.println(playerType + ": Type is not Bot/Human");
+                return;
+            }
         }
         player.UpdatePosition(new Position(playerIndex, 1));
         players.add(player);

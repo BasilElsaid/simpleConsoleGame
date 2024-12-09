@@ -59,7 +59,7 @@ public class HumanCar implements iRacer {
             UpdatePosition(newPos);
         }
         else {
-            System.out.println("Invalid Move.");
+            System.out.println("Invalid Move/Input.");
         }
     }
 }
