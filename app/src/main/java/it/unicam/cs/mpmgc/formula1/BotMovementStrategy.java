@@ -29,32 +29,34 @@ import java.util.Random;
 public class BotMovementStrategy implements iMovementStrategy{
 
     private final Random random;
+    private Directions lastDirection;
+    private int speed;
 
     public BotMovementStrategy(){
         this.random = new Random();
+        this.lastDirection = null;
+        this.speed = 1;
     }
 
     @Override
     public Position move(Position currentPosition) {
-        int randomMove = random.nextInt(4);
+        Directions[] directions = Directions.values();
+        int randomIndex = random.nextInt(directions.length);
+        Directions currentDirection = directions[randomIndex];
 
-        int row = currentPosition.getRow();
-        int column = currentPosition.getColumn();
-        Position newPos = null;
+        updateSpeedAndDirection(currentDirection);
+        return currentDirection.move(currentPosition, speed);
+    }
 
-        switch (randomMove){
-            //TODO convert positions to enum
-            case 0  :   newPos = Directions.UP.move(new Position(row, column));//UP
-                        break;
-            case 1  :   newPos = Directions.DOWN.move(new Position(row, column)); //DOWN
-                        break;
-            case 2  :   newPos = Directions.RIGHT.move(new Position(row, column));//RIGHT
-                        break;
-            case 3  :   newPos = Directions.LEFT.move(new Position(row, column)); //LEFT
-                        break;
-            default :   break;
+    @Override
+    public void updateSpeedAndDirection(Directions currentDirection) {
+        if (lastDirection != null && lastDirection == currentDirection){
+            if (speed < 4){
+                speed++;
+            }
+        } else{
+            speed = 1;
         }
-
-        return newPos;
+        lastDirection = currentDirection;
     }
 }

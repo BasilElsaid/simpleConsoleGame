@@ -44,7 +44,7 @@ public class SimpleTrack implements iTrack{
     @Override
     public void loadTrack() {
         try {
-            Path filePath = Path.of(getClass().getClassLoader().getResource("trackFormat.txt").toURI());
+            Path filePath = Path.of(getClass().getClassLoader().getResource("newTrack.txt").toURI());
             trackLines = Files.readAllLines(filePath);
             this.rows = trackLines.size();
             this.columns = trackLines.get(0).length();
@@ -90,14 +90,15 @@ public class SimpleTrack implements iTrack{
         return track;
     }
 
+    //TODO when speed is more than 1, try to stop passing the #
     @Override
     public boolean checkValidMove(Position move) {
         int row = move.getRow();
         int column = move.getColumn();
-        if (move.getRow() == -1 && move.getColumn() == -1){
+        if (move.getRow() < 0 || move.getRow() > rows
+                || move.getColumn() < 0 || move.getColumn() > columns){
             return false;
         }
         else return track[row][column] == 'F' || track[row][column] == '.';
     }
-
 }

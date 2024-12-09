@@ -32,4 +32,10 @@ public interface iMovementStrategy {
      * @return the position where the car need to move to
      */
     Position move(Position currentPosition);
+
+    /**
+     * updates the speed of the car and the lastDirection
+     * @param currentDirection the current direction based on input from the move method
+     */
+    void updateSpeedAndDirection(Directions currentDirection);
 }

@@ -39,7 +39,7 @@ public class GameSetup implements iGameSetup{
 
     @Override
     public void addBot(BotCar bot){
-        //TODO load the bots from a file
+        //TODO load the bots and players from a file then rename the method and remove the addPlayer method
         bot.UpdatePosition(new Position(playerIndex, 1));
         players.add(bot);
         playerIndex++;

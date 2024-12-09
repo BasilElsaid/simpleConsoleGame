@@ -31,19 +31,17 @@ public enum Directions {
     RIGHT(0, 1),
     LEFT(0, -1);
 
-
     private final int rowDifference;
     private final int columnDifference;
-
 
     Directions(int rowChange, int columnChange) {
         this.rowDifference = rowChange;
         this.columnDifference = columnChange;
     }
 
-    public Position move(Position currentPos){
-        int newRow = currentPos.getRow() + this.rowDifference;
-        int newColumn = currentPos.getColumn() + this.columnDifference;
+    public Position move(Position currentPos, int speed){
+        int newRow = currentPos.getRow() + this.rowDifference*speed;
+        int newColumn = currentPos.getColumn() + this.columnDifference*speed;
         return new Position(newRow, newColumn);
     }
 }

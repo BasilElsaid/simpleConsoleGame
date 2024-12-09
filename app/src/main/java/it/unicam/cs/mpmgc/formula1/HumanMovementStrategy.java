@@ -29,9 +29,13 @@ import java.util.Scanner;
 public class HumanMovementStrategy implements iMovementStrategy{
 
     private final Scanner scan;
+    private Directions lastDirection;
+    private int speed;
 
     public HumanMovementStrategy(){
         this.scan = new Scanner(System.in);
+        this.lastDirection = null;
+        this.speed = 1;
     }
 
     @Override
@@ -39,23 +43,33 @@ public class HumanMovementStrategy implements iMovementStrategy{
 
         System.out.println("Enter your move: W:up, S:down, A:left, D:right");
         String move = scan.nextLine().toUpperCase();
-
-        int row = currentPosition.getRow();
-        int column = currentPosition.getColumn();
-        Position newPos = new Position(-1, -1); //posizione random irragiungibile per il caso di input errato
+        Directions currentDirection;
 
         switch (move){
-            //TODO convert position to enum
-            case "W" :  newPos = Directions.UP.move(new Position(row, column));
+            case "W" :  currentDirection = Directions.UP;
                         break;
-            case "S" :  newPos = Directions.DOWN.move(new Position(row, column));
+            case "S" :  currentDirection = Directions.DOWN;
                         break;
-            case "D" :  newPos = Directions.RIGHT.move(new Position(row, column));
+            case "D" :  currentDirection = Directions.RIGHT;
                         break;
-            case "A" :  newPos = Directions.LEFT.move(new Position(row, column));
+            case "A" :  currentDirection = Directions.LEFT;
                         break;
-            default  :  break;
+            default  :  System.out.println("Invalid Input.");
+                        return new Position(-1, -1);
         }
-        return newPos;
+        updateSpeedAndDirection(currentDirection);
+        return currentDirection.move(currentPosition, speed);
+    }
+
+    @Override
+    public void updateSpeedAndDirection(Directions currentDirection) {
+        if (lastDirection != null && lastDirection == currentDirection){
+            if (speed < 4){
+                speed++;
+            }
+        } else{
+            speed = 1;
+        }
+        lastDirection = currentDirection;
     }
 }

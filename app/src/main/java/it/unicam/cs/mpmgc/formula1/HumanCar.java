@@ -30,7 +30,6 @@ public class HumanCar implements iRacer {
     private final Position currentPosition;
     private final SimpleTrack track;
     private final iMovementStrategy movementStrategy;
-    //TODO add speed
     public HumanCar(String name, SimpleTrack track, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
