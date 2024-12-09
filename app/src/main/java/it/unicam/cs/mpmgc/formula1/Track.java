@@ -26,7 +26,7 @@ package it.unicam.cs.mpmgc.formula1;
 
 import java.util.List;
 
-public class SimpleTrack implements iTrack{
+public class Track implements iTrack{
 
     private int rows;
     private int columns;
@@ -34,7 +34,7 @@ public class SimpleTrack implements iTrack{
     private Position finish;
     //TODO add track mandatory direction
 
-    public SimpleTrack(){
+    public Track(){
         this.rows = 0;
         this.columns = 0;
         this.track = null;

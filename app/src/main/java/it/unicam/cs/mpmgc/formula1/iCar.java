@@ -24,7 +24,7 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public interface iRacer {
+public interface iCar {
 
     /**
      *

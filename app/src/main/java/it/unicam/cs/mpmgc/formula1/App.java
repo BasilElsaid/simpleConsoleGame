@@ -30,7 +30,7 @@ public class App {
 
     public static void main(String[] args) {
 
-        SimpleTrack track = new SimpleTrack();
+        Track track = new Track();
 
         GameSetup setup = new GameSetup(track);
         setup.setupGame();

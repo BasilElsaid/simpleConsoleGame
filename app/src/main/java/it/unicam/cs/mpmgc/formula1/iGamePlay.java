@@ -24,8 +24,6 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.util.List;
-
 public interface iGamePlay {
 
     /**
@@ -43,6 +41,6 @@ public interface iGamePlay {
      * @param player the player to be checked
      * @return true in case a player has won, false in other case
      */
-    boolean checkWinner(iRacer player);
+    boolean checkWinner(iCar player);
 
 }

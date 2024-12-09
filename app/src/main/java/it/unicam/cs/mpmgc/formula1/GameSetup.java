@@ -29,12 +29,12 @@ import java.util.List;
 
 public class GameSetup{
 
-    private final List<iRacer> players;
+    private final List<iCar> players;
     private int playerIndex;
-    private SimpleTrack track;
+    private Track track;
     private FileIO fileIO;
 
-    public GameSetup(SimpleTrack track) {
+    public GameSetup(Track track) {
         this.players = new ArrayList<>();
         this.playerIndex = 1;
         this.track = track;
@@ -42,20 +42,24 @@ public class GameSetup{
     }
 
     public void setupGame(){
-        List<String> trackData = fileIO.readTrack();
-        track.setTrackDimensions(fileIO.loadTrack(trackData));
-        track.createTrack(trackData);
+        setupTrack();
         setupPlayers(
                 fileIO.loadPlayers(fileIO.readPlayers())
         );
-        for (iRacer player : players){
+        for (iCar player : players){
             placePlayer(player);
         }
         track.displayTrack();
     }
 
+    public void setupTrack(){
+        List<String> trackData = fileIO.readTrack();
+        track.setTrackDimensions(fileIO.loadTrack(trackData));
+        track.createTrack(trackData);
+    }
+
     public void setupPlayers(List<String[]> playerData) {
-        iRacer player = null;
+        iCar player = null;
         iMovementStrategy strategy;
         for (String[] pair : playerData){
             String playerType = pair[0];
@@ -82,7 +86,7 @@ public class GameSetup{
         }
     }
 
-    public void placePlayer(iRacer player) {
+    public void placePlayer(iCar player) {
         if (player instanceof BotCar){
             track.getTrack()[player.getCurrentPosition().getRow()]
                     [player.getCurrentPosition().getColumn()] = 'B';
@@ -93,12 +97,12 @@ public class GameSetup{
         }
     }
 
-    public void ResetCurrentPositionSymbol(iRacer player) {
+    public void ResetCurrentPositionSymbol(iCar player) {
         track.getTrack()[player.getCurrentPosition().getRow()]
                 [player.getCurrentPosition().getColumn()] = '.';
     }
 
-    public List<iRacer> getPlayers(){
+    public List<iCar> getPlayers(){
         return players;
     }
 

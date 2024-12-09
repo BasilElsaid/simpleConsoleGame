@@ -31,10 +31,10 @@ public class GamePlay implements iGamePlay {
     private boolean gameFinished;
     private String winnerName;
     private final GameSetup gameSetup;
-    private final SimpleTrack track;
+    private final Track track;
 
 
-    public GamePlay(GameSetup setup, SimpleTrack track){
+    public GamePlay(GameSetup setup, Track track){
         this.gameFinished = false;
         this.gameSetup = setup;
         this.track = track;
@@ -45,7 +45,8 @@ public class GamePlay implements iGamePlay {
     public void startGame(){
         Scanner scan = new Scanner(System.in);
         while (!gameFinished) {
-            for (iRacer player : gameSetup.getPlayers()){
+            for (iCar player : gameSetup.getPlayers()){
+                System.out.println(player.getName() + "'s turn!");
                 gameSetup.ResetCurrentPositionSymbol(player);
                 player.move();
                 gameSetup.placePlayer(player);
@@ -68,7 +69,7 @@ public class GamePlay implements iGamePlay {
     }
 
     @Override
-    public boolean checkWinner(iRacer player){
+    public boolean checkWinner(iCar player){
         if (winnerName.equals("Undefined")){
             if (player.getCurrentPosition().getRow() == track.getFinishLine().getRow()
                     && player.getCurrentPosition().getColumn() == track.getFinishLine().getColumn()){

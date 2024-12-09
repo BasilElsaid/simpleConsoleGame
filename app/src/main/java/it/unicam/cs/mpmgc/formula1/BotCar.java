@@ -24,13 +24,13 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public class BotCar implements iRacer {
+public class BotCar implements iCar {
 
     private final String name;
     private final Position currentPosition;
-    private final SimpleTrack track;
+    private final Track track;
     private final iMovementStrategy movementStrategy;
-    public BotCar(String name, SimpleTrack track, iMovementStrategy movementStrategy){
+    public BotCar(String name, Track track, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
         this.track = track;
