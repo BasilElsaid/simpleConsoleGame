@@ -25,17 +25,14 @@
 package it.unicam.cs.mpmgc.formula1;
 
 
-public interface iTrack {
+import java.util.List;
 
-    /**
-     * load the track from the file
-     */
-    void loadTrack();
+public interface iTrack {
 
     /**
      * creates the track from a reading text file.
      */
-    void createTrack();
+    void createTrack(List<String> trackLines);
 
     /**
      * displays the track in the console, with eventual updates

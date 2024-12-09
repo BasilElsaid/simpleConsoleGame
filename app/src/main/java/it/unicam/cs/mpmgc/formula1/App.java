@@ -31,17 +31,12 @@ public class App {
     public static void main(String[] args) {
 
         SimpleTrack track = new SimpleTrack();
-        track.loadTrack();
-        track.createTrack();
 
         GameSetup setup = new GameSetup(track);
-        setup.loadPlayers();
-        for (iRacer player : setup.getPlayers()){
-            setup.placePlayer(player);
-        }
-        track.displayTrack();
+        setup.setupGame();
 
         GamePlay game = new GamePlay(setup, track);
         game.startGame();
+
     }
 }

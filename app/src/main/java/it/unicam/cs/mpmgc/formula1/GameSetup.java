@@ -24,74 +24,64 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameSetup implements iGameSetup{
+public class GameSetup{
 
-    private final List<iRacer> players = new ArrayList<>();
-    private int playerIndex = 1;
-    private final SimpleTrack track;
+    private final List<iRacer> players;
+    private int playerIndex;
+    private SimpleTrack track;
+    private FileIO fileIO;
 
     public GameSetup(SimpleTrack track) {
+        this.players = new ArrayList<>();
+        this.playerIndex = 1;
         this.track = track;
+        this.fileIO = new FileIO();
     }
 
-    @Override
-    public void loadPlayers(){
-        try {
-            Path filePath = Path.of(getClass().getClassLoader().getResource("playersFile.txt").toURI());
-            List<String> lines = Files.readAllLines(filePath);
-            for (String line : lines) {
-                String[] parts = line.split(",");
-                if (parts.length != 2) {
-                    System.out.println("Invalid entry in file" + line);
-                    continue;
-                }
-                String type = parts[0].trim();
-                String name = parts[1].trim();
-                addAndUpdateRacer(type, name);
-            }
-        }   catch (Exception e){
-            e.printStackTrace();
+    public void setupGame(){
+        List<String> trackData = fileIO.readTrack();
+        track.setTrackDimensions(fileIO.loadTrack(trackData));
+        track.createTrack(trackData);
+        setupPlayers(
+                fileIO.loadPlayers(fileIO.readPlayers())
+        );
+        for (iRacer player : players){
+            placePlayer(player);
         }
+        track.displayTrack();
     }
 
-    @Override
-    public void addAndUpdateRacer(String playerType, String playerName) {
-
+    public void setupPlayers(List<String[]> playerData) {
         iRacer player = null;
         iMovementStrategy strategy;
-        switch (playerType) {
-            case "Bot": {
-                strategy = new BotMovementStrategy();
-                player = new BotCar(playerName, track, strategy);
-                break;
+        for (String[] pair : playerData){
+            String playerType = pair[0];
+            String playerName = pair[1];
+            switch (playerType) {
+                case "Bot": {
+                    strategy = new BotMovementStrategy();
+                    player = new BotCar(playerName, track, strategy);
+                    break;
+                }
+                case "Human": {
+                    strategy = new HumanMovementStrategy();
+                    player = new HumanCar(playerName, track, strategy);
+                    break;
+                }
+                default: {
+                    System.out.println(playerType + ": Type is not Bot/Human");
+                    return;
+                }
             }
-            case "Human": {
-                strategy = new HumanMovementStrategy();
-                player = new HumanCar(playerName, track, strategy);
-                break;
-            }
-            default: {
-                System.out.println(playerType + ": Type is not Bot/Human");
-                return;
-            }
+            player.UpdatePosition(new Position(playerIndex, 1));
+            players.add(player);
+            playerIndex++;
         }
-        player.UpdatePosition(new Position(playerIndex, 1));
-        players.add(player);
-        playerIndex++;
     }
 
-    @Override
-    public List<iRacer> getPlayers(){
-        return players;
-    }
-
-
-    @Override
     public void placePlayer(iRacer player) {
         if (player instanceof BotCar){
             track.getTrack()[player.getCurrentPosition().getRow()]
@@ -103,10 +93,13 @@ public class GameSetup implements iGameSetup{
         }
     }
 
-    @Override
     public void ResetCurrentPositionSymbol(iRacer player) {
         track.getTrack()[player.getCurrentPosition().getRow()]
                 [player.getCurrentPosition().getColumn()] = '.';
+    }
+
+    public List<iRacer> getPlayers(){
+        return players;
     }
 
 }

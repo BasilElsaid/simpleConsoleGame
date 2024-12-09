@@ -24,9 +24,6 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 public class SimpleTrack implements iTrack{
@@ -34,28 +31,18 @@ public class SimpleTrack implements iTrack{
     private int rows;
     private int columns;
     private char[][] track;
-    private List<String> trackLines;
     private Position finish;
     //TODO add track mandatory direction
+
     public SimpleTrack(){
-        this.trackLines = new ArrayList<>();
+        this.rows = 0;
+        this.columns = 0;
+        this.track = null;
+        this.finish = null;
     }
 
     @Override
-    public void loadTrack() {
-        try {
-            Path filePath = Path.of(getClass().getClassLoader().getResource("newTrack.txt").toURI());
-            trackLines = Files.readAllLines(filePath);
-            this.rows = trackLines.size();
-            this.columns = trackLines.get(0).length();
-            track = new char[this.rows][this.columns];
-        } catch (Exception e) {
-            throw new RuntimeException("Error reading track file", e);
-        }
-    }
-
-    @Override
-    public void createTrack() {
+    public void createTrack(List<String> trackLines) {
         for (int row = 0; row < rows ; row++){
             String line = trackLines.get(row);
             for (int column = 0; column < columns; column++ ){
@@ -66,6 +53,12 @@ public class SimpleTrack implements iTrack{
                 }
             }
         }
+    }
+
+    public void setTrackDimensions(int[] trackDimensions){
+        this.rows = trackDimensions[0];
+        this.columns = trackDimensions[1];
+        this.track = new char[rows][columns];
     }
 
     @Override
