@@ -60,19 +60,16 @@ public class GameSetup{
 
     public void setupPlayers(List<String[]> playerData) {
         iCar player = null;
-        iMovementStrategy strategy;
         for (String[] pair : playerData){
             String playerType = pair[0];
             String playerName = pair[1];
             switch (playerType) {
                 case "Bot": {
-                    strategy = new BotMovementStrategy();
-                    player = new BotCar(playerName, track, strategy);
+                    player = new Car(playerName, track, new BotMovementStrategy());
                     break;
                 }
                 case "Human": {
-                    strategy = new HumanMovementStrategy();
-                    player = new HumanCar(playerName, track, strategy);
+                    player = new Car(playerName, track, new HumanMovementStrategy());
                     break;
                 }
                 default: {
@@ -87,7 +84,7 @@ public class GameSetup{
     }
 
     public void placePlayer(iCar player) {
-        if (player instanceof BotCar){
+        if (player.getCarType().equals("Bot")){
             track.getTrack()[player.getCurrentPosition().getRow()]
                     [player.getCurrentPosition().getColumn()] = 'B';
         }

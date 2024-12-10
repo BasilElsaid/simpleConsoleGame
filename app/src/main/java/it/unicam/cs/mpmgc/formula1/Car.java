@@ -24,18 +24,20 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public class HumanCar implements iCar {
+public class Car implements iCar {
 
     private final String name;
     private final Position currentPosition;
     private final Track track;
     private final iMovementStrategy movementStrategy;
-    public HumanCar(String name, Track track, iMovementStrategy movementStrategy){
+
+    public Car(String name, Track track, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
         this.track = track;
         this.movementStrategy = movementStrategy;
     }
+
     @Override
     public String getName() {
         return name;
@@ -44,6 +46,14 @@ public class HumanCar implements iCar {
     @Override
     public Position getCurrentPosition() {
         return currentPosition;
+    }
+
+    @Override
+    public String getCarType() {
+        if (movementStrategy instanceof  HumanMovementStrategy){
+            return "Human";
+        }
+        else return "Bot";
     }
 
     @Override
@@ -62,4 +72,5 @@ public class HumanCar implements iCar {
             System.out.println("Invalid Move/Input.");
         }
     }
+
 }

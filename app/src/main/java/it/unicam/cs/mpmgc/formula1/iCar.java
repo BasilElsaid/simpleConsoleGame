@@ -39,6 +39,12 @@ public interface iCar {
     Position getCurrentPosition();
 
     /**
+     *
+     * @return the type of player Human or Bot
+     */
+    String getCarType();
+
+    /**
      * updates the position of the race
      * @param newPosition the new position of the racer
      */
