@@ -24,8 +24,6 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.util.Scanner;
-
 public class ConsoleIO {
 
     public ConsoleIO(){}
@@ -48,31 +46,24 @@ public class ConsoleIO {
 
     public void displayTrack(iTrack track){
         char[][] trackFormat = track.getTrack();
-        for (char[] chars : trackFormat) {
-            for (char aChar : chars) {
-                System.out.print(aChar);
+        for (char[] row : trackFormat) {
+            for (char cell : row) {
+                System.out.print(cell);
             }
             System.out.println();
         }
     }
 
     public void placePlayer(iCar player, iTrack track) {
-        if (player.getCarType().equals("Bot")){
-            track.getTrack()[player.getCurrentPosition().getRow()]
-                    [player.getCurrentPosition().getColumn()] = 'B';
-        }
-        else{
-            track.getTrack()[player.getCurrentPosition().getRow()]
-                    [player.getCurrentPosition().getColumn()] = 'P';
-        }
+        int row = player.getCurrentPosition().getRow();
+        int column = player.getCurrentPosition().getColumn();
+        track.getTrack()[row][column] = player.getName().toUpperCase().charAt(0);
     }
 
     public void ResetCurrentPositionSymbol(iCar player, iTrack track) {
-        track.getTrack()[player.getCurrentPosition().getRow()]
-                [player.getCurrentPosition().getColumn()] = '.';
+        int row = player.getCurrentPosition().getRow();
+        int column = player.getCurrentPosition().getColumn();
+        track.getTrack()[row][column] = '.';
     }
-
-
-
 
 }
