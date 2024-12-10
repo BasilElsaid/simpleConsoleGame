@@ -47,8 +47,6 @@ public class Position {
         return column;
     }
 
-    public void setColumn(int column) {
-        this.column = column;
-    }
+    public void setColumn(int column) { this.column = column; }
 
 }

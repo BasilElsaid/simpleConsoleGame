@@ -29,57 +29,50 @@ import java.util.Scanner;
 public class GamePlay implements iGamePlay {
 
     private boolean gameFinished;
-    private String winnerName;
     private final GameSetup gameSetup;
     private final Track track;
+    private ConsoleIO consoleIO;
 
 
     public GamePlay(GameSetup setup, Track track){
         this.gameFinished = false;
         this.gameSetup = setup;
         this.track = track;
-        this.winnerName = "Undefined";
+        this.consoleIO = new ConsoleIO();
     }
 
     @Override
     public void startGame(){
         Scanner scan = new Scanner(System.in);
+        consoleIO.startGameMessage();
         while (!gameFinished) {
             for (iCar player : gameSetup.getPlayers()){
-                System.out.println(player.getName() + "'s turn!");
-                gameSetup.ResetCurrentPositionSymbol(player);
+                consoleIO.playerTurnMessage(player);
+                consoleIO.ResetCurrentPositionSymbol(player, track);
                 player.move();
-                gameSetup.placePlayer(player);
+                consoleIO.placePlayer(player, track);
                 if (checkWinner(player)){break;}
             }
-            track.displayTrack();
+            consoleIO.displayTrack(track);
         }
+        consoleIO.endGameMessage();
         scan.close();
     }
 
     @Override
     public void endGame(){
         this.gameFinished = true;
-        if (winnerName == "Undefined"){
-            System.out.println("You quit the Game");
-        }
-        else {
-            System.out.println("The winner is : " + winnerName);
-        }
     }
 
     @Override
     public boolean checkWinner(iCar player){
-        if (winnerName.equals("Undefined")){
-            if (player.getCurrentPosition().getRow() == track.getFinishLine().getRow()
-                    && player.getCurrentPosition().getColumn() == track.getFinishLine().getColumn()){
-                winnerName = player.getName();
-                endGame();
-                return true;
-            }
+        if (player.getCurrentPosition().getRow() == track.getFinishLine().getRow()
+                && player.getCurrentPosition().getColumn() == track.getFinishLine().getColumn()){
+            consoleIO.winnerNameMessage(player);
+            endGame();
+            return true;
         }
         return false;
     }
-
 
 }

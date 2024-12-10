@@ -57,12 +57,12 @@ public class HumanMovementStrategy implements iMovementStrategy{
             default  :  System.out.println("Invalid Input.");
                         return new Position(-1, -1);
         }
-        updateSpeedAndDirection(currentDirection);
+        updateSpeed(currentDirection);
         return currentDirection.move(currentPosition, speed);
     }
 
     @Override
-    public void updateSpeedAndDirection(Directions currentDirection) {
+    public void updateSpeed(Directions currentDirection) {
         if (lastDirection != null && lastDirection == currentDirection){
             if (speed < 4){
                 speed++;

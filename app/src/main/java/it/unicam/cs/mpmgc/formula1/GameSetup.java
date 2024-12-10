@@ -33,12 +33,14 @@ public class GameSetup{
     private int playerIndex;
     private Track track;
     private FileIO fileIO;
+    private ConsoleIO consoleIO;
 
     public GameSetup(Track track) {
         this.players = new ArrayList<>();
         this.playerIndex = 1;
         this.track = track;
         this.fileIO = new FileIO();
+        this.consoleIO = new ConsoleIO();
     }
 
     public void setupGame(){
@@ -47,9 +49,9 @@ public class GameSetup{
                 fileIO.loadPlayers(fileIO.readPlayers())
         );
         for (iCar player : players){
-            placePlayer(player);
+            consoleIO.placePlayer(player, track);
         }
-        track.displayTrack();
+        consoleIO.displayTrack(track);
     }
 
     public void setupTrack(){
@@ -59,8 +61,8 @@ public class GameSetup{
     }
 
     public void setupPlayers(List<String[]> playerData) {
-        iCar player = null;
         for (String[] pair : playerData){
+            iCar player = null;
             String playerType = pair[0];
             String playerName = pair[1];
             switch (playerType) {
@@ -81,22 +83,6 @@ public class GameSetup{
             players.add(player);
             playerIndex++;
         }
-    }
-
-    public void placePlayer(iCar player) {
-        if (player.getCarType().equals("Bot")){
-            track.getTrack()[player.getCurrentPosition().getRow()]
-                    [player.getCurrentPosition().getColumn()] = 'B';
-        }
-        else{
-            track.getTrack()[player.getCurrentPosition().getRow()]
-                    [player.getCurrentPosition().getColumn()] = 'P';
-        }
-    }
-
-    public void ResetCurrentPositionSymbol(iCar player) {
-        track.getTrack()[player.getCurrentPosition().getRow()]
-                [player.getCurrentPosition().getColumn()] = '.';
     }
 
     public List<iCar> getPlayers(){

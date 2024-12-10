@@ -62,16 +62,6 @@ public class Track implements iTrack{
     }
 
     @Override
-    public void displayTrack(){
-        for (char[] chars : track) {
-            for (char aChar : chars) {
-                System.out.print(aChar);
-            }
-            System.out.println();
-        }
-    }
-
-    @Override
     public Position getFinishLine() {
         return finish;
     }

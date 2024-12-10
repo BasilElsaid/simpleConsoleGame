@@ -35,11 +35,6 @@ public interface iTrack {
     void createTrack(List<String> trackLines);
 
     /**
-     * displays the track in the console, with eventual updates
-     */
-    void displayTrack();
-
-    /**
      * the finish position
      * @return the finish position
      */
