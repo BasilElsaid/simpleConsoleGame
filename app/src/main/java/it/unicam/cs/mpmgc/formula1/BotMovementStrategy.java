@@ -59,4 +59,5 @@ public class BotMovementStrategy implements iMovementStrategy{
         }
         lastDirection = currentDirection;
     }
+
 }
