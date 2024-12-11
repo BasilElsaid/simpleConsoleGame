@@ -24,26 +24,29 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import java.util.Random;
+public class DirectBotStrategy implements iMovementStrategy{
 
-public class BotMovementStrategy implements iMovementStrategy{
-
-    private final Random random;
+    private Directions currentDirection;
     private Directions lastDirection;
     private int speed;
+    private Track track;
 
-    public BotMovementStrategy(){
-        this.random = new Random();
-        this.lastDirection = null;
+    public DirectBotStrategy(Track track){
+        this.currentDirection = Directions.RIGHT;
         this.speed = 1;
+        this.track = track;
     }
 
     @Override
     public Position move(Position currentPosition) {
-        Directions[] directions = Directions.values();
-        int randomIndex = random.nextInt(directions.length);
-        Directions currentDirection = directions[randomIndex];
-
+        Position newPos = currentDirection.move(currentPosition, speed);
+        if (!track.checkValidMove(newPos)){
+            switch (currentDirection){
+                case RIGHT -> currentDirection = Directions.DOWN;
+                case DOWN -> currentDirection = Directions.LEFT;
+                case LEFT -> currentDirection = Directions.DOWN;
+            }
+        }
         updateSpeed(currentDirection);
         return currentDirection.move(currentPosition, speed);
     }
@@ -51,7 +54,7 @@ public class BotMovementStrategy implements iMovementStrategy{
     @Override
     public void updateSpeed(Directions currentDirection) {
         if (lastDirection != null && lastDirection == currentDirection){
-            if (speed < 4){
+            if (speed < 3){
                 speed++;
             }
         } else{

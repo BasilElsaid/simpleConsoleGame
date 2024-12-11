@@ -32,7 +32,6 @@ public class Track implements iTrack{
     private int columns;
     private char[][] track;
     private Position finish;
-    //TODO add track mandatory direction
 
     public Track(){
         this.rows = 0;
@@ -71,13 +70,12 @@ public class Track implements iTrack{
         return track;
     }
 
-    //TODO when speed is more than 1, try to stop passing the #
     @Override
     public boolean checkValidMove(Position move) {
         int row = move.getRow();
         int column = move.getColumn();
-        if (move.getRow() < 0 || move.getRow() > rows
-                || move.getColumn() < 0 || move.getColumn() > columns){
+        if (move.getRow() <= 0 || move.getRow() >= rows
+                || move.getColumn() <= 0 || move.getColumn() >= columns){
             return false;
         }
         else return track[row][column] == 'F' || track[row][column] == '.';

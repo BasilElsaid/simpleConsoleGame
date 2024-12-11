@@ -24,6 +24,8 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import org.checkerframework.checker.units.qual.C;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -66,8 +68,8 @@ public class GameSetup{
             String playerType = pair[0];
             String playerName = pair[1];
             switch (playerType) {
-                case "Bot": {
-                    player = new Car(playerName, track, new BotMovementStrategy());
+                case "DirectBot": {
+                    player = new Car(playerName, track, new DirectBotStrategy(track));
                     break;
                 }
                 case "Human": {

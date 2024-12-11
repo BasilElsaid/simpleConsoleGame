@@ -64,7 +64,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
     @Override
     public void updateSpeed(Directions currentDirection) {
         if (lastDirection != null && lastDirection == currentDirection){
-            if (speed < 4){
+            if (speed < 2){
                 speed++;
             }
         } else{
