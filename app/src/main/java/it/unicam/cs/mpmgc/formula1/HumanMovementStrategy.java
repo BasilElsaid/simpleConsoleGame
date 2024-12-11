@@ -43,18 +43,20 @@ public class HumanMovementStrategy implements iMovementStrategy{
     @Override
     public Position move(Position currentPosition) {
         setMove();
-        if (nextDirection == null){
+        if (nextDirection == null) {
             return currentPosition;
         }
-        if (lastDirection == nextDirection){
-            setSpeed();
-        }
-        else {
-            speed = 1;
-        }
+
+        setSpeed();
         lastDirection = nextDirection;
 
-        return nextDirection.move(currentPosition, speed);
+        Position newPos = nextDirection.move(currentPosition, speed);
+        if (!checkValidMove(newPos)){
+            System.out.println("Invalid Move, stay at same position.");
+            return currentPosition;
+        }
+
+        return newPos;
     }
 
     @Override
@@ -65,7 +67,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
                 || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
             return false;
         }
-        else return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
+        return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
     }
 
     public void setMove(){
@@ -82,18 +84,25 @@ public class HumanMovementStrategy implements iMovementStrategy{
                         break;
             case "A" :  direction = Directions.LEFT;
                         break;
-            default  :  System.out.println("Invalid Input.");
+            default  :  System.out.println("Invalid Input, please Enter W/S/A/D.");
         }
         nextDirection = direction;
     }
 
     public void setSpeed(){
-        if (speed == 1) {
-            System.out.println("Type Y to increase speed to 2, else nothing");
-            String spd = scan.nextLine().toUpperCase();
-            if (spd.equals("Y")){
-                speed = 2;
+        if (lastDirection == nextDirection){
+            if (speed == 1) {
+                System.out.println("Your speed is 1, Type Y to increase speed to 2, else press Enter.");
+                String spd = scan.nextLine().toUpperCase();
+                if (spd.equals("Y")){
+                    speed = 2;
+                    System.out.println("Speed increased to 2!");
+                }
             }
         }
+        else {
+            speed = 1;
+        }
     }
+
 }

@@ -55,12 +55,7 @@ public class Car implements iCar {
     @Override
     public void move() {
         Position newPos = movementStrategy.move(currentPosition);
-        if (movementStrategy.checkValidMove(newPos)){
-            UpdatePosition(newPos);
-        }
-        else {
-            System.out.println("Invalid Move/Input.");
-        }
+        UpdatePosition(newPos);
     }
 
 }

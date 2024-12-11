@@ -51,9 +51,11 @@ public class BotMovementStrategy implements iMovementStrategy{
                 case LEFT -> nextDirection = Directions.UP;
                 case UP -> nextDirection = Directions.RIGHT;
             }
+            newPos = nextDirection.move(currentPosition, speed);
+            if (!checkValidMove(newPos)){ return currentPosition; }
         }
 
-        return nextDirection.move(currentPosition, speed);
+        return newPos;
     }
 
     @Override
@@ -64,7 +66,7 @@ public class BotMovementStrategy implements iMovementStrategy{
                 || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
             return false;
         }
-        else return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
+        return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
     }
 
 }
