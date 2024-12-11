@@ -31,7 +31,7 @@ public class GamePlay implements iGamePlay {
     private boolean gameFinished;
     private final GameSetup gameSetup;
     private final Track track;
-    private ConsoleIO consoleIO;
+    private final ConsoleIO consoleIO;
 
 
     public GamePlay(GameSetup setup){

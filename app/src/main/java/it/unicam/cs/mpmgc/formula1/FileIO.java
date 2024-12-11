@@ -31,40 +31,57 @@ import java.util.List;
 
 public class FileIO {
 
-    public FileIO(){};
+    List<String> trackLines;
+    List<String> playerLines;
 
-    public List<String> readTrack(){
+    public FileIO(){
+        trackLines = new ArrayList<>();
+        playerLines = new ArrayList<>();
+    }
+
+    public void readAndParseFile(){
         try {
-            List<String> trackLines;
-            Path filePath = Path.of(getClass().getClassLoader().getResource("newTrack.txt").toURI());
-            trackLines = Files.readAllLines(filePath);
-            return trackLines;
+            Path filePath = Path.of(getClass().getClassLoader().getResource("TrackAndPlayers.txt").toURI());
+            List<String> fileLines = Files.readAllLines(filePath);
+            parseFile(fileLines);
         } catch (Exception e){
             throw new RuntimeException("Error reading the file", e);
         }
     }
 
-    public int[] loadTrack(List<String> trackLines){
+    public void parseFile(List<String> fileLines){
+        trackLines.clear();
+        playerLines.clear();
+
+        for (String line : fileLines){
+            if(line.contains("#") || line.contains(".")){
+                trackLines.add(line);
+            }
+            else {
+                playerLines.add(line);
+            }
+        }
+    }
+
+    public int[] loadTrack(){
+        if (trackLines.isEmpty()){
+            throw new IllegalStateException("Track Data is not loaded.");
+        }
         int rows = trackLines.size();
         int columns = trackLines.get(0).length();
         return new int[]{rows, columns};
     }
 
-    public List<String> readPlayers(){
-        try {
-            Path filePath = Path.of(getClass().getClassLoader().getResource("playersFile.txt").toURI());
-            return Files.readAllLines(filePath);
-        } catch (Exception e){
-            throw new RuntimeException("Error reading the file", e);
-        }
+    public List<String> getTrackLines(){
+        return trackLines;
     }
 
-    public List<String[]> loadPlayers(List<String> playerLines){
+    public List<String[]> loadPlayers(){
         List<String[]> playerData = new ArrayList<>();
         for (String line : playerLines) {
             String[] parts = line.split(",");
             if (parts.length != 2) {
-                System.out.println("Invalid entry in file" + line);
+                System.err.println("Invalid player data format: " + line);
                 continue;
             }
             String type = parts[0].trim();

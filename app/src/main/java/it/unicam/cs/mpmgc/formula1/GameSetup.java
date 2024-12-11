@@ -32,8 +32,8 @@ public class GameSetup{
     private final List<iCar> players;
     private int playerIndex;
     private Track track;
-    private FileIO fileIO;
-    private ConsoleIO consoleIO;
+    private final FileIO fileIO;
+    private final ConsoleIO consoleIO;
 
     public GameSetup() {
         this.players = new ArrayList<>();
@@ -43,10 +43,9 @@ public class GameSetup{
     }
 
     public void setupGame(){
+        fileIO.readAndParseFile();
         setupTrack();
-        setupPlayers(
-                fileIO.loadPlayers(fileIO.readPlayers())
-        );
+        setupPlayers(fileIO.loadPlayers());
         for (iCar player : players){
             consoleIO.placePlayer(player, track);
         }
@@ -54,10 +53,9 @@ public class GameSetup{
     }
 
     public void setupTrack(){
-        List<String> trackData = fileIO.readTrack();
-        int [] dimensions = fileIO.loadTrack(trackData);
+        int[] dimensions = fileIO.loadTrack();
         this.track = new Track(dimensions[0], dimensions[1]);
-        track.createTrack(trackData);
+        track.createTrack(fileIO.getTrackLines());
     }
 
     public void setupPlayers(List<String[]> playerData) {
@@ -85,9 +83,7 @@ public class GameSetup{
         }
     }
 
-    public List<iCar> getPlayers(){
-        return players;
-    }
+    public List<iCar> getPlayers(){return players;}
 
     public Track getTrack(){ return track; }
 

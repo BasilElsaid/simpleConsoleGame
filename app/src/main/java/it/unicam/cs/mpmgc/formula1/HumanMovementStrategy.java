@@ -32,7 +32,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
     private Directions nextDirection;
     private Directions lastDirection;
     private int speed;
-    private Track track;
+    private final Track track;
 
     public HumanMovementStrategy(Track track){
         this.scan = new Scanner(System.in);
