@@ -24,14 +24,14 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public class DirectBotStrategy implements iMovementStrategy{
+public class BotMovementStrategy implements iMovementStrategy{
 
     private Directions currentDirection;
     private Directions lastDirection;
     private int speed;
     private Track track;
 
-    public DirectBotStrategy(Track track){
+    public BotMovementStrategy(Track track){
         this.currentDirection = Directions.RIGHT;
         this.speed = 1;
         this.track = track;
@@ -44,7 +44,8 @@ public class DirectBotStrategy implements iMovementStrategy{
             switch (currentDirection){
                 case RIGHT -> currentDirection = Directions.DOWN;
                 case DOWN -> currentDirection = Directions.LEFT;
-                case LEFT -> currentDirection = Directions.DOWN;
+                case LEFT -> currentDirection = Directions.UP;
+                case UP -> currentDirection = Directions.RIGHT;
             }
         }
         updateSpeed(currentDirection);
@@ -54,7 +55,7 @@ public class DirectBotStrategy implements iMovementStrategy{
     @Override
     public void updateSpeed(Directions currentDirection) {
         if (lastDirection != null && lastDirection == currentDirection){
-            if (speed < 3){
+            if (speed < 2){
                 speed++;
             }
         } else{
