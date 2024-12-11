@@ -35,6 +35,12 @@ public interface iTrack {
     void createTrack(List<String> trackLines);
 
     /**
+     * sets rows and columns of the track
+     * @param trackDimensions [rows, columns]
+     */
+    public void setTrackDimensions(int[] trackDimensions);
+
+    /**
      * the finish position
      * @return the finish position
      */
