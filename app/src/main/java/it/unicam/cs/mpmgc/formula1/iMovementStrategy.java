@@ -33,9 +33,4 @@ public interface iMovementStrategy {
      */
     Position move(Position currentPosition);
 
-    /**
-     * updates the speed of the car and the lastDirection variable
-     * @param currentDirection the current direction based on input from the move method
-     */
-    void updateSpeed(Directions currentDirection);
 }

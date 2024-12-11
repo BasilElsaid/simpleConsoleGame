@@ -29,47 +29,58 @@ import java.util.Scanner;
 public class HumanMovementStrategy implements iMovementStrategy{
 
     private final Scanner scan;
+    private Directions nextDirection;
     private Directions lastDirection;
     private int speed;
 
     public HumanMovementStrategy(){
         this.scan = new Scanner(System.in);
-        this.lastDirection = null;
         this.speed = 1;
     }
 
     @Override
     public Position move(Position currentPosition) {
-
-        System.out.println("Enter your move: W:up, S:down, A:left, D:right");
-        String move = scan.nextLine().toUpperCase();
-        Directions currentDirection;
-
-        switch (move){
-            case "W" :  currentDirection = Directions.UP;
-                        break;
-            case "S" :  currentDirection = Directions.DOWN;
-                        break;
-            case "D" :  currentDirection = Directions.RIGHT;
-                        break;
-            case "A" :  currentDirection = Directions.LEFT;
-                        break;
-            default  :  System.out.println("Invalid Input.");
-                        return new Position(-1, -1);
+        setMove();
+        if (nextDirection == null){
+            return currentPosition;
         }
-        updateSpeed(currentDirection);
-        return currentDirection.move(currentPosition, speed);
-    }
-
-    @Override
-    public void updateSpeed(Directions currentDirection) {
-        if (lastDirection != null && lastDirection == currentDirection){
-            if (speed < 2){
-                speed++;
-            }
-        } else{
+        if (lastDirection == nextDirection){
+            setSpeed();
+        }
+        else {
             speed = 1;
         }
-        lastDirection = currentDirection;
+        lastDirection = nextDirection;
+
+        return nextDirection.move(currentPosition, speed);
+    }
+
+    public void setMove(){
+        System.out.println("Enter your move: W:up, S:down, A:left, D:right");
+        String move = scan.nextLine().toUpperCase();
+        Directions direction = null;
+
+        switch (move){
+            case "W" :  direction = Directions.UP;
+                        break;
+            case "S" :  direction = Directions.DOWN;
+                        break;
+            case "D" :  direction = Directions.RIGHT;
+                        break;
+            case "A" :  direction = Directions.LEFT;
+                        break;
+            default  :  System.out.println("Invalid Input.");
+        }
+        nextDirection = direction;
+    }
+
+    public void setSpeed(){
+        if (speed == 1) {
+            System.out.println("Type Y to increase speed to 2, else nothing");
+            String spd = scan.nextLine().toUpperCase();
+            if (spd.equals("Y")){
+                speed = 2;
+            }
+        }
     }
 }

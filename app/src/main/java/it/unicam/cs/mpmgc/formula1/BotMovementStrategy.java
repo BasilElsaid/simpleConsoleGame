@@ -24,44 +24,36 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import java.util.Random;
+
 public class BotMovementStrategy implements iMovementStrategy{
 
-    private Directions currentDirection;
-    private Directions lastDirection;
+    private Directions nextDirection;
     private int speed;
-    private Track track;
+    private final Track track;
 
     public BotMovementStrategy(Track track){
-        this.currentDirection = Directions.RIGHT;
+        this.nextDirection = Directions.RIGHT;
         this.speed = 1;
         this.track = track;
     }
 
     @Override
     public Position move(Position currentPosition) {
-        Position newPos = currentDirection.move(currentPosition, speed);
-        if (!track.checkValidMove(newPos)){
-            switch (currentDirection){
-                case RIGHT -> currentDirection = Directions.DOWN;
-                case DOWN -> currentDirection = Directions.LEFT;
-                case LEFT -> currentDirection = Directions.UP;
-                case UP -> currentDirection = Directions.RIGHT;
-            }
-        }
-        updateSpeed(currentDirection);
-        return currentDirection.move(currentPosition, speed);
-    }
+        Random random = new Random();
+        speed = 1 + random.nextInt(2);
+        Position newPos = nextDirection.move(currentPosition, speed);
 
-    @Override
-    public void updateSpeed(Directions currentDirection) {
-        if (lastDirection != null && lastDirection == currentDirection){
-            if (speed < 2){
-                speed++;
+        if (!track.checkValidMove(newPos)){
+            switch (nextDirection){
+                case RIGHT -> nextDirection = Directions.DOWN;
+                case DOWN -> nextDirection = Directions.LEFT;
+                case LEFT -> nextDirection = Directions.UP;
+                case UP -> nextDirection = Directions.RIGHT;
             }
-        } else{
-            speed = 1;
         }
-        lastDirection = currentDirection;
+
+        return nextDirection.move(currentPosition, speed);
     }
 
 }
