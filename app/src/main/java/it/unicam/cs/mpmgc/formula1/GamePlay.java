@@ -34,10 +34,10 @@ public class GamePlay implements iGamePlay {
     private ConsoleIO consoleIO;
 
 
-    public GamePlay(GameSetup setup, Track track){
+    public GamePlay(GameSetup setup){
         this.gameFinished = false;
         this.gameSetup = setup;
-        this.track = track;
+        this.track = setup.getTrack();
         this.consoleIO = new ConsoleIO();
     }
 

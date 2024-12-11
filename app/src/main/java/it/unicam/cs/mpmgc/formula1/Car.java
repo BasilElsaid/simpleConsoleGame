@@ -28,13 +28,11 @@ public class Car implements iCar {
 
     private final String name;
     private final Position currentPosition;
-    private final Track track;
     private final iMovementStrategy movementStrategy;
 
-    public Car(String name, Track track, iMovementStrategy movementStrategy){
+    public Car(String name, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
-        this.track = track;
         this.movementStrategy = movementStrategy;
     }
 
@@ -49,14 +47,6 @@ public class Car implements iCar {
     }
 
     @Override
-    public String getCarType() {
-        if (movementStrategy instanceof  HumanMovementStrategy){
-            return "Human";
-        }
-        else return "Bot";
-    }
-
-    @Override
     public void UpdatePosition(Position newPosition) {
         currentPosition.setRow(newPosition.getRow());
         currentPosition.setColumn(newPosition.getColumn());
@@ -65,7 +55,7 @@ public class Car implements iCar {
     @Override
     public void move() {
         Position newPos = movementStrategy.move(currentPosition);
-        if (track.checkValidMove(newPos)){
+        if (movementStrategy.checkValidMove(newPos)){
             UpdatePosition(newPos);
         }
         else {

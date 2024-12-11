@@ -35,10 +35,9 @@ public class GameSetup{
     private FileIO fileIO;
     private ConsoleIO consoleIO;
 
-    public GameSetup(Track track) {
+    public GameSetup() {
         this.players = new ArrayList<>();
         this.playerIndex = 1;
-        this.track = track;
         this.fileIO = new FileIO();
         this.consoleIO = new ConsoleIO();
     }
@@ -56,7 +55,8 @@ public class GameSetup{
 
     public void setupTrack(){
         List<String> trackData = fileIO.readTrack();
-        track.setTrackDimensions(fileIO.loadTrack(trackData));
+        int [] dimensions = fileIO.loadTrack(trackData);
+        this.track = new Track(dimensions[0], dimensions[1]);
         track.createTrack(trackData);
     }
 
@@ -67,11 +67,11 @@ public class GameSetup{
             String playerName = pair[1];
             switch (playerType) {
                 case "Bot": {
-                    player = new Car(playerName, track, new BotMovementStrategy(track));
+                    player = new Car(playerName, new BotMovementStrategy(track));
                     break;
                 }
                 case "Human": {
-                    player = new Car(playerName, track, new HumanMovementStrategy());
+                    player = new Car(playerName, new HumanMovementStrategy(track));
                     break;
                 }
                 default: {
@@ -88,5 +88,7 @@ public class GameSetup{
     public List<iCar> getPlayers(){
         return players;
     }
+
+    public Track getTrack(){ return track; }
 
 }

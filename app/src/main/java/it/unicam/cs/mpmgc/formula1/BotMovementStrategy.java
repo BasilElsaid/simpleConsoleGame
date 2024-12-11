@@ -44,7 +44,7 @@ public class BotMovementStrategy implements iMovementStrategy{
         speed = 1 + random.nextInt(2);
         Position newPos = nextDirection.move(currentPosition, speed);
 
-        if (!track.checkValidMove(newPos)){
+        if (!checkValidMove(newPos)){
             switch (nextDirection){
                 case RIGHT -> nextDirection = Directions.DOWN;
                 case DOWN -> nextDirection = Directions.LEFT;
@@ -54,6 +54,17 @@ public class BotMovementStrategy implements iMovementStrategy{
         }
 
         return nextDirection.move(currentPosition, speed);
+    }
+
+    @Override
+    public boolean checkValidMove(Position move) {
+        int row = move.getRow();
+        int column = move.getColumn();
+        if (move.getRow() <= 0 || move.getRow() >= track.getRows()
+                || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
+            return false;
+        }
+        else return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
     }
 
 }

@@ -35,10 +35,16 @@ public interface iTrack {
     void createTrack(List<String> trackLines);
 
     /**
-     * sets rows and columns of the track
-     * @param trackDimensions [rows, columns]
+     *
+     * @return the number of rows
      */
-    public void setTrackDimensions(int[] trackDimensions);
+    public int getRows();
+
+    /**
+     *
+     * @return the number of columns
+     */
+    public int getColumns();
 
     /**
      * the finish position
@@ -51,12 +57,5 @@ public interface iTrack {
      * @return the track array
      */
     char[][] getTrack();
-
-    /**
-     * check if the move is in or out boarders
-     * @param move the position to move to
-     * @return true if valid, false if not
-     */
-    boolean checkValidMove(Position move);
 
 }

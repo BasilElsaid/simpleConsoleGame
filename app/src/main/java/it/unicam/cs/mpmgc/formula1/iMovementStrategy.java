@@ -33,4 +33,10 @@ public interface iMovementStrategy {
      */
     Position move(Position currentPosition);
 
+    /**
+     * check if the move is in or out boarders
+     * @param move the position to move to
+     * @return true if valid, false if not
+     */
+    boolean checkValidMove(Position move);
 }

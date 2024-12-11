@@ -32,10 +32,12 @@ public class HumanMovementStrategy implements iMovementStrategy{
     private Directions nextDirection;
     private Directions lastDirection;
     private int speed;
+    private Track track;
 
-    public HumanMovementStrategy(){
+    public HumanMovementStrategy(Track track){
         this.scan = new Scanner(System.in);
         this.speed = 1;
+        this.track = track;
     }
 
     @Override
@@ -53,6 +55,17 @@ public class HumanMovementStrategy implements iMovementStrategy{
         lastDirection = nextDirection;
 
         return nextDirection.move(currentPosition, speed);
+    }
+
+    @Override
+    public boolean checkValidMove(Position move) {
+        int row = move.getRow();
+        int column = move.getColumn();
+        if (move.getRow() <= 0 || move.getRow() >= track.getRows()
+                || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
+            return false;
+        }
+        else return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
     }
 
     public void setMove(){

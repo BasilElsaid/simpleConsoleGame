@@ -30,12 +30,10 @@ public class App {
 
     public static void main(String[] args) {
 
-        Track track = new Track();
-
-        GameSetup setup = new GameSetup(track);
+        GameSetup setup = new GameSetup();
         setup.setupGame();
 
-        GamePlay game = new GamePlay(setup, track);
+        GamePlay game = new GamePlay(setup);
         game.startGame();
 
     }

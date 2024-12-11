@@ -28,16 +28,15 @@ import java.util.List;
 
 public class Track implements iTrack{
 
-    private int rows;
-    private int columns;
-    private char[][] track;
+    private final int rows;
+    private final int columns;
+    private final char[][] track;
     private Position finish;
 
-    public Track(){
-        this.rows = 0;
-        this.columns = 0;
-        this.track = null;
-        this.finish = null;
+    public Track(int rows, int columns){
+        this.rows = rows;
+        this.columns = columns;
+        this.track = new char[rows][columns];
     }
 
     @Override
@@ -54,10 +53,14 @@ public class Track implements iTrack{
         }
     }
 
-    public void setTrackDimensions(int[] trackDimensions){
-        this.rows = trackDimensions[0];
-        this.columns = trackDimensions[1];
-        this.track = new char[rows][columns];
+    @Override
+    public int getRows(){
+        return rows;
+    }
+
+    @Override
+    public int getColumns(){
+        return columns;
     }
 
     @Override
@@ -70,14 +73,4 @@ public class Track implements iTrack{
         return track;
     }
 
-    @Override
-    public boolean checkValidMove(Position move) {
-        int row = move.getRow();
-        int column = move.getColumn();
-        if (move.getRow() <= 0 || move.getRow() >= rows
-                || move.getColumn() <= 0 || move.getColumn() >= columns){
-            return false;
-        }
-        else return track[row][column] == 'F' || track[row][column] == '.';
-    }
 }
