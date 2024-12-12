@@ -31,7 +31,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class PositionTest {
 
     @Test
-    public void TestPositionInizialization(){
+    public void TestPositionInitialization(){
         Position position = new Position(3, 4);
         assertEquals(3, position.getRow());
         assertEquals(4, position.getColumn());

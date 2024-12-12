@@ -24,8 +24,18 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TrackTest {
+
+    @Test
+    public void TestTrackInitialization(){
+        Track track = new Track(10, 10);
+        assertEquals(10, track.getRows());
+        assertEquals(10, track.getColumns());
+        assertNotNull(track.getTrack());
+    }
 
 }
