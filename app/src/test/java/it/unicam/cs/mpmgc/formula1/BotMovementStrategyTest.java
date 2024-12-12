@@ -50,13 +50,42 @@ class BotMovementStrategyTest {
         track.getTrack()[1][1] = '.';
         Position validMove = new Position(1,1);
         assertTrue(botStrategy.checkValidMove(validMove));
+    }
+
+    @Test
+    public void TestInvalidMove(){
+        Track track = new Track(5, 6);
+        BotMovementStrategy botStrategy = new BotMovementStrategy(track);
+
+        Position invalidMove = new Position(10,1);
+        assertFalse(botStrategy.checkValidMove(invalidMove));
+    }
+
+    @Test
+    public void TestInvalidMoveForObstacle(){
+        Track track = new Track(5, 6);
+        BotMovementStrategy botStrategy = new BotMovementStrategy(track);
 
         track.getTrack()[3][3] = 'B';
         Position validMoveBotPresent = new Position(3,3);
         assertFalse(botStrategy.checkValidMove(validMoveBotPresent));
+    }
 
-        Position invalidMove = new Position(10,1);
-        assertFalse(botStrategy.checkValidMove(invalidMove));
+    @Test
+    public void TestDirectionMovement(){
+        Position startingPosition = new Position(2, 2);
+
+        Position rightMovement = Directions.RIGHT.move(startingPosition, 2);
+        assertEquals(new Position(2, 4), rightMovement);
+
+        Position leftMovement = Directions.LEFT.move(startingPosition, 1);
+        assertEquals(new Position(2, 1), leftMovement);
+
+        Position upMovement = Directions.UP.move(startingPosition, 1);
+        assertEquals(new Position(1, 2), upMovement);
+
+        Position downMovement = Directions.DOWN.move(startingPosition, 2);
+        assertEquals(new Position(4, 2), downMovement);
     }
 
 

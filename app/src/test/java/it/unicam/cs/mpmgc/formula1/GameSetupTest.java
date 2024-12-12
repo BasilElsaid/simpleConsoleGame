@@ -31,44 +31,31 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrackTest {
+class GameSetupTest {
 
     @Test
-    public void TestTrackInitialization(){
-        List<String> trackLines = new ArrayList<>();
-        trackLines.add("########");
-        trackLines.add("#......#");
-        trackLines.add("#....__#");
-        trackLines.add("########");
+    public void TestGameSetupTrack(){
+        GameSetup setup = new GameSetup();
+        setup.setupGame();
+        Track track = setup.getTrack();
 
-        Track track = new Track(4, 8);
-        track.createTrack(trackLines);
-        char[][] trackMatrix = track.getTrack();
-        List<Position> finishLine = track.getFinishLine();
-
-        assertEquals(4, track.getRows());
-        assertEquals(8, track.getColumns());
-        assertNotNull(track.getTrack());
-        assertEquals('#', trackMatrix[0][0]);
-        assertEquals('.', trackMatrix[1][2]);
-        assertEquals('_', trackMatrix[2][5]);
+        assertNotNull(track);
+        assertEquals(16, track.getRows());
+        assertEquals(20, track.getColumns());
     }
 
     @Test
-    public void TestFinishLinePosition(){
-        List<String> trackLines = new ArrayList<>();
-        trackLines.add("########");
-        trackLines.add("#......#");
-        trackLines.add("#....__#");
-        trackLines.add("########");
+    public void TestGameSetupPlayers(){
+        GameSetup setup = new GameSetup();
+        List<String[]> playerData = new ArrayList<>();
+        playerData.add(new String[]{"Bot", "BotPlayer"});
+        playerData.add(new String[]{"Human", "HumanPlayer"});
+        setup.setupPlayers(playerData);
+        List<iCar> players = setup.getPlayers();
 
-        Track track = new Track(4, 8);
-        track.createTrack(trackLines);
-        List<Position> finishLine = track.getFinishLine();
-
-        assertEquals(2, finishLine.size());
-        assertTrue(finishLine.contains(new Position(2,5)));
-        assertTrue(finishLine.contains(new Position(2,6)));
+        assertEquals(2, players.size());
+        assertEquals("BotPlayer", players.get(0).getName());
+        assertEquals("HumanPlayer", players.get(1).getName());
     }
 
 }

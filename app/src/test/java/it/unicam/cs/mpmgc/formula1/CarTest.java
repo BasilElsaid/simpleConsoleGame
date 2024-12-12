@@ -24,51 +24,43 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 
+import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TrackTest {
+class CarTest {
 
     @Test
-    public void TestTrackInitialization(){
-        List<String> trackLines = new ArrayList<>();
-        trackLines.add("########");
-        trackLines.add("#......#");
-        trackLines.add("#....__#");
-        trackLines.add("########");
-
+    public void TestCarPositionUpdate(){
         Track track = new Track(4, 8);
-        track.createTrack(trackLines);
-        char[][] trackMatrix = track.getTrack();
-        List<Position> finishLine = track.getFinishLine();
-
-        assertEquals(4, track.getRows());
-        assertEquals(8, track.getColumns());
-        assertNotNull(track.getTrack());
-        assertEquals('#', trackMatrix[0][0]);
-        assertEquals('.', trackMatrix[1][2]);
-        assertEquals('_', trackMatrix[2][5]);
+        Car car = new Car("TestCar", new BotMovementStrategy(track));
+        Position newPos = new Position(2,2);
+        car.UpdatePosition(newPos);
+        assertEquals(newPos, car.getCurrentPosition());
     }
 
     @Test
-    public void TestFinishLinePosition(){
+    public void TestCarMove(){
         List<String> trackLines = new ArrayList<>();
         trackLines.add("########");
         trackLines.add("#......#");
         trackLines.add("#....__#");
         trackLines.add("########");
-
         Track track = new Track(4, 8);
         track.createTrack(trackLines);
-        List<Position> finishLine = track.getFinishLine();
 
-        assertEquals(2, finishLine.size());
-        assertTrue(finishLine.contains(new Position(2,5)));
-        assertTrue(finishLine.contains(new Position(2,6)));
+        Car car = new Car("TestCar", new BotMovementStrategy(track));
+        Position initialPos = new Position(1,1);
+        car.UpdatePosition(initialPos);
+
+        car.move();
+
+        assertNotEquals(initialPos, car.getCurrentPosition());
     }
 
 }
