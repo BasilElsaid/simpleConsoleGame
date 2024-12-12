@@ -48,8 +48,7 @@ public class Car implements iCar {
 
     @Override
     public void UpdatePosition(Position newPosition) {
-        currentPosition.setRow(newPosition.getRow());
-        currentPosition.setColumn(newPosition.getColumn());
+        currentPosition.setPosition(newPosition);
     }
 
     @Override

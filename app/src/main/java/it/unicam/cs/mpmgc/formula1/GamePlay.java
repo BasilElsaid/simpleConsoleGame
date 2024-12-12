@@ -66,12 +66,15 @@ public class GamePlay implements iGamePlay {
 
     @Override
     public boolean checkWinner(iCar player){
-        if (player.getCurrentPosition().getRow() == track.getFinishLine().getRow()
-                && player.getCurrentPosition().getColumn() == track.getFinishLine().getColumn()){
-            consoleIO.winnerNameMessage(player);
-            endGame();
-            return true;
+        for (Position position : track.getFinishLine()){
+            if (player.getCurrentPosition().getRow() == position.getRow()
+                    && player.getCurrentPosition().getColumn() == position.getColumn()){
+                consoleIO.winnerNameMessage(player);
+                endGame();
+                return true;
+            }
         }
+
         return false;
     }
 

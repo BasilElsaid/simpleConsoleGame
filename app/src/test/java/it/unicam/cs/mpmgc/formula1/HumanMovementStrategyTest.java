@@ -24,38 +24,8 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import static org.junit.jupiter.api.Assertions.*;
 
-import java.util.List;
-
-public interface iTrack {
-
-    /**
-     * creates the track from a reading text file.
-     */
-    void createTrack(List<String> trackLines);
-
-    /**
-     *
-     * @return the number of rows
-     */
-    public int getRows();
-
-    /**
-     *
-     * @return the number of columns
-     */
-    public int getColumns();
-
-    /**
-     * the finish position
-     * @return a list of positions where the finish line is
-     */
-    List<Position> getFinishLine();
-
-    /**
-     * the track array
-     * @return the track array
-     */
-    char[][] getTrack();
+class HumanMovementStrategyTest {
 
 }

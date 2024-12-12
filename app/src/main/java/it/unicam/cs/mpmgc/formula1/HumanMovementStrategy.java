@@ -29,7 +29,6 @@ import java.util.Scanner;
 public class HumanMovementStrategy implements iMovementStrategy{
 
     private final Scanner scan;
-    private Directions nextDirection;
     private Directions lastDirection;
     private int speed;
     private final Track track;
@@ -42,13 +41,11 @@ public class HumanMovementStrategy implements iMovementStrategy{
 
     @Override
     public Position move(Position currentPosition) {
-        setMove();
+        Directions nextDirection = setNextDirection();
         if (nextDirection == null) {
             return currentPosition;
         }
-
-        setSpeed();
-        lastDirection = nextDirection;
+        setSpeed(nextDirection);
 
         Position newPos = nextDirection.move(currentPosition, speed);
         if (!checkValidMove(newPos)){
@@ -56,6 +53,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
             return currentPosition;
         }
 
+        lastDirection = nextDirection;
         return newPos;
     }
 
@@ -67,10 +65,10 @@ public class HumanMovementStrategy implements iMovementStrategy{
                 || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
             return false;
         }
-        return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
+        return track.getTrack()[row][column] == '_' || track.getTrack()[row][column] == '.';
     }
 
-    public void setMove(){
+    public Directions setNextDirection(){
         System.out.println("Enter your move: W:up, S:down, A:left, D:right");
         String move = scan.nextLine().toUpperCase();
         Directions direction = null;
@@ -84,25 +82,19 @@ public class HumanMovementStrategy implements iMovementStrategy{
                         break;
             case "A" :  direction = Directions.LEFT;
                         break;
-            default  :  System.out.println("Invalid Input, please Enter W/S/A/D.");
+            default  :  System.out.println("Invalid Input, stay at same position.");
         }
-        nextDirection = direction;
+        return direction;
     }
 
-    public void setSpeed(){
+    public void setSpeed(Directions nextDirection){
         if (lastDirection == nextDirection){
             if (speed == 1) {
-                System.out.println("Your speed is 1, Type Y to increase speed to 2, else press Enter.");
-                String spd = scan.nextLine().toUpperCase();
-                if (spd.equals("Y")){
-                    speed = 2;
-                    System.out.println("Speed increased to 2!");
-                }
+                speed = 2;
+                System.out.println("Speed increased to 2 for keeping same direction.");
             }
         }
-        else {
-            speed = 1;
-        }
+        else { speed = 1; }
     }
 
 }

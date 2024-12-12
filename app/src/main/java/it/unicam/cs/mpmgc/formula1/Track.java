@@ -24,6 +24,7 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Track implements iTrack{
@@ -31,12 +32,13 @@ public class Track implements iTrack{
     private final int rows;
     private final int columns;
     private final char[][] track;
-    private Position finish;
+    private final List<Position> finishPositions;
 
     public Track(int rows, int columns){
         this.rows = rows;
         this.columns = columns;
         this.track = new char[rows][columns];
+        this.finishPositions = new ArrayList<>();
     }
 
     @Override
@@ -46,8 +48,8 @@ public class Track implements iTrack{
             for (int column = 0; column < columns; column++ ){
                 char cell = line.charAt(column);
                 track[row][column] = cell;
-                if (cell == 'F'){
-                    finish = new Position(row, column);
+                if (cell == '_'){
+                    finishPositions.add(new Position(row, column));
                 }
             }
         }
@@ -64,8 +66,8 @@ public class Track implements iTrack{
     }
 
     @Override
-    public Position getFinishLine() {
-        return finish;
+    public List<Position> getFinishLine() {
+        return finishPositions;
     }
 
     @Override

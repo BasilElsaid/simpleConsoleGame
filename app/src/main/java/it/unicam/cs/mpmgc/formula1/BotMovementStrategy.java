@@ -66,7 +66,7 @@ public class BotMovementStrategy implements iMovementStrategy{
                 || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
             return false;
         }
-        return track.getTrack()[row][column] == 'F' || track.getTrack()[row][column] == '.';
+        return track.getTrack()[row][column] == '_' || track.getTrack()[row][column] == '.';
     }
 
 }

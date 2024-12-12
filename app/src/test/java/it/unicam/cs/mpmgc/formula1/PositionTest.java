@@ -24,38 +24,24 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import org.junit.jupiter.api.Test;
 
-import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
 
-public interface iTrack {
+class PositionTest {
 
-    /**
-     * creates the track from a reading text file.
-     */
-    void createTrack(List<String> trackLines);
+    @Test
+    public void TestPositionInizialization(){
+        Position position = new Position(3, 4);
+        assertEquals(3, position.getRow());
+        assertEquals(4, position.getColumn());
+    }
 
-    /**
-     *
-     * @return the number of rows
-     */
-    public int getRows();
-
-    /**
-     *
-     * @return the number of columns
-     */
-    public int getColumns();
-
-    /**
-     * the finish position
-     * @return a list of positions where the finish line is
-     */
-    List<Position> getFinishLine();
-
-    /**
-     * the track array
-     * @return the track array
-     */
-    char[][] getTrack();
+    @Test
+    public void TestPositionEquality(){
+        Position position1 = new Position(5,6);
+        Position position2 = new Position(5,6);
+        assertEquals(position1, position2);
+    }
 
 }
