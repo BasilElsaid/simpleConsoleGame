@@ -24,9 +24,9 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public class TrackRenderer {
+public class ConsoleTrackRenderer {
 
-    public TrackRenderer(){};
+    public ConsoleTrackRenderer(){};
 
     /**
      * displays the whole track in console.
@@ -65,12 +65,4 @@ public class TrackRenderer {
         track.getTrack()[row][column] = '.';
     }
 
-    /**
-     * makes the next move by input from user, or randomly for bots
-     * @param player the player to be moved
-     */
-    public void move(iCar player) {
-        Position newPos = player.getMovementStrategy().move(player.getCurrentPosition());
-        player.UpdatePosition(newPos);
-    }
 }

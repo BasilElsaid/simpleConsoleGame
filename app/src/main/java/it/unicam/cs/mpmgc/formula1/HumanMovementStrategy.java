@@ -32,10 +32,12 @@ public class HumanMovementStrategy implements iMovementStrategy{
     private Directions nextDirection;
     private int speed;
     private final Track track;
+    private final ConsoleMessages messages;
 
     public HumanMovementStrategy(Track track){
         this.speed = 1;
         this.track = track;
+        this.messages = new ConsoleMessages();
     }
 
     @Override
@@ -48,7 +50,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
 
         Position newPos = nextDirection.move(currentPosition, speed);
         if (!checkValidMove(newPos)){
-            System.out.println("Invalid Move, stay at same position.");
+            messages.invalidMoveMessage();
             return currentPosition;
         }
 
@@ -81,7 +83,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
      */
     public void setNextDirection(){
         Scanner scan = new Scanner(System.in);
-        System.out.println("Enter your move: W:up, S:down, A:left, D:right");
+        messages.enterMoveMessage();
         String move = scan.nextLine().toUpperCase();
         Directions direction = null;
 
@@ -94,7 +96,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
                         break;
             case "A" :  direction = Directions.LEFT;
                         break;
-            default  :  System.out.println("Invalid Input, stay at same position.");
+            default  :  messages.invalidInputMessage();
         }
         nextDirection = direction;
     }
@@ -107,7 +109,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
         if (lastDirection == nextDirection){
             if (speed == 1) {
                 speed = 2;
-                System.out.println("Speed increased to 2 for keeping same direction.");
+                messages.increasedSpeedMessage();
             }
         }
         else { speed = 1; }

@@ -57,4 +57,32 @@ public class ConsoleMessages {
     public void winnerNameMessage(iCar player){
         System.out.println("The winner is : " + player.getName());
     }
+
+    /**
+     * displays wrong input message.
+     */
+    public void invalidInputMessage(){
+        System.out.println("Invalid Input, stay at same position.");
+    }
+
+    /**
+     * displays enter move message.
+     */
+    public void enterMoveMessage(){
+        System.out.println("Enter your move: W:up, S:down, A:left, D:right");
+    }
+
+    /**
+     * displays speed increased message.
+     */
+    public void increasedSpeedMessage(){
+        System.out.println("Speed increased to 2 for keeping same direction.");
+    }
+    /**
+     * displays wrong move message.
+     */
+    public void invalidMoveMessage(){
+        System.out.println("Invalid Move, stay at same position.");
+    }
+
 }

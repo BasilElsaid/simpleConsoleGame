@@ -32,14 +32,14 @@ public class GamePlay implements iGamePlay {
     private final GameSetup gameSetup;
     private final Track track;
     private final ConsoleMessages messages;
-    private final TrackRenderer trackRenderer;
+    private final ConsoleTrackRenderer consoleTrackRenderer;
 
     public GamePlay(GameSetup setup){
         this.gameFinished = false;
         this.gameSetup = setup;
         this.track = setup.getTrack();
         this.messages = new ConsoleMessages();
-        this.trackRenderer = new TrackRenderer();
+        this.consoleTrackRenderer = new ConsoleTrackRenderer();
     }
 
     @Override
@@ -50,7 +50,7 @@ public class GamePlay implements iGamePlay {
             for (iCar player : gameSetup.getPlayers()){
                 executeTurn(player);
             }
-            trackRenderer.displayTrack(track);
+            consoleTrackRenderer.displayTrack(track);
         }
         messages.endGameMessage();
         scan.close();
@@ -64,10 +64,9 @@ public class GamePlay implements iGamePlay {
     @Override
     public void executeTurn(iCar player) {
         messages.playerTurnMessage(player);
-        trackRenderer.ResetCurrentPositionSymbol(player, track);
+        consoleTrackRenderer.ResetCurrentPositionSymbol(player, track);
         player.move();
-        trackRenderer.move(player);
-        trackRenderer.placePlayer(player, track);
+        consoleTrackRenderer.placePlayer(player, track);
         if (checkWinner(player)){
             endGame();
         }

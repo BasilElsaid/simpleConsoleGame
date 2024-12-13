@@ -33,13 +33,13 @@ public class GameSetup{
     private int playerIndex;
     private Track track;
     private final FileIO fileIO;
-    private final TrackRenderer trackRenderer;
+    private final ConsoleTrackRenderer consoleTrackRenderer;
 
     public GameSetup() {
         this.players = new ArrayList<>();
         this.playerIndex = 1;
         this.fileIO = new FileIO();
-        this.trackRenderer = new TrackRenderer();
+        this.consoleTrackRenderer = new ConsoleTrackRenderer();
     }
 
     public void setupGame(){
@@ -47,9 +47,9 @@ public class GameSetup{
         setupTrack();
         setupPlayers(fileIO.loadPlayers());
         for (iCar player : players){
-            trackRenderer.placePlayer(player, track);
+            consoleTrackRenderer.placePlayer(player, track);
         }
-        trackRenderer.displayTrack(track);
+        consoleTrackRenderer.displayTrack(track);
     }
 
     public void setupTrack(){
@@ -73,7 +73,7 @@ public class GameSetup{
                     break;
                 }
                 default: {
-                    System.out.println(playerType + ": Type is not Bot/Human");
+                    System.err.println(playerType + ": Type is not Bot/Human");
                     return;
                 }
             }
