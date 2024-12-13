@@ -27,20 +27,18 @@ package it.unicam.cs.mpmgc.formula1;
 public interface iCar {
 
     /**
-     *
-     * @return nome del veicolo
+     * @return car name.
      */
     String getName();
 
     /**
-     *
-     * @return posizione attuale del veicolo
+     * @return car current position.
      */
     Position getCurrentPosition();
 
     /**
-     * updates the position of the race
-     * @param newPosition the new position of the racer
+     * updates the position of the racer on track.
+     * @param newPosition the new position of the racer.
      */
     void UpdatePosition(Position newPosition);
 

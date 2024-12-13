@@ -38,7 +38,7 @@ class GamePlayTest {
 
         iCar player1 = setup.getPlayers().get(0);
         iCar player2 = setup.getPlayers().get(1);
-        player1.UpdatePosition(setup.getTrack().getFinishLine().get(0));
+        player1.UpdatePosition(setup.getTrack().getFinishLine().get(0)); // put player1 at a final position
 
         assertTrue(game.checkWinner(player1));
         assertFalse(game.checkWinner(player2));

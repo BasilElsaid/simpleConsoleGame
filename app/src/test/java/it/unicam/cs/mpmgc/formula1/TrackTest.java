@@ -53,8 +53,8 @@ class TrackTest {
         char[][] trackMatrix = track.getTrack();
         List<Position> finishLine = track.getFinishLine();
 
-        assertEquals(4, track.getRows());
-        assertEquals(8, track.getColumns());
+        assertEquals(4, track.getRows());       // rows
+        assertEquals(8, track.getColumns());    // columns
         assertNotNull(track.getTrack());
         assertEquals('#', trackMatrix[0][0]);
         assertEquals('.', trackMatrix[1][2]);

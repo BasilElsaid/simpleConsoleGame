@@ -30,31 +30,28 @@ import java.util.List;
 public interface iTrack {
 
     /**
-     * creates the track from a reading text file.
+     * creates the track from a given List of strings.
+     * it also sets the final positions.
      */
     void createTrack(List<String> trackLines);
 
     /**
-     *
-     * @return the number of rows
+     * @return the number of rows of the trackFormat.
      */
     public int getRows();
 
     /**
-     *
-     * @return the number of columns
+     * @return the number of columns of the trackFormat.
      */
     public int getColumns();
 
     /**
-     * the finish position
-     * @return a list of positions where the finish line is
+     * @return a list of positions where the finish line is placed.
      */
     List<Position> getFinishLine();
 
     /**
-     * the track array
-     * @return the track array
+     * @return the track array.
      */
     char[][] getTrack();
 

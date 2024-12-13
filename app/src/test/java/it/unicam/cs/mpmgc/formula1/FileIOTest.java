@@ -57,8 +57,8 @@ class FileIOTest {
     @Test
     public void TestLoadTrack(){
         int[] dimensions = fileIO.loadTrack();
-        assertEquals(16, dimensions[0]);
-        assertEquals(20, dimensions[1]);
+        assertEquals(16, dimensions[0]); // rows
+        assertEquals(20, dimensions[1]); // columns
     }
 
     @Test

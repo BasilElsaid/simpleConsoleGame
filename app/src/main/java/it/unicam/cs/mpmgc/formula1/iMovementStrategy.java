@@ -27,28 +27,26 @@ package it.unicam.cs.mpmgc.formula1;
 public interface iMovementStrategy {
 
     /**
-     * needed for various strategy classes
-     * @param currentPosition the current position of the car
-     * @return the position where the car need to move to
+     * finds the position where the car will move to.
+     * @param currentPosition the current position of the car.
+     * @return the position where the car will move to.
      */
     Position move(Position currentPosition);
 
     /**
-     * check if the move is in or out boarders
-     * @param move the position to move to
-     * @return true if valid, false if not
+     * check if the move is in or out bounders before moving.
+     * @param move the position to move to.
+     * @return true if position is free to move, false if position is out of bounders/occupied.
      */
     boolean checkValidMove(Position move);
 
     /**
-     *
-     * @return the car speed
+     * @return the car speed.
      */
     int getSpeed();
 
     /**
-     *
-     * @return the car next direction
+     * @return the car next direction.
      */
     Directions getNextDirection();
 }

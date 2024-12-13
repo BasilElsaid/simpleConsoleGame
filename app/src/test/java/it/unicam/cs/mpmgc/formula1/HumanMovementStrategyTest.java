@@ -51,13 +51,13 @@ class HumanMovementStrategyTest {
 
     @Test
     public void TestInvalidMove(){
-        Position invalidMove = new Position(10,1);
+        Position invalidMove = new Position(10,1);  // out of bounders
         assertFalse(humanStrategy.checkValidMove(invalidMove));
     }
 
     @Test
     public void TestInvalidMoveForObstacle(){
-        track.getTrack()[3][3] = 'B';
+        track.getTrack()[3][3] = 'B';   // inside track, but there is another bot there
         Position validMoveBotPresent = new Position(3,3);
         assertFalse(humanStrategy.checkValidMove(validMoveBotPresent));
     }
@@ -87,7 +87,7 @@ class HumanMovementStrategyTest {
         assertEquals(1, humanStrategy.getSpeed());
 
         track.getTrack()[3][5] = '.';
-        System.setIn(new ByteArrayInputStream("W\n".getBytes()));
+        System.setIn(new ByteArrayInputStream("W\n".getBytes()));   // same direction so increase speed
         humanStrategy.move(new Position(4,5));
         assertEquals(2, humanStrategy.getSpeed());
     }

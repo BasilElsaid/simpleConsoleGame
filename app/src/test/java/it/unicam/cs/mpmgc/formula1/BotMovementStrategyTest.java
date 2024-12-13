@@ -93,15 +93,15 @@ class BotMovementStrategyTest {
 
     @Test
     public void TestBotChangeDirectionOnObstacle(){
-        track.getTrack()[0][4] = '#';
+        track.getTrack()[0][4] = '#';                       // obstacle with Directions.RIGHT -> go Down
         botStrategy.move(new Position(0,4));
         assertEquals(Directions.DOWN, botStrategy.getNextDirection());
 
-        track.getTrack()[4][4] = '#';
+        track.getTrack()[4][4] = '#';                       // obstacle with Directions.DOWN -> go Left
         botStrategy.move(new Position(4,4));
         assertEquals(Directions.LEFT, botStrategy.getNextDirection());
 
-        track.getTrack()[4][0] = '#';
+        track.getTrack()[4][0] = '#';                       // obstacle with Directions.LEFT -> go Up
         botStrategy.move(new Position(4,0));
         assertEquals(Directions.UP, botStrategy.getNextDirection());
     }

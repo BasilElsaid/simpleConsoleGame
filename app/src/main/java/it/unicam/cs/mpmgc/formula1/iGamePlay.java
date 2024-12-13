@@ -27,19 +27,19 @@ package it.unicam.cs.mpmgc.formula1;
 public interface iGamePlay {
 
     /**
-     * starts the game
+     * starts the game.
      */
     void startGame();
 
     /**
-     * ends the game
+     * ends the game.
      */
     void endGame();
 
     /**
-     * gives the name of the winner
-     * @param player the player to be checked
-     * @return true in case a player has won, false in other case
+     * checks if a player has won the race, so if he is at a final position.
+     * @param player the player to be checked.
+     * @return true in case a player has won, false in other case.
      */
     boolean checkWinner(iCar player);
 
