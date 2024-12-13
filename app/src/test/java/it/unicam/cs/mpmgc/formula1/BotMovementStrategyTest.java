@@ -24,17 +24,24 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class BotMovementStrategyTest {
 
+    Track track;
+    BotMovementStrategy botStrategy;
+
+    @BeforeEach
+    public void TrackSetUp(){
+        track = new Track(5,6);
+        botStrategy = new BotMovementStrategy(track);
+    }
+
     @Test
     public void TestBotMovementStrategyMove(){
-        Track track = new Track(2, 3);
-        BotMovementStrategy botStrategy = new BotMovementStrategy(track);
-
         Position startPosition = new Position(0,0);
         Position newPosition = botStrategy.move(startPosition);
 
@@ -44,9 +51,6 @@ class BotMovementStrategyTest {
 
     @Test
     public void TestCheckValidMove(){
-        Track track = new Track(5, 6);
-        BotMovementStrategy botStrategy = new BotMovementStrategy(track);
-
         track.getTrack()[1][1] = '.';
         Position validMove = new Position(1,1);
         assertTrue(botStrategy.checkValidMove(validMove));
@@ -54,21 +58,15 @@ class BotMovementStrategyTest {
 
     @Test
     public void TestInvalidMove(){
-        Track track = new Track(5, 6);
-        BotMovementStrategy botStrategy = new BotMovementStrategy(track);
-
         Position invalidMove = new Position(10,1);
         assertFalse(botStrategy.checkValidMove(invalidMove));
     }
 
     @Test
     public void TestInvalidMoveForObstacle(){
-        Track track = new Track(5, 6);
-        BotMovementStrategy botStrategy = new BotMovementStrategy(track);
-
         track.getTrack()[3][3] = 'B';
-        Position validMoveBotPresent = new Position(3,3);
-        assertFalse(botStrategy.checkValidMove(validMoveBotPresent));
+        Position validMoveButAnotherBotPresent = new Position(3,3);
+        assertFalse(botStrategy.checkValidMove(validMoveButAnotherBotPresent));
     }
 
     @Test
@@ -86,6 +84,26 @@ class BotMovementStrategyTest {
 
         Position downMovement = Directions.DOWN.move(startingPosition, 2);
         assertEquals(new Position(4, 2), downMovement);
+    }
+
+    @Test
+    public void TestBotInitialDefaultDirection(){
+        assertEquals(Directions.RIGHT, botStrategy.getNextDirection());
+    }
+
+    @Test
+    public void TestBotChangeDirectionOnObstacle(){
+        track.getTrack()[0][4] = '#';
+        botStrategy.move(new Position(0,4));
+        assertEquals(Directions.DOWN, botStrategy.getNextDirection());
+
+        track.getTrack()[4][4] = '#';
+        botStrategy.move(new Position(4,4));
+        assertEquals(Directions.LEFT, botStrategy.getNextDirection());
+
+        track.getTrack()[4][0] = '#';
+        botStrategy.move(new Position(4,0));
+        assertEquals(Directions.UP, botStrategy.getNextDirection());
     }
 
 

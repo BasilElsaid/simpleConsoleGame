@@ -39,4 +39,16 @@ public interface iMovementStrategy {
      * @return true if valid, false if not
      */
     boolean checkValidMove(Position move);
+
+    /**
+     *
+     * @return the car speed
+     */
+    int getSpeed();
+
+    /**
+     *
+     * @return the car next direction
+     */
+    Directions getNextDirection();
 }

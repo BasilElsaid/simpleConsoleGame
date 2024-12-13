@@ -24,6 +24,7 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
@@ -33,16 +34,22 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TrackTest {
 
-    @Test
-    public void TestTrackInitialization(){
+    private Track track;
+
+    @BeforeEach
+    public void TrackSetUp(){
         List<String> trackLines = new ArrayList<>();
         trackLines.add("########");
         trackLines.add("#......#");
         trackLines.add("#....__#");
         trackLines.add("########");
 
-        Track track = new Track(4, 8);
+        track = new Track(4, 8);
         track.createTrack(trackLines);
+    }
+
+    @Test
+    public void TestCreateTrack(){
         char[][] trackMatrix = track.getTrack();
         List<Position> finishLine = track.getFinishLine();
 
@@ -56,14 +63,6 @@ class TrackTest {
 
     @Test
     public void TestFinishLinePosition(){
-        List<String> trackLines = new ArrayList<>();
-        trackLines.add("########");
-        trackLines.add("#......#");
-        trackLines.add("#....__#");
-        trackLines.add("########");
-
-        Track track = new Track(4, 8);
-        track.createTrack(trackLines);
         List<Position> finishLine = track.getFinishLine();
 
         assertEquals(2, finishLine.size());

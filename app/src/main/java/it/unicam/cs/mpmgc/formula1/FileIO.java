@@ -91,4 +91,8 @@ public class FileIO {
         return playerData;
     }
 
+    public List<String> getPlayerLines(){
+        return playerLines;
+    }
+
 }

@@ -69,4 +69,14 @@ public class BotMovementStrategy implements iMovementStrategy{
         return track.getTrack()[row][column] == '_' || track.getTrack()[row][column] == '.';
     }
 
+    @Override
+    public int getSpeed(){
+        return speed;
+    }
+
+    @Override
+    public Directions getNextDirection(){
+        return nextDirection;
+    }
+
 }

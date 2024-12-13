@@ -24,10 +24,8 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-import org.checkerframework.checker.units.qual.C;
 import org.junit.jupiter.api.Test;
 
-import java.security.PublicKey;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CarTest {
 
     @Test
-    public void TestCarPositionUpdate(){
+    public void TestUpdatePosition(){
         Track track = new Track(4, 8);
         Car car = new Car("TestCar", new BotMovementStrategy(track));
         Position newPos = new Position(2,2);
@@ -45,7 +43,7 @@ class CarTest {
     }
 
     @Test
-    public void TestCarMove(){
+    public void TestMove(){
         List<String> trackLines = new ArrayList<>();
         trackLines.add("########");
         trackLines.add("#......#");

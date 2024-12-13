@@ -28,24 +28,23 @@ import java.util.Scanner;
 
 public class HumanMovementStrategy implements iMovementStrategy{
 
-    private final Scanner scan;
     private Directions lastDirection;
+    private Directions nextDirection;
     private int speed;
     private final Track track;
 
     public HumanMovementStrategy(Track track){
-        this.scan = new Scanner(System.in);
         this.speed = 1;
         this.track = track;
     }
 
     @Override
     public Position move(Position currentPosition) {
-        Directions nextDirection = setNextDirection();
+        setNextDirection();
         if (nextDirection == null) {
             return currentPosition;
         }
-        setSpeed(nextDirection);
+        setSpeed();
 
         Position newPos = nextDirection.move(currentPosition, speed);
         if (!checkValidMove(newPos)){
@@ -68,7 +67,16 @@ public class HumanMovementStrategy implements iMovementStrategy{
         return track.getTrack()[row][column] == '_' || track.getTrack()[row][column] == '.';
     }
 
-    public Directions setNextDirection(){
+    @Override
+    public int getSpeed(){
+        return speed;
+    }
+
+    @Override
+    public Directions getNextDirection(){ return nextDirection; }
+
+    public void setNextDirection(){
+        Scanner scan = new Scanner(System.in);
         System.out.println("Enter your move: W:up, S:down, A:left, D:right");
         String move = scan.nextLine().toUpperCase();
         Directions direction = null;
@@ -84,10 +92,10 @@ public class HumanMovementStrategy implements iMovementStrategy{
                         break;
             default  :  System.out.println("Invalid Input, stay at same position.");
         }
-        return direction;
+        nextDirection = direction;
     }
 
-    public void setSpeed(Directions nextDirection){
+    public void setSpeed(){
         if (lastDirection == nextDirection){
             if (speed == 1) {
                 speed = 2;
@@ -96,5 +104,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
         }
         else { speed = 1; }
     }
+
+
 
 }
