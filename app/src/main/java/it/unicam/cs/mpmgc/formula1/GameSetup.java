@@ -33,13 +33,13 @@ public class GameSetup{
     private int playerIndex;
     private Track track;
     private final FileIO fileIO;
-    private final ConsoleIO consoleIO;
+    private final TrackRenderer trackRenderer;
 
     public GameSetup() {
         this.players = new ArrayList<>();
         this.playerIndex = 1;
         this.fileIO = new FileIO();
-        this.consoleIO = new ConsoleIO();
+        this.trackRenderer = new TrackRenderer();
     }
 
     public void setupGame(){
@@ -47,9 +47,9 @@ public class GameSetup{
         setupTrack();
         setupPlayers(fileIO.loadPlayers());
         for (iCar player : players){
-            consoleIO.placePlayer(player, track);
+            trackRenderer.placePlayer(player, track);
         }
-        consoleIO.displayTrack(track);
+        trackRenderer.displayTrack(track);
     }
 
     public void setupTrack(){

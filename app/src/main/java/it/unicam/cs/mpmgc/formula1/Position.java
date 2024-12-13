@@ -36,21 +36,40 @@ public class Position {
         this.column = column;
     }
 
-
+    /**
+     * @return row number.
+     */
     public int getRow() {
         return row;
     }
 
+    /**
+     *  sets the row number.
+     * @param row new row number.
+     */
     public void setRow(int row) {
         this.row = row;
     }
 
+    /**
+     * @return column number.
+     */
     public int getColumn() {
         return column;
     }
 
-    public void setColumn(int column) { this.column = column; }
+    /**
+     * sets the column number.
+     * @param column new column number.
+     */
+    public void setColumn(int column) {
+        this.column = column;
+    }
 
+    /**
+     * sets a new position.
+     * @param newPos the new position where it extracts row and column.
+     */
     public void setPosition(Position newPos){
         this.row = newPos.getRow();
         this.column = newPos.getColumn();

@@ -39,6 +39,11 @@ public class FileIO {
         playerLines = new ArrayList<>();
     }
 
+
+    /**
+     * reads the file TrackAndPlayers.txt, saves its data in fileLines,
+     * then calls the method parseFile(fileLines).
+     */
     public void readAndParseFile(){
         try {
             Path filePath = Path.of(getClass().getClassLoader().getResource("TrackAndPlayers.txt").toURI());
@@ -49,6 +54,12 @@ public class FileIO {
         }
     }
 
+    /**
+     * it divides the data into track Data and players Data,
+     * each piece is saved into its specific ArrayList defined above,
+     * which are "trackLines and playerLines"
+     * @param fileLines the data from TrackAndPlayers.txt file
+     */
     public void parseFile(List<String> fileLines){
         trackLines.clear();
         playerLines.clear();
@@ -63,6 +74,11 @@ public class FileIO {
         }
     }
 
+    /**
+     * it calculates the dimensions of the track in rows and columns,
+     * then returns them as int[].
+     * @return the track dimensions.
+     */
     public int[] loadTrack(){
         if (trackLines.isEmpty()){
             throw new IllegalStateException("Track Data is not loaded.");
@@ -72,10 +88,18 @@ public class FileIO {
         return new int[]{rows, columns};
     }
 
+    /**
+     * @return trackLines arrayList.
+     */
     public List<String> getTrackLines(){
         return trackLines;
     }
 
+    /**
+     * it divides the player data into 2 parts, the first is the player type,
+     * and the second is player name, then it collects them in an arrayList and returns it.
+     * @return arrayList that contains players split data.
+     */
     public List<String[]> loadPlayers(){
         List<String[]> playerData = new ArrayList<>();
         for (String line : playerLines) {
@@ -91,6 +115,9 @@ public class FileIO {
         return playerData;
     }
 
+    /**
+     * @return trackLine arrayList.
+     */
     public List<String> getPlayerLines(){
         return playerLines;
     }

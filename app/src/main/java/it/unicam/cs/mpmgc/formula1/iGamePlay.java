@@ -37,6 +37,12 @@ public interface iGamePlay {
     void endGame();
 
     /**
+     * makes each turns' steps for the player.
+     * @param player the player which is going to do the steps.
+     */
+    void executeTurn(iCar player);
+
+    /**
      * checks if a player has won the race, so if he is at a final position.
      * @param player the player to be checked.
      * @return true in case a player has won, false in other case.

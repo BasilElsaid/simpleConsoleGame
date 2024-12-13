@@ -24,42 +24,37 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public class Car implements iCar {
+public class ConsoleMessages {
 
-    private final String name;
-    private final Position currentPosition;
-    private final iMovementStrategy movementStrategy;
+    public ConsoleMessages(){};
 
-    public Car(String name, iMovementStrategy movementStrategy){
-        this.name = name;
-        this.currentPosition = new Position(0,0);
-        this.movementStrategy = movementStrategy;
+    /**
+     * displays the welcome message in console.
+     */
+    public void startGameMessage(){
+        System.out.println("Welcome to Formula 1 simulator game!");
     }
 
-    @Override
-    public String getName() {
-        return name;
+    /**
+     * displays the end game message in console.
+     */
+    public void endGameMessage(){
+        System.out.println("Thanks for trying my game!");
     }
 
-    @Override
-    public Position getCurrentPosition() {
-        return currentPosition;
+    /**
+     * displays the player's turn message in console.
+     * @param player the player which the turn is.
+     */
+    public void playerTurnMessage(iCar player){
+        System.out.println(player.getName() + "'s Turn!");
     }
 
-    @Override
-    public iMovementStrategy getMovementStrategy() {
-        return movementStrategy;
+    /**
+     * displays the winner name in console.
+     * @param player the player who won the game.
+     */
+    public void winnerNameMessage(iCar player){
+        System.out.println("The winner is : " + player.getName());
     }
-
-    @Override
-    public void UpdatePosition(Position newPosition) {
-        currentPosition.setPosition(newPosition);
-    }
-
-    @Override
-    public void move() {
-        Position newPos = movementStrategy.move(currentPosition);
-        UpdatePosition(newPos);
-    }
-
 }

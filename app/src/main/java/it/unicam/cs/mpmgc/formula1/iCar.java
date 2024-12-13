@@ -37,6 +37,11 @@ public interface iCar {
     Position getCurrentPosition();
 
     /**
+     * @return car movement strategy "Bot/Human".
+     */
+    iMovementStrategy getMovementStrategy();
+
+    /**
      * updates the position of the racer on track.
      * @param newPosition the new position of the racer.
      */
@@ -46,4 +51,5 @@ public interface iCar {
      * makes the next move by input from user, or randomly for bots
      */
     void move();
+
 }

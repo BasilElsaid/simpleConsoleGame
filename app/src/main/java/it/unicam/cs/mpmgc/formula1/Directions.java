@@ -39,6 +39,12 @@ public enum Directions {
         this.columnDifference = columnChange;
     }
 
+    /**
+     * calculates the next position in base of current position, speed and direction.
+     * @param currentPos the current position to move from.
+     * @param speed the speed of movemet.
+     * @return the new position to move to.
+     */
     public Position move(Position currentPos, int speed){
         int newRow = currentPos.getRow() + this.rowDifference*speed;
         int newColumn = currentPos.getColumn() + this.columnDifference*speed;

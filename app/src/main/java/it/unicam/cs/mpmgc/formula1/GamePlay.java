@@ -31,31 +31,28 @@ public class GamePlay implements iGamePlay {
     private boolean gameFinished;
     private final GameSetup gameSetup;
     private final Track track;
-    private final ConsoleIO consoleIO;
-
+    private final ConsoleMessages messages;
+    private final TrackRenderer trackRenderer;
 
     public GamePlay(GameSetup setup){
         this.gameFinished = false;
         this.gameSetup = setup;
         this.track = setup.getTrack();
-        this.consoleIO = new ConsoleIO();
+        this.messages = new ConsoleMessages();
+        this.trackRenderer = new TrackRenderer();
     }
 
     @Override
     public void startGame(){
         Scanner scan = new Scanner(System.in);
-        consoleIO.startGameMessage();
+        messages.startGameMessage();
         while (!gameFinished) {
             for (iCar player : gameSetup.getPlayers()){
-                consoleIO.playerTurnMessage(player);
-                consoleIO.ResetCurrentPositionSymbol(player, track);
-                player.move();
-                consoleIO.placePlayer(player, track);
-                if (checkWinner(player)){break;}
+                executeTurn(player);
             }
-            consoleIO.displayTrack(track);
+            trackRenderer.displayTrack(track);
         }
-        consoleIO.endGameMessage();
+        messages.endGameMessage();
         scan.close();
     }
 
@@ -65,16 +62,25 @@ public class GamePlay implements iGamePlay {
     }
 
     @Override
+    public void executeTurn(iCar player) {
+        messages.playerTurnMessage(player);
+        trackRenderer.ResetCurrentPositionSymbol(player, track);
+        player.move();
+        trackRenderer.move(player);
+        trackRenderer.placePlayer(player, track);
+        if (checkWinner(player)){
+            endGame();
+        }
+    }
+
+    @Override
     public boolean checkWinner(iCar player){
         for (Position position : track.getFinishLine()){
-            if (player.getCurrentPosition().getRow() == position.getRow()
-                    && player.getCurrentPosition().getColumn() == position.getColumn()){
-                consoleIO.winnerNameMessage(player);
-                endGame();
+            if (player.getCurrentPosition().equals(position)){
+                messages.winnerNameMessage(player);
                 return true;
             }
         }
-
         return false;
     }
 

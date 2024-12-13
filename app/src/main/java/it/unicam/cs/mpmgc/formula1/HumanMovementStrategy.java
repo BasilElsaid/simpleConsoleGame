@@ -75,6 +75,10 @@ public class HumanMovementStrategy implements iMovementStrategy{
     @Override
     public Directions getNextDirection(){ return nextDirection; }
 
+    /**
+     * asks the user for next direction, gets his input,
+     * and sets the next direction variable to the user's input.
+     */
     public void setNextDirection(){
         Scanner scan = new Scanner(System.in);
         System.out.println("Enter your move: W:up, S:down, A:left, D:right");
@@ -95,6 +99,10 @@ public class HumanMovementStrategy implements iMovementStrategy{
         nextDirection = direction;
     }
 
+    /**
+     * increases or decreases the speed variable in base of
+     * keeping same direction for many inputs or changing it.
+     */
     public void setSpeed(){
         if (lastDirection == nextDirection){
             if (speed == 1) {

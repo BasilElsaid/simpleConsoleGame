@@ -24,26 +24,14 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
-public class ConsoleIO {
+public class TrackRenderer {
 
-    public ConsoleIO(){}
+    public TrackRenderer(){};
 
-    public void startGameMessage(){
-        System.out.println("Welcome to Formula 1 simulator game!");
-    }
-
-    public void endGameMessage(){
-        System.out.println("Thanks for trying my game!");
-    }
-
-    public void playerTurnMessage(iCar player){
-        System.out.println(player.getName() + "'s Turn!");
-    }
-
-    public void winnerNameMessage(iCar player){
-        System.out.println("The winner is : " + player.getName());
-    }
-
+    /**
+     * displays the whole track in console.
+     * @param track the track to be displayed.
+     */
     public void displayTrack(iTrack track){
         char[][] trackFormat = track.getTrack();
         for (char[] row : trackFormat) {
@@ -54,16 +42,35 @@ public class ConsoleIO {
         }
     }
 
+    /**
+     * places the player's first letter on the track.
+     * @param player the player to be placed.
+     * @param track the track where the player is placed.
+     */
     public void placePlayer(iCar player, iTrack track) {
         int row = player.getCurrentPosition().getRow();
         int column = player.getCurrentPosition().getColumn();
         track.getTrack()[row][column] = player.getName().toUpperCase().charAt(0);
     }
 
+    /**
+     * removes the player letter and puts '.' as free position
+     * on the track before making the next move.
+     * @param player the player position to be reset into '.',
+     * @param track the track where we apply the changes.
+     */
     public void ResetCurrentPositionSymbol(iCar player, iTrack track) {
         int row = player.getCurrentPosition().getRow();
         int column = player.getCurrentPosition().getColumn();
         track.getTrack()[row][column] = '.';
     }
 
+    /**
+     * makes the next move by input from user, or randomly for bots
+     * @param player the player to be moved
+     */
+    public void move(iCar player) {
+        Position newPos = player.getMovementStrategy().move(player.getCurrentPosition());
+        player.UpdatePosition(newPos);
+    }
 }

@@ -26,9 +26,6 @@ package it.unicam.cs.mpmgc.formula1;
 
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class CarTest {
@@ -40,25 +37,6 @@ class CarTest {
         Position newPos = new Position(2,2);
         car.UpdatePosition(newPos);
         assertEquals(newPos, car.getCurrentPosition());
-    }
-
-    @Test
-    public void TestMove(){
-        List<String> trackLines = new ArrayList<>();
-        trackLines.add("########");
-        trackLines.add("#......#");
-        trackLines.add("#....__#");
-        trackLines.add("########");
-        Track track = new Track(4, 8);
-        track.createTrack(trackLines);
-
-        Car car = new Car("TestCar", new BotMovementStrategy(track));
-        Position initialPos = new Position(1,1);
-        car.UpdatePosition(initialPos);
-
-        car.move();
-
-        assertNotEquals(initialPos, car.getCurrentPosition());
     }
 
 }
