@@ -76,8 +76,8 @@ public class ConsoleMessages {
     /**
      * displays speed increased message.
      */
-    public void increasedSpeedMessage(){
-        System.out.println("Speed increased to 2 for keeping same direction.");
+    public void speedMessage(int speed){
+        System.out.println("Your speed is: " + speed);
     }
 
     /**

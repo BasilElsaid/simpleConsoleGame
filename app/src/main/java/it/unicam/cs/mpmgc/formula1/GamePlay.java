@@ -49,6 +49,9 @@ public class GamePlay implements iGamePlay {
         while (!gameFinished) {
             for (iCar player : gameSetup.getPlayers()){
                 executeTurn(player);
+                if (checkWinner(player)){
+                    break;
+                }
             }
             consoleTrackRenderer.displayTrack(track);
         }
@@ -67,9 +70,6 @@ public class GamePlay implements iGamePlay {
         consoleTrackRenderer.ResetCurrentPositionSymbol(player, track);
         player.getMovementStrategy().move(player.getCurrentPosition());
         consoleTrackRenderer.placePlayer(player, track);
-        if (checkWinner(player)){
-            endGame();
-        }
     }
 
     @Override
@@ -77,6 +77,7 @@ public class GamePlay implements iGamePlay {
         for (Position position : track.getFinishLine()){
             if (player.getCurrentPosition().equals(position)){
                 messages.winnerNameMessage(player);
+                endGame();
                 return true;
             }
         }

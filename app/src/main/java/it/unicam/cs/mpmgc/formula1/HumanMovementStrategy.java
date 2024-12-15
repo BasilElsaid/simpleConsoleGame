@@ -57,6 +57,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
 
         lastDirection = nextDirection;
         humanCar.updatePosition(newPos);
+        messages.speedMessage(speed);
     }
 
     @Override
@@ -104,7 +105,6 @@ public class HumanMovementStrategy implements iMovementStrategy{
         if (lastDirection == nextDirection){
             if (speed == 1) {
                 speed = 2;
-                messages.increasedSpeedMessage();
             }
         }
         else { speed = 1; }
