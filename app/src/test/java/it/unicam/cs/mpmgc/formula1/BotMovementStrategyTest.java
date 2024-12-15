@@ -33,40 +33,33 @@ class BotMovementStrategyTest {
 
     Track track;
     BotMovementStrategy botStrategy;
+    iCar BotCar;
 
     @BeforeEach
     public void TrackSetUp(){
         track = new Track(5,6);
         botStrategy = new BotMovementStrategy(track);
-    }
-
-    @Test
-    public void TestBotMovementStrategyMove(){
-        Position startPosition = new Position(0,0);
-        Position newPosition = botStrategy.move(startPosition);
-
-        assertNotNull(newPosition);
-        assertTrue(newPosition.getRow() >= 0 && newPosition.getColumn() >= 0);
+        BotCar = new Car("Bot1", botStrategy);
     }
 
     @Test
     public void TestCheckValidMove(){
         track.getTrack()[1][1] = '.';
         Position validMove = new Position(1,1);
-        assertTrue(botStrategy.checkValidMove(validMove));
+        assertTrue(track.checkValidMove(validMove));
     }
 
     @Test
     public void TestInvalidMove(){
         Position invalidMove = new Position(10,1);
-        assertFalse(botStrategy.checkValidMove(invalidMove));
+        assertFalse(track.checkValidMove(invalidMove));
     }
 
     @Test
     public void TestInvalidMoveForObstacle(){
         track.getTrack()[3][3] = 'B';
         Position validMoveButAnotherBotPresent = new Position(3,3);
-        assertFalse(botStrategy.checkValidMove(validMoveButAnotherBotPresent));
+        assertFalse(track.checkValidMove(validMoveButAnotherBotPresent));
     }
 
     @Test
@@ -93,6 +86,7 @@ class BotMovementStrategyTest {
 
     @Test
     public void TestBotChangeDirectionOnObstacle(){
+        // move() checks the car updatePosition() method
         track.getTrack()[0][4] = '#';                       // obstacle with Directions.RIGHT -> go Down
         botStrategy.move(new Position(0,4));
         assertEquals(Directions.DOWN, botStrategy.getNextDirection());
@@ -105,6 +99,5 @@ class BotMovementStrategyTest {
         botStrategy.move(new Position(4,0));
         assertEquals(Directions.UP, botStrategy.getNextDirection());
     }
-
 
 }

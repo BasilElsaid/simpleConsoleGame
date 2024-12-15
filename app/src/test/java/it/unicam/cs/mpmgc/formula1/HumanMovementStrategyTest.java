@@ -35,31 +35,33 @@ class HumanMovementStrategyTest {
 
     private Track  track;
     private HumanMovementStrategy humanStrategy;
+    private iCar humanCar;
 
     @BeforeEach
     public void trackSetUp(){
         track = new Track(5, 6);
         humanStrategy = new HumanMovementStrategy(track);
+        humanCar = new Car("Human1", humanStrategy);
     }
 
     @Test
     public void TestCheckValidMove(){
         track.getTrack()[1][1] = '.';
         Position validMove = new Position(1,1);
-        assertTrue(humanStrategy.checkValidMove(validMove));
+        assertTrue(track.checkValidMove(validMove));
     }
 
     @Test
     public void TestInvalidMove(){
         Position invalidMove = new Position(10,1);  // out of bounders
-        assertFalse(humanStrategy.checkValidMove(invalidMove));
+        assertFalse(track.checkValidMove(invalidMove));
     }
 
     @Test
     public void TestInvalidMoveForObstacle(){
         track.getTrack()[3][3] = 'B';   // inside track, but there is another bot there
         Position validMoveBotPresent = new Position(3,3);
-        assertFalse(humanStrategy.checkValidMove(validMoveBotPresent));
+        assertFalse(track.checkValidMove(validMoveBotPresent));
     }
 
     @Test

@@ -43,6 +43,9 @@ public class Track implements iTrack{
 
     @Override
     public void createTrack(List<String> trackLines) {
+        if (trackLines == null){
+            throw new IllegalArgumentException("Track Lines can't be Null.");
+        }
         for (int row = 0; row < rows ; row++){
             String line = trackLines.get(row);
             for (int column = 0; column < columns; column++ ){
@@ -53,6 +56,20 @@ public class Track implements iTrack{
                 }
             }
         }
+    }
+
+    @Override
+    public boolean checkValidMove(Position move) {
+        int row = move.getRow();
+        int column = move.getColumn();
+        if (row <= 0 || row >= rows || column <= 0 || column >= columns){
+            return false;
+        }
+        char trackCell = track[row][column];
+        if (trackCell != '_' && trackCell != '.'){
+            return false;
+        }
+        return true;
     }
 
     @Override

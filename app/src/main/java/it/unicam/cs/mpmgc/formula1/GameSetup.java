@@ -77,7 +77,7 @@ public class GameSetup{
                     return;
                 }
             }
-            player.UpdatePosition(new Position(playerIndex, 1));
+            player.updatePosition(new Position(playerIndex, 1));
             players.add(player);
             playerIndex++;
         }

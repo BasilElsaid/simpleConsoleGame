@@ -27,13 +27,14 @@ package it.unicam.cs.mpmgc.formula1;
 public class Car implements iCar {
 
     private final String name;
-    private final Position currentPosition;
+    private Position currentPosition;
     private final iMovementStrategy movementStrategy;
 
     public Car(String name, iMovementStrategy movementStrategy){
         this.name = name;
         this.currentPosition = new Position(0,0);
         this.movementStrategy = movementStrategy;
+        this.movementStrategy.setCarOwner(this);
     }
 
     @Override
@@ -52,14 +53,8 @@ public class Car implements iCar {
     }
 
     @Override
-    public void UpdatePosition(Position newPosition) {
+    public void updatePosition(Position newPosition) {
         currentPosition.setPosition(newPosition);
-    }
-
-    @Override
-    public void move() {
-        Position newPos = movementStrategy.move(currentPosition);
-        UpdatePosition(newPos);
     }
 
 }

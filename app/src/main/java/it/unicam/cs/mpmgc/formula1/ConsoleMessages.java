@@ -32,6 +32,7 @@ public class ConsoleMessages {
      * displays the welcome message in console.
      */
     public void startGameMessage(){
+
         System.out.println("Welcome to Formula 1 simulator game!");
     }
 
@@ -62,7 +63,7 @@ public class ConsoleMessages {
      * displays wrong input message.
      */
     public void invalidInputMessage(){
-        System.out.println("Invalid Input, stay at same position.");
+        System.err.println("Invalid Input, stay at same position.");
     }
 
     /**
@@ -78,11 +79,12 @@ public class ConsoleMessages {
     public void increasedSpeedMessage(){
         System.out.println("Speed increased to 2 for keeping same direction.");
     }
+
     /**
      * displays wrong move message.
      */
     public void invalidMoveMessage(){
-        System.out.println("Invalid Move, stay at same position.");
+        System.err.println("Invalid Move, stay at same position.");
     }
 
 }

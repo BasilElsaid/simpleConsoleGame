@@ -31,6 +31,7 @@ public class BotMovementStrategy implements iMovementStrategy{
     private Directions nextDirection;
     private int speed;
     private final Track track;
+    private iCar botCar;
 
     public BotMovementStrategy(Track track){
         this.nextDirection = Directions.RIGHT;
@@ -39,12 +40,12 @@ public class BotMovementStrategy implements iMovementStrategy{
     }
 
     @Override
-    public Position move(Position currentPosition) {
+    public void move(Position currentPosition) {
         Random random = new Random();
         speed = 1 + random.nextInt(2);
         Position newPos = nextDirection.move(currentPosition, speed);
 
-        if (!checkValidMove(newPos)){
+        if (!track.checkValidMove(newPos)){
             switch (nextDirection){
                 case RIGHT -> nextDirection = Directions.DOWN;
                 case DOWN -> nextDirection = Directions.LEFT;
@@ -52,21 +53,11 @@ public class BotMovementStrategy implements iMovementStrategy{
                 case UP -> nextDirection = Directions.RIGHT;
             }
             newPos = nextDirection.move(currentPosition, speed);
-            if (!checkValidMove(newPos)){ return currentPosition; }
+            if (!track.checkValidMove(newPos)){
+                return;
+            }
         }
-
-        return newPos;
-    }
-
-    @Override
-    public boolean checkValidMove(Position move) {
-        int row = move.getRow();
-        int column = move.getColumn();
-        if (move.getRow() <= 0 || move.getRow() >= track.getRows()
-                || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
-            return false;
-        }
-        return track.getTrack()[row][column] == '_' || track.getTrack()[row][column] == '.';
+        botCar.updatePosition(newPos);
     }
 
     @Override
@@ -77,6 +68,11 @@ public class BotMovementStrategy implements iMovementStrategy{
     @Override
     public Directions getNextDirection(){
         return nextDirection;
+    }
+
+    @Override
+    public void setCarOwner(iCar car){
+        this.botCar = car;
     }
 
 }

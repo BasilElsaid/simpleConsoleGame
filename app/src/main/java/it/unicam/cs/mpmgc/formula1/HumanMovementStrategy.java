@@ -32,6 +32,7 @@ public class HumanMovementStrategy implements iMovementStrategy{
     private Directions nextDirection;
     private int speed;
     private final Track track;
+    private iCar humanCar;
     private final ConsoleMessages messages;
 
     public HumanMovementStrategy(Track track){
@@ -41,32 +42,21 @@ public class HumanMovementStrategy implements iMovementStrategy{
     }
 
     @Override
-    public Position move(Position currentPosition) {
+    public void move(Position currentPosition) {
         setNextDirection();
         if (nextDirection == null) {
-            return currentPosition;
+            return;
         }
         setSpeed();
 
         Position newPos = nextDirection.move(currentPosition, speed);
-        if (!checkValidMove(newPos)){
+        if (!track.checkValidMove(newPos)){
             messages.invalidMoveMessage();
-            return currentPosition;
+            return;
         }
 
         lastDirection = nextDirection;
-        return newPos;
-    }
-
-    @Override
-    public boolean checkValidMove(Position move) {
-        int row = move.getRow();
-        int column = move.getColumn();
-        if (move.getRow() <= 0 || move.getRow() >= track.getRows()
-                || move.getColumn() <= 0 || move.getColumn() >= track.getColumns()){
-            return false;
-        }
-        return track.getTrack()[row][column] == '_' || track.getTrack()[row][column] == '.';
+        humanCar.updatePosition(newPos);
     }
 
     @Override
@@ -76,6 +66,11 @@ public class HumanMovementStrategy implements iMovementStrategy{
 
     @Override
     public Directions getNextDirection(){ return nextDirection; }
+
+    @Override
+    public void setCarOwner(iCar car) {
+        this.humanCar = car;
+    }
 
     /**
      * asks the user for next direction, gets his input,

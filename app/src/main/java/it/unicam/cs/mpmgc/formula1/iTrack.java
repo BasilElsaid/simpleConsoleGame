@@ -36,6 +36,14 @@ public interface iTrack {
     void createTrack(List<String> trackLines);
 
     /**
+     * check if the move is in or out bounders before moving.
+     * @param move the position to move to.
+     * @return true if position is free to move/final position,
+     *         false if position is out of bounders/occupied.
+     */
+    boolean checkValidMove(Position move);
+
+    /**
      * @return the number of rows of the trackFormat.
      */
     public int getRows();

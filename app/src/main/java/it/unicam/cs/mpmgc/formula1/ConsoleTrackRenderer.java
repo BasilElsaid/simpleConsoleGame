@@ -33,6 +33,9 @@ public class ConsoleTrackRenderer {
      * @param track the track to be displayed.
      */
     public void displayTrack(iTrack track){
+        if (track == null){
+            throw new IllegalArgumentException("Track can't be null.");
+        }
         char[][] trackFormat = track.getTrack();
         for (char[] row : trackFormat) {
             for (char cell : row) {

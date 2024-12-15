@@ -45,11 +45,6 @@ public interface iCar {
      * updates the position of the racer on track.
      * @param newPosition the new position of the racer.
      */
-    void UpdatePosition(Position newPosition);
-
-    /**
-     * makes the next move by input from user, or randomly for bots
-     */
-    void move();
+    void updatePosition(Position newPosition);
 
 }

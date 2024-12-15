@@ -24,21 +24,47 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class GamePlayTest {
+class GameSetupAndPlayTest {
+
+    GameSetup setup;
+
+    @BeforeEach
+    public void setUp(){
+        setup = new GameSetup();
+        setup.setupGame();
+    }
+
+    @Test
+    public void TestGameSetupTrack(){
+        Track track = setup.getTrack();
+        assertNotNull(track);
+        assertEquals(16, track.getRows());
+        assertEquals(20, track.getColumns());
+    }
+
+    @Test
+    public void TestGameSetupPlayers(){
+        List<iCar> players = setup.getPlayers();
+        assertEquals(3, players.size());
+        assertEquals("bot1", players.get(0).getName());
+        assertEquals("bot2", players.get(1).getName());
+        assertEquals("player1", players.get(2).getName());
+    }
 
     @Test
     public void TestGamePlayWinnerDetection(){
-        GameSetup setup = new GameSetup();
-        setup.setupGame();
         GamePlay game = new GamePlay(setup);
 
         iCar player1 = setup.getPlayers().get(0);
         iCar player2 = setup.getPlayers().get(1);
-        player1.UpdatePosition(setup.getTrack().getFinishLine().get(0)); // put player1 at a final position
+        player1.updatePosition(setup.getTrack().getFinishLine().get(0)); // put player1 at a final position
 
         assertTrue(game.checkWinner(player1));
         assertFalse(game.checkWinner(player2));

@@ -65,7 +65,7 @@ public class GamePlay implements iGamePlay {
     public void executeTurn(iCar player) {
         messages.playerTurnMessage(player);
         consoleTrackRenderer.ResetCurrentPositionSymbol(player, track);
-        player.move();
+        player.getMovementStrategy().move(player.getCurrentPosition());
         consoleTrackRenderer.placePlayer(player, track);
         if (checkWinner(player)){
             endGame();

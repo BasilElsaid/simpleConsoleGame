@@ -51,7 +51,6 @@ class TrackTest {
     @Test
     public void TestCreateTrack(){
         char[][] trackMatrix = track.getTrack();
-        List<Position> finishLine = track.getFinishLine();
 
         assertEquals(4, track.getRows());       // rows
         assertEquals(8, track.getColumns());    // columns
@@ -59,6 +58,12 @@ class TrackTest {
         assertEquals('#', trackMatrix[0][0]);
         assertEquals('.', trackMatrix[1][2]);
         assertEquals('_', trackMatrix[2][5]);
+    }
+
+    @Test
+    public void TestExceptionsCreateTrack(){
+        assertThrows(IllegalArgumentException.class,
+                () -> track.createTrack(null), "Null Track");
     }
 
     @Test
