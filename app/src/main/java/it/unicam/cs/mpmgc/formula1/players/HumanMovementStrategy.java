@@ -74,10 +74,6 @@ public class HumanMovementStrategy implements iMovementStrategy {
         this.humanCar = car;
     }
 
-    /**
-     * asks the user for next direction, gets his input,
-     * and sets the next direction variable to the user's input.
-     */
     public void setNextDirection(){
         Scanner scan = new Scanner(System.in);
         Directions direction = null;
@@ -101,14 +97,10 @@ public class HumanMovementStrategy implements iMovementStrategy {
         nextDirection = direction;
     }
 
-    /**
-     * increases or decreases the speed variable in base of
-     * keeping same direction for many inputs or changing it.
-     */
     public void setSpeed(){
         if (lastDirection == nextDirection){
-            if (speed == 1) {
-                speed = 2;
+            if (speed < 3) {
+                speed++;
             }
         }
         else { speed = 1; }

@@ -31,6 +31,7 @@ import java.util.Random;
 
 public class BotMovementStrategy implements iMovementStrategy {
 
+    private Directions lastDirection;
     private Directions nextDirection;
     private int speed;
     private final Track track;
@@ -45,7 +46,7 @@ public class BotMovementStrategy implements iMovementStrategy {
     @Override
     public void move(Position currentPosition) {
         Random random = new Random();
-        speed = 1 + random.nextInt(2);
+        speed = 1 + random.nextInt(3);
         Position newPos = nextDirection.move(currentPosition, speed);
 
         if (!track.checkValidMove(newPos)){
