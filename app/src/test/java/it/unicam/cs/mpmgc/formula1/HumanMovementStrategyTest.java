@@ -24,6 +24,12 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import it.unicam.cs.mpmgc.formula1.players.Car;
+import it.unicam.cs.mpmgc.formula1.players.Directions;
+import it.unicam.cs.mpmgc.formula1.players.HumanMovementStrategy;
+import it.unicam.cs.mpmgc.formula1.players.iCar;
+import it.unicam.cs.mpmgc.formula1.track.Track;
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -33,7 +39,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class HumanMovementStrategyTest {
 
-    private Track  track;
+    private Track track;
     private HumanMovementStrategy humanStrategy;
     private iCar humanCar;
 
@@ -75,10 +81,6 @@ class HumanMovementStrategyTest {
         System.setIn(new ByteArrayInputStream("A\n".getBytes()));
         humanStrategy.move(new Position(4,5));
         assertEquals(Directions.LEFT, humanStrategy.getNextDirection());
-
-        System.setIn(new ByteArrayInputStream("X\n".getBytes()));
-        humanStrategy.move(new Position(4,4));
-        assertNull(humanStrategy.getNextDirection());
     }
 
     @Test

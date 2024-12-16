@@ -22,45 +22,32 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.players;
 
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 
-import java.util.List;
-
-public interface iTrack {
-
-    /**
-     * creates the track from a given List of strings.
-     * it also sets the final positions.
-     */
-    void createTrack(List<String> trackLines);
+public interface iMovementStrategy {
 
     /**
-     * check if the move is in or out bounders before moving.
-     * @param move the position to move to.
-     * @return true if position is free to move/final position,
-     *         false if position is out of bounders/occupied.
+     * finds the position where the car will move to and moves it.
+     *
+     * @param currentPosition the current position of the car.
      */
-    boolean checkValidMove(Position move);
+    void move(Position currentPosition);
 
     /**
-     * @return the number of rows of the trackFormat.
+     * @return the car speed.
      */
-    public int getRows();
+    int getSpeed();
 
     /**
-     * @return the number of columns of the trackFormat.
+     * @return the car next direction.
      */
-    public int getColumns();
+    Directions getNextDirection();
 
     /**
-     * @return a list of positions where the finish line is placed.
+     * connects the car instance with its movement strategy.
+     * @param car the car to be connected to this movement strategy.
      */
-    List<Position> getFinishLine();
-
-    /**
-     * @return the track array.
-     */
-    char[][] getTrack();
-
+    void setCarOwner(iCar car);
 }

@@ -22,31 +22,47 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.track;
 
-public interface iGamePlay {
 
-    /**
-     * starts the game.
-     */
-    void startGame();
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 
-    /**
-     * ends the game.
-     */
-    void endGame();
+import java.util.List;
+
+public interface iTrack {
 
     /**
-     * makes each turns' steps for the player.
-     * @param player the player which is going to do the steps.
+     * creates the track from a given List of strings.
+     * it also sets the final positions.
      */
-    void executeTurn(iCar player);
+    void createTrack(List<String> trackLines);
 
     /**
-     * checks if a player has won the race, so if he is at a final position.
-     * @param player the player to be checked.
-     * @return true in case a player has won, false in other case.
+     * check if the move is in or out bounders before moving.
+     * @param move the position to move to.
+     * @return true if position is free to move/final position,
+     *         false if position is out of bounders/occupied.
      */
-    boolean checkWinner(iCar player);
+    boolean checkValidMove(Position move);
+
+    /**
+     * @return the number of rows of the trackFormat.
+     */
+    public int getRows();
+
+    /**
+     * @return the number of columns of the trackFormat.
+     */
+    public int getColumns();
+
+    /**
+     * @return a list of positions where the finish line is placed.
+     */
+    List<Position> getFinishLine();
+
+    /**
+     * @return the track array.
+     */
+    char[][] getTrack();
 
 }

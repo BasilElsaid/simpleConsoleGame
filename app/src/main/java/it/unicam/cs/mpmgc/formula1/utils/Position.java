@@ -22,7 +22,7 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.utils;
 
 import java.util.Objects;
 

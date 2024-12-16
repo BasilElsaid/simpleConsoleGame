@@ -22,7 +22,9 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.utils;
+
+import it.unicam.cs.mpmgc.formula1.players.iCar;
 
 public class ConsoleMessages {
 
@@ -63,7 +65,7 @@ public class ConsoleMessages {
      * displays wrong input message.
      */
     public void invalidInputMessage(){
-        System.err.println("Invalid Input, stay at same position.");
+        System.err.println("Invalid Input, Retry.");
     }
 
     /**

@@ -24,6 +24,12 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import it.unicam.cs.mpmgc.formula1.players.BotMovementStrategy;
+import it.unicam.cs.mpmgc.formula1.players.Car;
+import it.unicam.cs.mpmgc.formula1.players.Directions;
+import it.unicam.cs.mpmgc.formula1.players.iCar;
+import it.unicam.cs.mpmgc.formula1.track.Track;
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

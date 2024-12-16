@@ -22,32 +22,31 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.players;
 
-public enum Directions {
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 
-    UP(-1, 0),
-    DOWN(1, 0),
-    RIGHT(0, 1),
-    LEFT(0, -1);
-
-    private final int rowDifference;
-    private final int columnDifference;
-
-    Directions(int rowChange, int columnChange) {
-        this.rowDifference = rowChange;
-        this.columnDifference = columnChange;
-    }
+public interface iCar {
 
     /**
-     * calculates the next position in base of current position, speed and direction.
-     * @param currentPos the current position to move from.
-     * @param speed the speed of movemet.
-     * @return the new position to move to.
+     * @return car name.
      */
-    public Position move(Position currentPos, int speed){
-        int newRow = currentPos.getRow() + this.rowDifference*speed;
-        int newColumn = currentPos.getColumn() + this.columnDifference*speed;
-        return new Position(newRow, newColumn);
-    }
+    String getName();
+
+    /**
+     * @return car current position.
+     */
+    Position getCurrentPosition();
+
+    /**
+     * @return car movement strategy "Bot/Human".
+     */
+    iMovementStrategy getMovementStrategy();
+
+    /**
+     * updates the position of the racer on track.
+     * @param newPosition the new position of the racer.
+     */
+    void updatePosition(Position newPosition);
+
 }

@@ -22,7 +22,9 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.players;
+
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 
 public class Car implements iCar {
 

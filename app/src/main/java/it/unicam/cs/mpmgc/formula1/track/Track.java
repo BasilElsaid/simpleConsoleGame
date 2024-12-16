@@ -22,12 +22,14 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.track;
+
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Track implements iTrack{
+public class Track implements iTrack {
 
     private final int rows;
     private final int columns;

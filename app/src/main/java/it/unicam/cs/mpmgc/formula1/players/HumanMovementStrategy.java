@@ -22,11 +22,15 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.players;
+
+import it.unicam.cs.mpmgc.formula1.track.Track;
+import it.unicam.cs.mpmgc.formula1.utils.ConsoleMessages;
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 
 import java.util.Scanner;
 
-public class HumanMovementStrategy implements iMovementStrategy{
+public class HumanMovementStrategy implements iMovementStrategy {
 
     private Directions lastDirection;
     private Directions nextDirection;
@@ -44,9 +48,6 @@ public class HumanMovementStrategy implements iMovementStrategy{
     @Override
     public void move(Position currentPosition) {
         setNextDirection();
-        if (nextDirection == null) {
-            return;
-        }
         setSpeed();
 
         Position newPos = nextDirection.move(currentPosition, speed);
@@ -79,21 +80,24 @@ public class HumanMovementStrategy implements iMovementStrategy{
      */
     public void setNextDirection(){
         Scanner scan = new Scanner(System.in);
-        messages.enterMoveMessage();
-        String move = scan.nextLine().toUpperCase();
         Directions direction = null;
 
-        switch (move){
-            case "W" :  direction = Directions.UP;
-                        break;
-            case "S" :  direction = Directions.DOWN;
-                        break;
-            case "D" :  direction = Directions.RIGHT;
-                        break;
-            case "A" :  direction = Directions.LEFT;
-                        break;
-            default  :  messages.invalidInputMessage();
+        while (direction == null){
+            messages.enterMoveMessage();
+            String move = scan.nextLine().toUpperCase();
+            switch (move){
+                case "W" :  direction = Directions.UP;
+                    break;
+                case "S" :  direction = Directions.DOWN;
+                    break;
+                case "D" :  direction = Directions.RIGHT;
+                    break;
+                case "A" :  direction = Directions.LEFT;
+                    break;
+                default  :  messages.invalidInputMessage();
+            }
         }
+
         nextDirection = direction;
     }
 

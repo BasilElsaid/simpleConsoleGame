@@ -22,29 +22,33 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.game;
 
-public interface iCar {
+import it.unicam.cs.mpmgc.formula1.players.iCar;
 
-    /**
-     * @return car name.
-     */
-    String getName();
+public interface iGamePlay {
 
     /**
-     * @return car current position.
+     * starts the game.
      */
-    Position getCurrentPosition();
+    void startGame();
 
     /**
-     * @return car movement strategy "Bot/Human".
+     * ends the game.
      */
-    iMovementStrategy getMovementStrategy();
+    void endGame();
 
     /**
-     * updates the position of the racer on track.
-     * @param newPosition the new position of the racer.
+     * makes each turns' steps for the player.
+     * @param player the player which is going to do the steps.
      */
-    void updatePosition(Position newPosition);
+    void executeTurn(iCar player);
+
+    /**
+     * checks if a player has won the race, so if he is at a final position.
+     * @param player the player to be checked.
+     * @return true in case a player has won, false in other case.
+     */
+    boolean checkWinner(iCar player);
 
 }

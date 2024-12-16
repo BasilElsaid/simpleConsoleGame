@@ -22,11 +22,13 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.track;
 
-public class ConsoleTrackRenderer {
+import it.unicam.cs.mpmgc.formula1.players.iCar;
 
-    public ConsoleTrackRenderer(){};
+public class TrackRenderer {
+
+    public TrackRenderer(){};
 
     /**
      * displays the whole track in console.

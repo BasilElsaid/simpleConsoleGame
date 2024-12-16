@@ -22,11 +22,14 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.players;
+
+import it.unicam.cs.mpmgc.formula1.utils.Position;
+import it.unicam.cs.mpmgc.formula1.track.Track;
 
 import java.util.Random;
 
-public class BotMovementStrategy implements iMovementStrategy{
+public class BotMovementStrategy implements iMovementStrategy {
 
     private Directions nextDirection;
     private int speed;

@@ -22,7 +22,13 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.game;
+
+import it.unicam.cs.mpmgc.formula1.utils.ConsoleMessages;
+import it.unicam.cs.mpmgc.formula1.utils.Position;
+import it.unicam.cs.mpmgc.formula1.players.iCar;
+import it.unicam.cs.mpmgc.formula1.track.Track;
+import it.unicam.cs.mpmgc.formula1.track.TrackRenderer;
 
 import java.util.Scanner;
 
@@ -32,14 +38,14 @@ public class GamePlay implements iGamePlay {
     private final GameSetup gameSetup;
     private final Track track;
     private final ConsoleMessages messages;
-    private final ConsoleTrackRenderer consoleTrackRenderer;
+    private final it.unicam.cs.mpmgc.formula1.track.TrackRenderer TrackRenderer;
 
     public GamePlay(GameSetup setup){
         this.gameFinished = false;
         this.gameSetup = setup;
         this.track = setup.getTrack();
         this.messages = new ConsoleMessages();
-        this.consoleTrackRenderer = new ConsoleTrackRenderer();
+        this.TrackRenderer = new TrackRenderer();
     }
 
     @Override
@@ -53,7 +59,7 @@ public class GamePlay implements iGamePlay {
                     break;
                 }
             }
-            consoleTrackRenderer.displayTrack(track);
+            TrackRenderer.displayTrack(track);
         }
         messages.endGameMessage();
         scan.close();
@@ -67,9 +73,9 @@ public class GamePlay implements iGamePlay {
     @Override
     public void executeTurn(iCar player) {
         messages.playerTurnMessage(player);
-        consoleTrackRenderer.ResetCurrentPositionSymbol(player, track);
+        TrackRenderer.ResetCurrentPositionSymbol(player, track);
         player.getMovementStrategy().move(player.getCurrentPosition());
-        consoleTrackRenderer.placePlayer(player, track);
+        TrackRenderer.placePlayer(player, track);
     }
 
     @Override

@@ -22,7 +22,16 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.game;
+
+import it.unicam.cs.mpmgc.formula1.utils.FileIO;
+import it.unicam.cs.mpmgc.formula1.utils.Position;
+import it.unicam.cs.mpmgc.formula1.players.iCar;
+import it.unicam.cs.mpmgc.formula1.players.BotMovementStrategy;
+import it.unicam.cs.mpmgc.formula1.players.Car;
+import it.unicam.cs.mpmgc.formula1.players.HumanMovementStrategy;
+import it.unicam.cs.mpmgc.formula1.track.Track;
+import it.unicam.cs.mpmgc.formula1.track.TrackRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,13 +42,13 @@ public class GameSetup{
     private int playerIndex;
     private Track track;
     private final FileIO fileIO;
-    private final ConsoleTrackRenderer consoleTrackRenderer;
+    private final it.unicam.cs.mpmgc.formula1.track.TrackRenderer TrackRenderer;
 
     public GameSetup() {
         this.players = new ArrayList<>();
         this.playerIndex = 1;
         this.fileIO = new FileIO();
-        this.consoleTrackRenderer = new ConsoleTrackRenderer();
+        this.TrackRenderer = new TrackRenderer();
     }
 
     public void setupGame(){
@@ -47,9 +56,9 @@ public class GameSetup{
         setupTrack();
         setupPlayers(fileIO.loadPlayers());
         for (iCar player : players){
-            consoleTrackRenderer.placePlayer(player, track);
+            TrackRenderer.placePlayer(player, track);
         }
-        consoleTrackRenderer.displayTrack(track);
+        TrackRenderer.displayTrack(track);
     }
 
     public void setupTrack(){

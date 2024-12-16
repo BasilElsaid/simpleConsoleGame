@@ -24,6 +24,9 @@
 
 package it.unicam.cs.mpmgc.formula1;
 
+import it.unicam.cs.mpmgc.formula1.game.GamePlay;
+import it.unicam.cs.mpmgc.formula1.game.GameSetup;
+
 public class App {
 
     //main class to run the game.

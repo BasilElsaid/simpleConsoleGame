@@ -22,30 +22,34 @@
  * SOFTWARE.
  */
 
-package it.unicam.cs.mpmgc.formula1;
+package it.unicam.cs.mpmgc.formula1.players;
 
-public interface iMovementStrategy {
+import it.unicam.cs.mpmgc.formula1.utils.Position;
 
-    /**
-     * finds the position where the car will move to and moves it.
-     *
-     * @param currentPosition the current position of the car.
-     */
-    void move(Position currentPosition);
+public enum Directions {
 
-    /**
-     * @return the car speed.
-     */
-    int getSpeed();
+    UP(-1, 0),
+    DOWN(1, 0),
+    RIGHT(0, 1),
+    LEFT(0, -1);
 
-    /**
-     * @return the car next direction.
-     */
-    Directions getNextDirection();
+    private final int rowDifference;
+    private final int columnDifference;
+
+    Directions(int rowChange, int columnChange) {
+        this.rowDifference = rowChange;
+        this.columnDifference = columnChange;
+    }
 
     /**
-     * connects the car instance with its movement strategy.
-     * @param car the car to be connected to this movement strategy.
+     * calculates the next position in base of current position, speed and direction.
+     * @param currentPos the current position to move from.
+     * @param speed the speed of movemet.
+     * @return the new position to move to.
      */
-    void setCarOwner(iCar car);
+    public Position move(Position currentPos, int speed){
+        int newRow = currentPos.getRow() + this.rowDifference*speed;
+        int newColumn = currentPos.getColumn() + this.columnDifference*speed;
+        return new Position(newRow, newColumn);
+    }
 }
