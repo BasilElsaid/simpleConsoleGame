@@ -49,7 +49,7 @@ class GameSetupAndPlayTest {
     public void TestGameSetupTrack(){
         Track track = setup.getTrack();
         assertNotNull(track);
-        assertEquals(16, track.getRows());
+        assertEquals(18, track.getRows());
         assertEquals(20, track.getColumns());
     }
 
