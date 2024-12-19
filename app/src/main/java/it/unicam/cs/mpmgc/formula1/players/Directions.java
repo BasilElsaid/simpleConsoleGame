@@ -24,32 +24,10 @@
 
 package it.unicam.cs.mpmgc.formula1.players;
 
-import it.unicam.cs.mpmgc.formula1.utils.Position;
-
 public enum Directions {
 
-    UP(-1, 0),
-    DOWN(1, 0),
-    RIGHT(0, 1),
-    LEFT(0, -1);
-
-    private final int rowDifference;
-    private final int columnDifference;
-
-    Directions(int rowChange, int columnChange) {
-        this.rowDifference = rowChange;
-        this.columnDifference = columnChange;
-    }
-
-    /**
-     * calculates the next position in base of current position, speed and direction.
-     * @param currentPos the current position to move from.
-     * @param speed the speed of movemet.
-     * @return the new position to move to.
-     */
-    public Position move(Position currentPos, int speed){
-        int newRow = currentPos.getRow() + this.rowDifference*speed;
-        int newColumn = currentPos.getColumn() + this.columnDifference*speed;
-        return new Position(newRow, newColumn);
-    }
+    UP,
+    DOWN,
+    RIGHT,
+    LEFT;
 }

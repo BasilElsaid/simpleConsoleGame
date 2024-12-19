@@ -50,7 +50,7 @@ public class HumanMovementStrategy implements iMovementStrategy {
         setNextDirection();
         setSpeed();
 
-        Position newPos = nextDirection.move(currentPosition, speed);
+        Position newPos = calculateNextPosition(currentPosition);
         if (!track.checkValidMove(newPos)){
             messages.invalidMoveMessage();
             return;
@@ -59,6 +59,20 @@ public class HumanMovementStrategy implements iMovementStrategy {
         lastDirection = nextDirection;
         humanCar.updatePosition(newPos);
         messages.speedMessage(speed);
+    }
+
+    @Override
+    public Position calculateNextPosition(Position currentPos){
+        int newRow = currentPos.getRow();
+        int newColumn = currentPos.getColumn();
+
+        switch (nextDirection){
+            case UP     : newRow -= speed; break;
+            case DOWN   : newRow += speed; break;
+            case LEFT   : newColumn -= speed; break;
+            case RIGHT  : newColumn += speed; break;
+        }
+        return new Position(newRow, newColumn);
     }
 
     @Override
@@ -105,7 +119,6 @@ public class HumanMovementStrategy implements iMovementStrategy {
         }
         else { speed = 1; }
     }
-
 
 
 }

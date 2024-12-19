@@ -45,23 +45,35 @@ public class BotMovementStrategy implements iMovementStrategy {
 
     @Override
     public void move(Position currentPosition) {
-        Random random = new Random();
-        speed = 1 + random.nextInt(3);
-        Position newPos = nextDirection.move(currentPosition, speed);
+        Position newPos = calculateNextPosition(currentPosition);
 
-        if (!track.checkValidMove(newPos)){
+        while (!track.checkValidMove(newPos)){
             switch (nextDirection){
                 case RIGHT -> nextDirection = Directions.DOWN;
                 case DOWN -> nextDirection = Directions.LEFT;
                 case LEFT -> nextDirection = Directions.UP;
                 case UP -> nextDirection = Directions.RIGHT;
             }
-            newPos = nextDirection.move(currentPosition, speed);
-            if (!track.checkValidMove(newPos)){
-                return;
-            }
+            newPos = calculateNextPosition(currentPosition);
         }
         botCar.updatePosition(newPos);
+    }
+
+    @Override
+    public Position calculateNextPosition(Position currentPos){
+        Random random = new Random();
+        speed = 1 + random.nextInt(3);
+
+        int newRow = currentPos.getRow();
+        int newColumn = currentPos.getColumn();
+
+        switch (nextDirection){
+            case UP     : newRow -= speed; break;
+            case DOWN   : newRow += speed; break;
+            case LEFT   : newColumn -= speed; break;
+            case RIGHT  : newColumn += speed; break;
+        }
+        return new Position(newRow, newColumn);
     }
 
     @Override

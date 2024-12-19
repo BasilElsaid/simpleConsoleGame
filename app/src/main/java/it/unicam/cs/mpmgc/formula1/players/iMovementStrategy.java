@@ -36,6 +36,13 @@ public interface iMovementStrategy {
     void move(Position currentPosition);
 
     /**
+     * calculates the new position in base of user Input/random for bots and speed.
+     * @param currentPosition the position of test.
+     * @return the new position.
+     */
+    Position calculateNextPosition(Position currentPosition);
+
+    /**
      * @return the car speed.
      */
     int getSpeed();
