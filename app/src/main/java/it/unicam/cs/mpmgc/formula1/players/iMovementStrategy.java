@@ -36,7 +36,17 @@ public interface iMovementStrategy {
     void move(Position currentPosition);
 
     /**
-     * calculates the new position in base of user Input/random for bots and speed.
+     * sets the next direction by input for user or by strategy steps for bots.
+     */
+    void setNextDirection();
+
+    /**
+     * sets the speed by keeping direction for users, or randomly for bots.
+     */
+    void setSpeed();
+
+    /**
+     * calculates the new position.
      * @param currentPosition the position of test.
      * @return the new position.
      */

@@ -62,6 +62,40 @@ public class HumanMovementStrategy implements iMovementStrategy {
     }
 
     @Override
+    public void setNextDirection(){
+        Scanner scan = new Scanner(System.in);
+        Directions direction = null;
+
+        while (direction == null){
+            messages.enterMoveMessage();
+            String move = scan.nextLine().toUpperCase();
+            switch (move){
+                case "W" :  direction = Directions.UP;
+                    break;
+                case "S" :  direction = Directions.DOWN;
+                    break;
+                case "D" :  direction = Directions.RIGHT;
+                    break;
+                case "A" :  direction = Directions.LEFT;
+                    break;
+                default  :  messages.invalidInputMessage();
+            }
+        }
+
+        nextDirection = direction;
+    }
+
+    @Override
+    public void setSpeed(){
+        if (lastDirection == nextDirection){
+            if (speed < 3) {
+                speed++;
+            }
+        }
+        else { speed = 1; }
+    }
+
+    @Override
     public Position calculateNextPosition(Position currentPos){
         int newRow = currentPos.getRow();
         int newColumn = currentPos.getColumn();
@@ -87,38 +121,5 @@ public class HumanMovementStrategy implements iMovementStrategy {
     public void setCarOwner(iCar car) {
         this.humanCar = car;
     }
-
-    public void setNextDirection(){
-        Scanner scan = new Scanner(System.in);
-        Directions direction = null;
-
-        while (direction == null){
-            messages.enterMoveMessage();
-            String move = scan.nextLine().toUpperCase();
-            switch (move){
-                case "W" :  direction = Directions.UP;
-                    break;
-                case "S" :  direction = Directions.DOWN;
-                    break;
-                case "D" :  direction = Directions.RIGHT;
-                    break;
-                case "A" :  direction = Directions.LEFT;
-                    break;
-                default  :  messages.invalidInputMessage();
-            }
-        }
-
-        nextDirection = direction;
-    }
-
-    public void setSpeed(){
-        if (lastDirection == nextDirection){
-            if (speed < 3) {
-                speed++;
-            }
-        }
-        else { speed = 1; }
-    }
-
 
 }

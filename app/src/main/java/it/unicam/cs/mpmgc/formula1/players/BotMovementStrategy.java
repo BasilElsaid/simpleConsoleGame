@@ -31,7 +31,6 @@ import java.util.Random;
 
 public class BotMovementStrategy implements iMovementStrategy {
 
-    private Directions lastDirection;
     private Directions nextDirection;
     private int speed;
     private final Track track;
@@ -48,21 +47,31 @@ public class BotMovementStrategy implements iMovementStrategy {
         Position newPos = calculateNextPosition(currentPosition);
 
         while (!track.checkValidMove(newPos)){
-            switch (nextDirection){
-                case RIGHT -> nextDirection = Directions.DOWN;
-                case DOWN -> nextDirection = Directions.LEFT;
-                case LEFT -> nextDirection = Directions.UP;
-                case UP -> nextDirection = Directions.RIGHT;
-            }
+            setNextDirection();
             newPos = calculateNextPosition(currentPosition);
         }
         botCar.updatePosition(newPos);
     }
 
     @Override
-    public Position calculateNextPosition(Position currentPos){
+    public void setNextDirection() {
+        switch (nextDirection){
+            case RIGHT -> nextDirection = Directions.DOWN;
+            case DOWN -> nextDirection = Directions.LEFT;
+            case LEFT -> nextDirection = Directions.UP;
+            case UP -> nextDirection = Directions.RIGHT;
+        }
+    }
+
+    @Override
+    public void setSpeed() {
         Random random = new Random();
         speed = 1 + random.nextInt(3);
+    }
+
+    @Override
+    public Position calculateNextPosition(Position currentPos){
+        setSpeed();
 
         int newRow = currentPos.getRow();
         int newColumn = currentPos.getColumn();
