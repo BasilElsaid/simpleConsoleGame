@@ -26,8 +26,20 @@ package it.unicam.cs.mpmgc.formula1.players;
 
 public enum Directions {
 
+    /**
+     * moves the car UP
+     */
     UP,
+    /**
+     * moves the car DOWN
+     */
     DOWN,
+    /**
+     * moves the car RIGHT
+     */
     RIGHT,
+    /**
+     * moves the car LEFT
+     */
     LEFT;
 }

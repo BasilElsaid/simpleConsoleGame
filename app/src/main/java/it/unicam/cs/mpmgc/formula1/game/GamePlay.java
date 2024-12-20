@@ -38,14 +38,14 @@ public class GamePlay implements iGamePlay {
     private final GameSetup gameSetup;
     private final Track track;
     private final ConsoleMessages messages;
-    private final it.unicam.cs.mpmgc.formula1.track.TrackRenderer TrackRenderer;
+    private final TrackRenderer trackRenderer;
 
     public GamePlay(GameSetup setup){
         this.gameFinished = false;
         this.gameSetup = setup;
         this.track = setup.getTrack();
         this.messages = new ConsoleMessages();
-        this.TrackRenderer = new TrackRenderer();
+        this.trackRenderer = new TrackRenderer();
     }
 
     @Override
@@ -59,7 +59,7 @@ public class GamePlay implements iGamePlay {
                     break;
                 }
             }
-            TrackRenderer.displayTrack(track);
+            trackRenderer.displayTrack(track);
         }
         messages.endGameMessage();
         scan.close();
@@ -73,9 +73,9 @@ public class GamePlay implements iGamePlay {
     @Override
     public void executeTurn(iCar player) {
         messages.playerTurnMessage(player);
-        TrackRenderer.ResetCurrentPositionSymbol(player, track);
+        trackRenderer.ResetCurrentPositionSymbol(player, track);
         player.getMovementStrategy().move(player.getCurrentPosition());
-        TrackRenderer.placePlayer(player, track);
+        trackRenderer.placePlayer(player, track);
     }
 
     @Override
