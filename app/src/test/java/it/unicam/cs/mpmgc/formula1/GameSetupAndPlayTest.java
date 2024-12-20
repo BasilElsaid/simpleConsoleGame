@@ -46,7 +46,7 @@ class GameSetupAndPlayTest {
     }
 
     @Test
-    public void TestGameSetupTrack(){
+    public void TestGameInitializeTrack(){
         Track track = setup.getTrack();
         assertNotNull(track);
         assertEquals(18, track.getRows());
@@ -54,7 +54,7 @@ class GameSetupAndPlayTest {
     }
 
     @Test
-    public void TestGameSetupPlayers(){
+    public void TestGameInitializePlayers(){
         List<iCar> players = setup.getPlayers();
         assertEquals(3, players.size());
         assertEquals("bot1", players.get(0).getName());

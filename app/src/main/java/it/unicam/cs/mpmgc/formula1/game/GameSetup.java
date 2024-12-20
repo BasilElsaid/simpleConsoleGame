@@ -42,7 +42,7 @@ public class GameSetup{
     private int playerIndex;
     private Track track;
     private final FileIO fileIO;
-    private final it.unicam.cs.mpmgc.formula1.track.TrackRenderer TrackRenderer;
+    private final TrackRenderer TrackRenderer;
 
     public GameSetup() {
         this.players = new ArrayList<>();
@@ -52,44 +52,59 @@ public class GameSetup{
     }
 
     public void setupGame(){
-        fileIO.readAndParseFile();
-        setupTrack();
-        setupPlayers(fileIO.loadPlayers());
-        for (iCar player : players){
-            TrackRenderer.placePlayer(player, track);
-        }
-        TrackRenderer.displayTrack(track);
+        loadTrackAndPlayers();
+        initializeTrack();
+        initializePlayers();
+        renderGame();
     }
 
-    public void setupTrack(){
+    public void loadTrackAndPlayers(){
+        fileIO.readAndParseFile();
+    }
+
+    public void initializeTrack(){
         int[] dimensions = fileIO.loadTrack();
         this.track = new Track(dimensions[0], dimensions[1]);
         track.createTrack(fileIO.getTrackLines());
     }
 
-    public void setupPlayers(List<String[]> playerData) {
+    public void initializePlayers() {
+        List<String[]> playerData = fileIO.loadPlayers();
         for (String[] pair : playerData){
-            iCar player = null;
-            String playerType = pair[0];
-            String playerName = pair[1];
-            switch (playerType) {
-                case "Bot": {
-                    player = new Car(playerName, new BotMovementStrategy(track));
-                    break;
-                }
-                case "Human": {
-                    player = new Car(playerName, new HumanMovementStrategy(track));
-                    break;
-                }
-                default: {
-                    System.err.println(playerType + ": Type is not Bot/Human");
-                    return;
-                }
+            createAndAddPlayers(pair);
+        }
+    }
+
+    public void createAndAddPlayers(String[] playerData){
+        iCar player = null;
+        String playerType = playerData[0];
+        String playerName = playerData[1];
+        switch (playerType) {
+            case "Bot": {
+                player = new Car(playerName, new BotMovementStrategy(track));
+                break;
             }
+            case "Human": {
+                player = new Car(playerName, new HumanMovementStrategy(track));
+                break;
+            }
+            default: {
+                System.err.println(playerType + ": Type is not Bot/Human");
+                return;
+            }
+        }
+        if (player != null){
             player.updatePosition(new Position(playerIndex, 1));
             players.add(player);
             playerIndex++;
         }
+    }
+
+    public void renderGame(){
+        for (iCar player : players){
+            TrackRenderer.placePlayer(player, track);
+        }
+        TrackRenderer.displayTrack(track);
     }
 
     public List<iCar> getPlayers(){return players;}
