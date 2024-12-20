@@ -42,14 +42,14 @@ public class GameSetup{
     private int playerIndex;
     private Track track;
     private final FileIO fileIO;
-    private final TrackRenderer TrackRenderer;
+    private final TrackRenderer trackRenderer;
     private static final int INITIAL_PLAYER_COLUMN = 1;
 
     public GameSetup() {
         this.players = new ArrayList<>();
         this.playerIndex = 1;
         this.fileIO = new FileIO();
-        this.TrackRenderer = new TrackRenderer();
+        this.trackRenderer = new TrackRenderer();
     }
 
     public void setupGame(){
@@ -98,9 +98,9 @@ public class GameSetup{
 
     public void renderGame(){
         for (iCar player : players){
-            TrackRenderer.placePlayer(player, track);
+            trackRenderer.placePlayer(player, track);
         }
-        TrackRenderer.displayTrack(track);
+        trackRenderer.displayTrack(track);
     }
 
     public List<iCar> getPlayers(){return players;}
