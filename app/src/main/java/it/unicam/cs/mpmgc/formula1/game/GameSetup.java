@@ -43,6 +43,7 @@ public class GameSetup{
     private Track track;
     private final FileIO fileIO;
     private final TrackRenderer TrackRenderer;
+    private static final int INITIAL_PLAYER_COLUMN = 1;
 
     public GameSetup() {
         this.players = new ArrayList<>();
@@ -61,6 +62,11 @@ public class GameSetup{
     public void loadTrackAndPlayers(){
         fileIO.readAndParseFile();
     }
+    public void checkInitializedTrack(){
+        if (track == null){
+            throw new IllegalArgumentException("Track must be initialized before initializing players.");
+        }
+    }
 
     public void initializeTrack(){
         int[] dimensions = fileIO.loadTrack();
@@ -69,6 +75,7 @@ public class GameSetup{
     }
 
     public void initializePlayers() {
+        checkInitializedTrack();
         List<String[]> playerData = fileIO.loadPlayers();
         for (String[] pair : playerData){
             createAndAddPlayers(pair);
@@ -76,28 +83,17 @@ public class GameSetup{
     }
 
     public void createAndAddPlayers(String[] playerData){
-        iCar player = null;
+        iCar player ;
         String playerType = playerData[0];
         String playerName = playerData[1];
         switch (playerType) {
-            case "Bot": {
-                player = new Car(playerName, new BotMovementStrategy(track));
-                break;
-            }
-            case "Human": {
-                player = new Car(playerName, new HumanMovementStrategy(track));
-                break;
-            }
-            default: {
-                System.err.println(playerType + ": Type is not Bot/Human");
-                return;
-            }
+            case "Bot"  : player = new Car(playerName, new BotMovementStrategy(track));     break;
+            case "Human": player = new Car(playerName, new HumanMovementStrategy(track));   break;
+            default     : System.err.println(playerType + ": Type is not Bot/Human -- WILL BE SKIPPED.");return;
         }
-        if (player != null){
-            player.updatePosition(new Position(playerIndex, 1));
-            players.add(player);
-            playerIndex++;
-        }
+        player.updatePosition(new Position(playerIndex, INITIAL_PLAYER_COLUMN));
+        players.add(player);
+        playerIndex++;
     }
 
     public void renderGame(){
