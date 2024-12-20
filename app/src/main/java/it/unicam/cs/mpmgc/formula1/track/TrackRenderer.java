@@ -64,7 +64,7 @@ public class TrackRenderer {
      * @param player the player position to be reset into '.',
      * @param track the track where we apply the changes.
      */
-    public void ResetCurrentPositionSymbol(iCar player, iTrack track) {
+    public void clearPlayerPosition(iCar player, iTrack track) {
         int row = player.getCurrentPosition().getRow();
         int column = player.getCurrentPosition().getColumn();
         track.getTrack()[row][column] = '.';

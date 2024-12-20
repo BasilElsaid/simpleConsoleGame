@@ -73,7 +73,7 @@ public class GamePlay implements iGamePlay {
     @Override
     public void executeTurn(iCar player) {
         messages.playerTurnMessage(player);
-        trackRenderer.ResetCurrentPositionSymbol(player, track);
+        trackRenderer.clearPlayerPosition(player, track);
         player.getMovementStrategy().move(player.getCurrentPosition());
         trackRenderer.placePlayer(player, track);
     }
