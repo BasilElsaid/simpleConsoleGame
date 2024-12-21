@@ -66,7 +66,7 @@ public class BotMovementStrategy implements iMovementStrategy {
     @Override
     public void setSpeed() {
         Random random = new Random();
-        speed = 1 + random.nextInt(3);
+        speed = 1 + random.nextInt(2);
     }
 
     @Override

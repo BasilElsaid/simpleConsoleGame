@@ -47,7 +47,7 @@ class FileIOTest {
         List<String> trackLines = fileIO.getTrackLines();
         assertEquals(18, trackLines.size());
         assertEquals("####################", trackLines.get(0));
-        assertEquals("#______######......#", trackLines.get(7));
+        assertEquals("#______######......#", trackLines.get(8));
 
         List<String> playerLines = fileIO.getPlayerLines();
         assertEquals(3, playerLines.size());
