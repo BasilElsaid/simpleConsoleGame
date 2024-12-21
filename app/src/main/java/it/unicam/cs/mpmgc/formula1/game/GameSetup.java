@@ -38,7 +38,7 @@ import java.util.List;
 
 public class GameSetup{
 
-    private final List<iCar> players;
+    private final List<Car> players;
     private int playerIndex;
     private Track track;
     private final FileIO fileIO;
@@ -83,7 +83,7 @@ public class GameSetup{
     }
 
     public void createAndAddPlayers(String[] playerData){
-        iCar player ;
+        Car player ;
         String playerType = playerData[0];
         String playerName = playerData[1];
         switch (playerType) {
@@ -103,8 +103,12 @@ public class GameSetup{
         trackRenderer.displayTrack(track);
     }
 
-    public List<iCar> getPlayers(){return players;}
+    public List<Car> getPlayers(){return players;}
 
     public Track getTrack(){ return track; }
+
+    public List<String> getTrackLines(){
+        return fileIO.getTrackLines();
+    }
 
 }

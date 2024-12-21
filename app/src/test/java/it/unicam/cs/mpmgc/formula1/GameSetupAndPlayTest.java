@@ -26,6 +26,7 @@ package it.unicam.cs.mpmgc.formula1;
 
 import it.unicam.cs.mpmgc.formula1.game.GamePlay;
 import it.unicam.cs.mpmgc.formula1.game.GameSetup;
+import it.unicam.cs.mpmgc.formula1.players.Car;
 import it.unicam.cs.mpmgc.formula1.players.iCar;
 import it.unicam.cs.mpmgc.formula1.track.Track;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +56,7 @@ class GameSetupAndPlayTest {
 
     @Test
     public void TestGameInitializePlayers(){
-        List<iCar> players = setup.getPlayers();
+        List<Car> players = setup.getPlayers();
         assertEquals(3, players.size());
         assertEquals("bot1", players.get(0).getName());
         assertEquals("bot2", players.get(1).getName());
